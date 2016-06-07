@@ -19,7 +19,7 @@ public class Solution {
 
         int input = Integer.parseInt(reader.readLine());
         reader.close();
-        System.out.println("works");
+        System.out.println(" it works");
 
         System.out.println(factorial(input));
     }
