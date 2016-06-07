@@ -16,6 +16,7 @@ public class Solution
 
     }
 
+
     public class Pegas extends Horse
     {
 
