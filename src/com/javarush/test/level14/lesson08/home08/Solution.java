@@ -73,9 +73,6 @@ public class Solution
 
     static class Otter implements Walkable,Swimable
     {
-
-
-
         @Override
         public void walk()
         {
