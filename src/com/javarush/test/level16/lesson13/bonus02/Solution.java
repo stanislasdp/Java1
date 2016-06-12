@@ -81,16 +81,15 @@ public class Solution {
         @Override
         public void showWarning()
         {
-            if (Thread.currentThread().isAlive())
-            {
-                try
-                {
-                    join();
-                }
-                catch (InterruptedException ie)
-                {
 
-                }
+            this.interrupt();
+            try
+            {
+                join();
+
+            }
+            catch (InterruptedException ie)
+            {
 
             }
         }
@@ -98,7 +97,9 @@ public class Solution {
         @Override
         public void run()
         {
-          while(!isInterrupted()){}
+          while(!isInterrupted()){
+
+          }
         }
 
 
