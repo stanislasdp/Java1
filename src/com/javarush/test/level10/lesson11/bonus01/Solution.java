@@ -15,13 +15,13 @@ public class Solution {
     Integer index;
     String name;
 
-    public Solution() {
+    public Solution()
+    {
         this.map = new HashMap<Integer, String>();
-        map.put(index, name);
+
     }
 
-    public static void main(String[] args) throws IOException
-    {
+    public static void main(String[] args) throws IOException {
         Solution solution = new Solution();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 

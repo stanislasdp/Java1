@@ -41,7 +41,22 @@ public class Solution
         }
 
 
-        //напишите тут ваш код
+        for (char al:alphabet)
+        {
+            int cnt=0;
+            for (String s:list)
+            {
+                for (int k=0;k<s.length();k++)
+                {
+                    if (s.toCharArray()[k]==al)
+                    {
+                        cnt++;
+                    }
+                }
+            }
+
+            System.out.println(al+" "+cnt);
+        }
     }
 
 }

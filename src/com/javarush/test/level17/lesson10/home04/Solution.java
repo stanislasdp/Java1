@@ -13,31 +13,30 @@ public class Solution {
         double i = method3();
     }
 
-    protected void method1(String param1) {
+   strictfp protected void method1(String param1) {
         Solution solution = new Solution();
         solution.method0();
     }
 
-    public synchronized void method2(int param1)
-    {
+      public void method2(int param1) {
         param1++;
     }
 
-     double  method3() {
+     synchronized double  method3() {
         double random = Math.random();
         param += 40.7;
         return random + param;
     }
 
-    private synchronized void method4() {
+     synchronized private void method4() {
         sb.append(1).append(1).append(1).append(1);
     }
 
-    protected synchronized void method5(String param2) {
+   protected void method5(String param2) {
         new StringBuffer().append(param2).append(param2).append(param2);
     }
 
-    public String method6(int param2) {
+     synchronized public String method6(int param2) {
         System.out.println("Thinking....");
         method7(5e-2);
         sb = new StringBuilder("Got it!.");
