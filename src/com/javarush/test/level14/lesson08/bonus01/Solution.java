@@ -1,8 +1,7 @@
 package com.javarush.test.level14.lesson08.bonus01;
 
-import java.io.*;
 import java.util.*;
-import java.util.zip.DataFormatException;
+
 
 /* Нашествие эксепшенов
 Заполни массив exceptions 10 различными эксепшенами.
@@ -40,7 +39,7 @@ public class Solution
             arr[6]=7;
         }
 
-        catch (IndexOutOfBoundsException ie)
+        catch (Exception ie)
         {
             exceptions.add(ie);
         }
@@ -50,16 +49,16 @@ public class Solution
             String s =(String)i;
 
         }
-        catch (ClassCastException cle)
+        catch (Exception cle)
         {
             exceptions.add(cle);
         }
         try
         {
-            throw new DataFormatException();
+            throw new UnsupportedOperationException();
 
         }
-        catch (DataFormatException ie)
+        catch (Exception ie)
         {
             exceptions.add(ie);
         }
@@ -68,7 +67,7 @@ public class Solution
             int [] arr2 = new int[-4];
 
         }
-        catch (NegativeArraySizeException naz)
+        catch (Exception naz)
         {
             exceptions.add(naz);
         }
@@ -84,7 +83,7 @@ public class Solution
             }
 
         }
-        catch (ConcurrentModificationException ce)
+        catch (Exception ce)
         {
             exceptions.add(ce);
         }
@@ -98,7 +97,7 @@ public class Solution
 
             }
         }
-        catch (NullPointerException ne)
+        catch (Exception ne)
         {
             exceptions.add(ne);
         }
@@ -107,24 +106,25 @@ public class Solution
             Class loadedClass = Class.forName("Clazz");
 
         }
-        catch (ClassNotFoundException cl)
+        catch (Exception cl)
         {
             exceptions.add(cl);
         }
         try
         {
 
-            LineNumberReader reader  = new LineNumberReader(new FileReader("ololo"));
+            Solution test = new Solution();
+            test.clone();
         }
-        catch (IOException ie)
+        catch (Exception ie)
         {
             exceptions.add(ie);
         }
         try
         {
-            throw new UnsupportedOperationException("Invalid operation for sorted list.");
+            throw  new SecurityException();
 
-        } catch (UnsupportedOperationException ae)
+        } catch (Exception ae)
         {
             exceptions.add(ae);
         }
