@@ -14,18 +14,19 @@ import java.io.IOException;
 
 public class Solution {
     public static void main(String[] args) throws IOException {
-        FileInputStream inputStream = new FileInputStream("c:/data.txt");
+        FileInputStream inputStream = new FileInputStream("/home/stas/workspace/1.txt");
         // Создаем поток-записи-байт-в-файл
-        FileOutputStream outputStream = new FileOutputStream("c:/result.txt");
+        FileOutputStream outputStream = new FileOutputStream("/home/stas/workspace/2.txt");
 
-        if (inputStream.read() >= 0) {
-            //читаем весь файл одним куском
+
+        if (inputStream.available() > 0) {
+
             byte[] buffer = new byte[inputStream.available()];
             int count = inputStream.read(buffer);
             outputStream.write(buffer, 0, count);
         }
 
-        inputStream.reset();
-        outputStream.flush();
+        inputStream.close();
+        outputStream.close();
     }
 }
