@@ -9,7 +9,6 @@ public class Solution {
     int count;
 
     public Solution append(CharSequence s) {
-        synchronized (Solution.class) {
             if (s == null) {
                 synchronized (this) {
                     s = "null";
@@ -27,11 +26,11 @@ public class Solution {
                     return this.appendThis((Solution) s);
                 }
             }
-        }
+
         return this.append(s);
     }
 
-    public synchronized Solution appendThis(Solution s) {
+    public  Solution appendThis(Solution s) {
         //do something here....
         return this;
     }
@@ -45,21 +44,20 @@ public class Solution {
 
     private synchronized void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
         java.io.ObjectOutputStream.PutField fields = s.putFields();
-        synchronized (fields) {
+        
             fields.put("value", value);
             fields.put("count", count);
             fields.put("shared", false);
-        }
-        synchronized (s) {
+
+
             s.writeFields();
-        }
+
     }
 
     private void readObject(java.io.ObjectInputStream s) throws java.io.IOException, ClassNotFoundException {
-        synchronized (new java.io.IOException()) {
+
             java.io.ObjectInputStream.GetField fields = s.readFields();
             value = (char[]) fields.get("value", null);
             count = fields.get("count", 0);
         }
-    }
 }

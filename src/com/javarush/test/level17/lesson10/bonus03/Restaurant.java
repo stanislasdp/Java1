@@ -15,11 +15,11 @@ public class Restaurant {
     public static void main(String[] args) throws Exception {
         Waiter waiterTarget = new Waiter();
         Thread waiter = new Thread(waiterTarget);
-        threads.add(waiter);
+        threads.add(waiter);//добавляем waiter в threads
 
         Cook cookTarget = new Cook();
         Thread cook = new Thread(cookTarget);
-        threads.add(cook);
+        threads.add(cook);//добавляем cook в threads
 
         waiter.start();
         cook.start();
