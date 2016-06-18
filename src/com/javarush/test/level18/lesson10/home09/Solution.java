@@ -15,13 +15,13 @@ public class Solution {
     {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 
-        String wrong_file_name="";
+        String wrong_file_name = "";
         try
         {
             while (true)
             {
-                wrong_file_name=bf.readLine();
-                FileInputStream fi =new FileInputStream(wrong_file_name);
+                wrong_file_name = bf.readLine();
+                FileInputStream fi = new FileInputStream(wrong_file_name);
             }
 
         }
@@ -31,17 +31,9 @@ public class Solution {
         }
         finally
         {
-         bf.close();
+            bf.close();
         }
 
 
-
-      /*  while (!filename.equals("exit"))
-        {
-            Thread tr =new ReadThread(filename);
-            tr.start();
-            filename = bf.readLine();
-        }
-        bf.close()*/
     }
 }

@@ -33,9 +33,6 @@ public class Solution {
         br.close();
 
         Scanner file = new Scanner(new FileReader(file_first_name));
-
-       ;
-
         while (file.hasNext())
         {
             String line =file.nextLine();
