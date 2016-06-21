@@ -12,7 +12,7 @@ import java.util.List;
 оригинальный   редактированный    общий
 file1:         file2:             результат:(lines)
 
-
+//remote
 
 строка1        строка1            SAME строка1
 строка2                           REMOVED строка2
