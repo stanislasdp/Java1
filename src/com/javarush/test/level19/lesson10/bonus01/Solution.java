@@ -38,6 +38,10 @@ public class Solution {
         REMOVED,      //удалена строка
         SAME          //без изменений
     }
+    
+    
+    
+    
 
     public static class LineItem {
         public Type type;
