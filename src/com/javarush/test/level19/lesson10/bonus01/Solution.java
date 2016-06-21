@@ -33,6 +33,8 @@ public class Solution {
     }
 
 
+
+
     public static enum Type {
         ADDED,        //добавлена новая строка
         REMOVED,      //удалена строка
