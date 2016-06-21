@@ -77,6 +77,7 @@ public class Solution {
 				}
 	    		System.out.println("\n");
 	    	}
+	    	file_reader.close();
 	    	
 	    }
 }
