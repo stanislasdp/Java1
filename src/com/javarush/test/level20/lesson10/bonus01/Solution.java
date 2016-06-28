@@ -1,6 +1,7 @@
 package com.javarush.test.level20.lesson10.bonus01;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /* Алгоритмы-числа
@@ -22,7 +23,7 @@ public class Solution {
         List<Integer> digits = new ArrayList<Integer>();
         int M;
 
-        long result;
+        int result;
 
         for (int S =1;S<N;S++)
         {
@@ -34,7 +35,7 @@ public class Solution {
             do
             {
                 counter=tmp%10;
-                result+=Math.pow(counter,length);
+                result+=pow(counter,length);
             }
             while((tmp/=10)>0);
 
@@ -53,8 +54,27 @@ public class Solution {
 
     }
 
+    static int pow(int a, int n) {
+        if (n == 0) return 1;
+        if (n % 2 == 0) {
+            int ans = pow(a, n / 2);
+            return ans * ans;
+        } else {
+            return a * pow(a, n - 1);
+        }
+    }
+
     public static void main(String[] args)
     {
-        Solution.getNumbers(Integer.MAX_VALUE);
+        long start = Runtime.getRuntime().totalMemory();
+        long timeStart = (new Date()).getTime();
+        for (int i: getNumbers(Integer.MAX_VALUE))
+        {
+            System.out.println(i);
+        }
+        long timeEnd = (new Date()).getTime();
+        long end = Runtime.getRuntime().freeMemory();
+        System.out.println("Time: " + (timeEnd - timeStart) + " ms");
+        System.out.println("Memory: " + (start-end)/1024+ " KByte");
     }
 }

@@ -26,7 +26,73 @@ text2>text1</tag>
 text1, text2 могут быть пустыми
 */
 
-public class Solution {
-    public static void main(String[] args) {
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Solution
+{
+    static String tag;
+    public static void main(String[] args)
+    {
+        tag = args[0];
+
+        try
+        {
+            BufferedReader bf  = new BufferedReader(new InputStreamReader(System.in));
+            String filename = bf.readLine();
+            bf.close();
+            FileReader fi = new FileReader(filename);
+
+            StringBuilder sb = new StringBuilder();
+
+            while (fi.ready())
+            {
+                int ch = fi.read();
+
+                    sb.append((char) ch);
+
+            }
+            String all_str = sb.toString();
+            List<Integer> start_indexes =new ArrayList<Integer>();
+            List<Integer> end_indexes = new ArrayList<Integer>();
+
+            for (int i = 0; i < all_str.toCharArray().length ; i++)
+            {
+                if (all_str.toCharArray()[i]=='<')
+                {
+                    start_indexes.add(i);
+                    end_indexes.add(null);
+                }
+                if (all_str.toCharArray()[i]=='>')
+                {
+                    end_indexes.set(end_indexes.lastIndexOf(null),i);
+                }
+            }
+
+            for (int k =0;k<start_indexes.size();k++)
+            {
+                String sub_between_tags = all_str.substring(start_indexes.get(k),end_indexes.get(k)+1);
+
+                System.out.println(sub_between_tags);
+            }
+
+
+        }
+        catch (IOException ie)
+        {
+            ie.printStackTrace();
+        }
+
+        String start_tag = "<"+tag;
+        String end_tag = "/<"+tag+">";
+
+
+
+
+
     }
 }

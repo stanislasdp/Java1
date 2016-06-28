@@ -13,28 +13,29 @@ public class Solution implements Serializable
 
         private void writeObject(ObjectOutputStream out) throws IOException
         {
-           throw new NotSerializableException();
+            throw new NotSerializableException();
         }
-        
+
         private void readObject(ObjectInputStream in) throws IOException
         {
-        	throw new NotSerializableException();
+            throw new NotSerializableException();
         }
 
     }
-    
-    public static void main(String[] args) throws IOException,ClassNotFoundException
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException
     {
-    	//FileOutputStream fo = new FileOutputStream("D:\\test\\output.txt");
-    	//ObjectOutputStream oi = new ObjectOutputStream(fi);
-    	
-    //	Solution.SubSolution sub = new Solution.SubSolution();
-    	
-    //	oi.writeObject(sub);
-    	
-    	FileInputStream fi  =new FileInputStream("D:\\test\\output.txt");
-    	ObjectInputStream oi  = new ObjectInputStream(fi);
-    	Solution.SubSolution test;
-    	test = (Solution.SubSolution)oi.readObject();
-    	
+        //FileOutputStream fo = new FileOutputStream("D:\\test\\output.txt");
+        //ObjectOutputStream oi = new ObjectOutputStream(fi);
+
+        //	Solution.SubSolution sub = new Solution.SubSolution();
+
+        //	oi.writeObject(sub);
+
+        FileInputStream fi = new FileInputStream("D:\\test\\output.txt");
+        ObjectInputStream oi = new ObjectInputStream(fi);
+        Solution.SubSolution test;
+        test = (Solution.SubSolution) oi.readObject();
+
     }
+}
