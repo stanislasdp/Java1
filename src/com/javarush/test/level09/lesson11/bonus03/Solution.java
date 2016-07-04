@@ -50,7 +50,37 @@ public class Solution
 
     public static void sort(String[] array)
     {
-        //напишите тут ваш код
+        for (int i=0;i<array.length;i++)
+        {
+            if (isNumber(array[i]))
+            {
+                for (int j = 0; j <array.length ; j++)
+                {
+                    if (isNumber(array[j]) && Integer.parseInt(array[i])>Integer.parseInt(array[j]))
+                    {
+                        String tmp = array[i];
+                        array[i] = array[j];
+                        array[j] = tmp;
+                    }
+                }
+            }
+            else
+            {
+                for (int j = 0; j <array.length ; j++)
+                {
+                    if (isGreaterThan(array[j],array[i]))
+                    {
+                        String tmp = array[i];
+                        array[i] = array[j];
+                        array[j] = tmp;
+                    }
+                }
+            }
+        }
+
+
+
+            //напишите тут ваш код
     }
 
     //Метод для сравнения строк: 'а' больше чем 'b'

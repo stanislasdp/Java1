@@ -51,18 +51,6 @@ import java.util.List;
 Метод main в тестировании не участвует
 */
 public class Solution {
-    public static void main(String[] args) {
-     //   List<String> list = new Solution();
-        for (int i = 1; i < 16; i++) {
-            list.add(String.valueOf(i));
-        }
-        System.out.println("Expected 3, actual is " + ((Solution) list).getParent("8"));
-        list.remove("5");
-        System.out.println("Expected null, actual is " + ((Solution) list).getParent("11"));
-    }
 
-    public String getParent(String value) {
-        //have to be implemented
-        return null;
-    }
+
 }
