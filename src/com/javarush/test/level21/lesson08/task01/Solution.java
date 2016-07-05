@@ -31,7 +31,6 @@ public class Solution implements Cloneable {
     @Override
     protected Solution clone() throws CloneNotSupportedException
     {
-        //return super.clone();
 
         Solution sol = new Solution();
         Map<String,User> us = new LinkedHashMap<>();
@@ -42,9 +41,6 @@ public class Solution implements Cloneable {
             User user = new User(pair.getValue().age,pair.getValue().name);
             us.put(pair.getKey(),user);
         }
-
-       // sol.users.putAll(this.users);
-
         return sol;
 
 

@@ -7,7 +7,8 @@ package com.javarush.test.level21.lesson08.task02;
 */
 public class Solution {
     public static void main(String[] args) {
-        Tree tree = new Tree("willow", new String[]{"s1", "s2", "s3", "s4"});
+        //Tree tree = new Tree("willow", new String[]{"s1", "s2", "s3", "s4"});
+        Tree tree = new Tree(null, null);
         Tree clone = null;
         try {
             clone = tree.clone();
@@ -34,7 +35,7 @@ public class Solution {
         }
     }
 
-    public static class Tree extends Plant {
+    public static class Tree extends Plant implements Cloneable {
         private String[] branches;
 
         public Tree(String name, String[] branches) {
@@ -42,8 +43,26 @@ public class Solution {
             this.branches = branches;
         }
 
-        public String[] getBranches() {
+        public String[] getBranches()
+        {
             return branches;
+        }
+
+        @Override
+        protected Tree clone() throws CloneNotSupportedException
+        {
+
+
+            if (branches!=null)
+            {
+                return new Tree(super.name,branches.clone());
+            }
+            else
+            {
+                return new Tree(super.name,null);
+            }
+
+
         }
     }
 }
