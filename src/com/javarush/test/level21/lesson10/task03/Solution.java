@@ -25,10 +25,10 @@ public class Solution {
     public static void main(String[] args) {
         List<String> strings = new ArrayList<>();
 
-        Solution solution = new task03();
+        Solution solution = new Solution();
         solution.setUtilizator(new Utilizator());
 
-        Solution solution2 = new task03();
+        Solution solution2 = new Solution();
         solution2.setUtilizator(new SpecificUtilizator());
 
         strings.addAll(solution.readFileContent("FakeFileName.txt"));

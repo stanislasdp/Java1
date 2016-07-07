@@ -39,7 +39,44 @@ public class Solution {
         this.thread3.start();
     }
 
-    public String getPartOfString(String string, String threadName) {
-        return null;
+    public String getPartOfString(String string, String threadName)
+    {
+
+        if (string==null )
+        {
+            if (threadName.equals(FIRST_THREAD_NAME))
+            {
+                throw  new TooShortStringFirstThreadException();
+            }
+            else if (threadName.equals(SECOND_THREAD_NAME))
+            {
+                throw new TooShortStringSecondThreadException();
+            }
+            else
+            {
+                throw new RuntimeException();
+            }
+
+        }
+        int first_tab = string.indexOf('\t');
+        int second_tab = string.indexOf('\t',first_tab+1);
+
+        if (second_tab==-1)
+        {
+            if (threadName.equals(FIRST_THREAD_NAME))
+            {
+                throw  new TooShortStringFirstThreadException();
+            }
+            else if (threadName.equals(SECOND_THREAD_NAME))
+            {
+                throw new TooShortStringSecondThreadException();
+            }
+            else
+            {
+                throw new RuntimeException();
+            }
+        }
+        return string.substring(first_tab+1,second_tab);
+
     }
 }

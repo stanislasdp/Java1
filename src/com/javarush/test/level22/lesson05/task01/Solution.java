@@ -52,7 +52,7 @@ public class Solution {
     {
     	
     	
-    	String res = task01.getPartOfString("      ");
+    	String res = Solution.getPartOfString("      ");
     	System.out.println(res);
     }
 
