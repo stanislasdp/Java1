@@ -1,4 +1,5 @@
-package com.javarush.test.level21.lesson10.task03;
+package lesson10;
+
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -24,10 +25,10 @@ public class Solution {
     public static void main(String[] args) {
         List<String> strings = new ArrayList<>();
 
-        Solution solution = new Solution();
+        Solution solution = new task03();
         solution.setUtilizator(new Utilizator());
 
-        Solution solution2 = new Solution();
+        Solution solution2 = new task03();
         solution2.setUtilizator(new SpecificUtilizator());
 
         strings.addAll(solution.readFileContent("FakeFileName.txt"));
@@ -35,32 +36,47 @@ public class Solution {
         System.out.println("Count of strings is " + strings.size());
     }
 
-    public List<String> readFileContent(String path) {
+    public List<String> readFileContent(String path) 
+    {
         List<String> strings = new ArrayList<>();
         Charset charset = Charset.forName("UTF-8");
         Path filePath = Paths.get(path);
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(path)))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(path)))) 
+        {
             String sCurrentLine;
             while ((sCurrentLine = bufferedReader.readLine()) != null) {
                 strings.add(sCurrentLine);
             }
-        } catch (IOException ignored) {
+        }
+        catch (IOException ignored) {
 
-        } finally {
-            utilizator.dispose();
+        } finally 
+        {
+        	try
+        	{
+        		utilizator.dispose();
+        	}
+        	catch (RuntimeException re){
+        		
+        	}
         }
         return strings;
     }
 
     @Override
     protected void finalize() throws Throwable {
-        super.finalize();
-        System.out.println("inside finalize - before throwing");
-        utilizator.dispose();   //исключения игнорируются в finalize
-        System.out.println("inside finalize - after throwing");
+       
+    		super.finalize();
+            System.out.println("inside finalize - before throwing");
+            utilizator.dispose();   //исключения игнорируются в finalize
+            System.out.println("inside finalize - after throwing");
+    	
+    	
     }
 
-    public static class Utilizator {
+    public static class Utilizator 
+    {
+ 
         protected final UtilizatorUtil util = new UtilizatorUtil();
 
         public void dispose() {
@@ -69,10 +85,19 @@ public class Solution {
         }
     }
 
-    public static class SpecificUtilizator extends Utilizator {
+    public static class SpecificUtilizator extends Utilizator 
+    {
         @Override
-        public void dispose() {
-            util.throwException();
+        public void dispose() 
+        {
+        	try
+        	{
+        		 util.throwException();
+        	}
+        	catch (RuntimeException re){}
+           
+          
+     
         }
     }
 
