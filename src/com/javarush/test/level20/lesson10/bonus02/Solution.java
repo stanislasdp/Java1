@@ -22,7 +22,29 @@ public class Solution {
         System.out.println("count = " + count + ". Должно быть 2");
     }
 
-    public static int getRectangleCount(byte[][] a) {
+    public static int getRectangleCount(byte[][] a)
+    {
+        int counter = 0;
+        for (int i = 0; i <a.length ; i++)
+        {
+            for (int j =0; j<a.length;j++)
+            {
+
+                if (a[i][j]==1 )
+                {
+                    if (j<a.length-1)
+                    {
+                        if (a[i][j+1]==1)
+                        {
+                            break;
+                        }
+                    }
+                }
+                System.out.print(a[i][j]+" ");
+                counter++;
+            }
+            System.out.println();
+        }
         return 0;
     }
 }
