@@ -26,73 +26,72 @@ text2>text1</tag>
 text1, text2 могут быть пустыми
 */
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Solution
-{
-    static String tag;
+public class Solution {
     public static void main(String[] args)
     {
-        tag = args[0];
-
+        String filename = null;
+        String tag = args[0];
+        StringBuilder sb = new StringBuilder();
         try
         {
-            BufferedReader bf  = new BufferedReader(new InputStreamReader(System.in));
-            String filename = bf.readLine();
-            bf.close();
-            FileReader fi = new FileReader(filename);
-
-            StringBuilder sb = new StringBuilder();
-
-            while (fi.ready())
+            BufferedReader bi = new BufferedReader(new InputStreamReader(System.in));
+            filename = bi.readLine();
+            bi.close();
+            BufferedReader file_reader = new BufferedReader(new FileReader(filename));
+            while (file_reader.ready())
             {
-                int ch = fi.read();
-
-                    sb.append((char) ch);
-
+                sb.append(file_reader.readLine());
             }
-            String all_str = sb.toString();
-            List<Integer> start_indexes =new ArrayList<Integer>();
-            List<Integer> end_indexes = new ArrayList<Integer>();
-
-            for (int i = 0; i < all_str.toCharArray().length ; i++)
-            {
-                if (all_str.toCharArray()[i]=='<')
-                {
-                    start_indexes.add(i);
-                    end_indexes.add(null);
-                }
-                if (all_str.toCharArray()[i]=='>')
-                {
-                    end_indexes.set(end_indexes.lastIndexOf(null),i);
-                }
-            }
-
-            for (int k =0;k<start_indexes.size();k++)
-            {
-                String sub_between_tags = all_str.substring(start_indexes.get(k),end_indexes.get(k)+1);
-
-                System.out.println(sub_between_tags);
-            }
-
-
-        }
+              }
         catch (IOException ie)
         {
             ie.printStackTrace();
         }
-
-        String start_tag = "<"+tag;
-        String end_tag = "/<"+tag+">";
-
-
-
-
-
+        String open_tag = "<" +tag;
+        String close_tag = "</" + tag + ">";
+        String initial_string = sb.toString();
+        ArrayList<Integer> ind_opened = new ArrayList<>();
+        ArrayList<Integer> ind_closed = new ArrayList<>();
+        int opened_tag = 0;
+        int closed_tag = 0;
+        while (true)
+        {
+            int tmp_opened = opened_tag;
+            opened_tag = initial_string.indexOf(open_tag,opened_tag+1);
+            int tmp_closed = closed_tag;
+            closed_tag = initial_string.indexOf(close_tag,closed_tag+1);
+            int min_tag=0;
+            if (opened_tag==-1 && closed_tag==-1 )
+            {
+                break;
+            }
+            if (opened_tag==-1)
+            {
+                min_tag=closed_tag;
+            }
+            if (opened_tag!=-1 && closed_tag!=1)
+            {
+                min_tag = Math.min(opened_tag,closed_tag);
+            }
+             if (min_tag==opened_tag)
+             {
+                 ind_opened.add(opened_tag);
+                 ind_closed.add(null);
+                 closed_tag = tmp_closed;
+             }
+            else if (min_tag==closed_tag)
+             {
+                 ind_closed.set(ind_closed.lastIndexOf(null),closed_tag);
+                 opened_tag = tmp_opened;
+             }
+        }
+        for (int i = 0; i <ind_opened.size() ; i++)
+        {
+            System.out.println(initial_string.substring(ind_opened.get(i),ind_closed.get(i)+tag.length()+3));
+        }
     }
 }

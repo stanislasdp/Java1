@@ -23,9 +23,7 @@ public class Solution {
     	{
     		throw new TooShortStringException();
     	}
-    	int first_whitespace = string.indexOf(" ");
-    	
-    	 
+
     	 ArrayList<Integer> white_spaces_indexes= new ArrayList<>();
     	 
     	 int index = 0;

@@ -32,7 +32,7 @@ file1:         file2:             результат:(lines)
 строка5                           REMOVED строка5
 */
 
-public class Solution {
+public class  Solution {
 
 
 	public static List<LineItem> lines = new ArrayList<LineItem>();

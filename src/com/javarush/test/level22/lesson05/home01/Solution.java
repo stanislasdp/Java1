@@ -1,11 +1,11 @@
 package com.javarush.test.level22.lesson05.home01;
 
 /* Нитиевые строки или строковые нити? Вот в чем вопрос.
-1. Метод getPartOfString должен возвращать подстроку между первой и последней табуляцией.
-2. На некорректные данные getPartOfString должен бросить исключение:
-а) TooShortStringFirstThreadException, если имя трэда FIRST_THREAD_NAME.
-б) TooShortStringSecondThreadException, если имя трэда SECOND_THREAD_NAME.
-в) RuntimeException в других случаях.
+1. Метод getPartOfString должен возвращать подстроку между первой и последней табуляцией.+
+2. На некорректные данные getPartOfString должен бросить исключение:+
+а) TooShortStringFirstThreadException, если имя трэда FIRST_THREAD_NAME+.
+б) TooShortStringSecondThreadException, если имя трэда SECOND_THREAD_NAME+.
+в) RuntimeException в других случаях.+
 3. Реализуйте логику трех protected методов в ThisUncaughtExceptionHandler используя вызовы соответствующих методов согласно следующему шаблону:
 a) 1# : TooShortStringFirstThreadException : java.lang.StringIndexOutOfBoundsException: String index out of range: -1
 б) java.lang.StringIndexOutOfBoundsException: String index out of range: -1 : TooShortStringSecondThreadException : 2#
@@ -23,7 +23,8 @@ public class Solution {
     private Thread thread2;
     private Thread thread3;
 
-    public Solution() {
+    public Solution()
+    {
         initThreads();
     }
 
@@ -41,31 +42,17 @@ public class Solution {
 
     public String getPartOfString(String string, String threadName)
     {
+        String result;
 
-        if (string==null )
+        try
         {
-            if (threadName.equals(FIRST_THREAD_NAME))
-            {
-                throw  new TooShortStringFirstThreadException();
-            }
-            else if (threadName.equals(SECOND_THREAD_NAME))
-            {
-                throw new TooShortStringSecondThreadException();
-            }
-            else
-            {
-                throw new RuntimeException();
-            }
-
+            result = string.substring(string.indexOf("\t")+1,string.lastIndexOf("\t"));
         }
-        int first_tab = string.indexOf('\t');
-        int second_tab = string.indexOf('\t',first_tab+1);
-
-        if (second_tab==-1)
+        catch (Exception e)
         {
             if (threadName.equals(FIRST_THREAD_NAME))
             {
-                throw  new TooShortStringFirstThreadException();
+                throw new TooShortStringFirstThreadException();
             }
             else if (threadName.equals(SECOND_THREAD_NAME))
             {
@@ -76,7 +63,12 @@ public class Solution {
                 throw new RuntimeException();
             }
         }
-        return string.substring(first_tab+1,second_tab);
 
-    }
+        return result;
+
+
+        }
+
+
+
 }

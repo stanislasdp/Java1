@@ -14,16 +14,22 @@ public class ThisUncaughtExceptionHandler implements Thread.UncaughtExceptionHan
             }
     }
 
-    protected String getFormattedStringForOtherThread(Thread t, Throwable e, String string) {
+    protected String getFormattedStringForOtherThread(Thread t, Throwable e, String string)
+    {
         return null;
     }
 
-    protected String getFormattedStringForSecondThread(Thread t, Throwable e, String string) {
+    protected String getFormattedStringForSecondThread(Thread t, Throwable e, String string)
+    {
+       //return String.format(string,e.getCause().getCause().getCause(),e.getCause());
         return null;
     }
 
-    protected String getFormattedStringForFirstThread(Thread t, Throwable e, String string) {
-        return null;
+    protected String getFormattedStringForFirstThread(Thread t, Throwable e, String string)
+    {
+       // return String.format(string,t.getName(),e.getClass().getSimpleName(),t.getClass().getSimpleName());
+        return String.format(string,t.getName(),e.getClass().getSimpleName(),e.getMessage());
+        //return null;
     }
 }
 
