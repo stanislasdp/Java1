@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 /* Составить цепочку слов
@@ -49,7 +48,6 @@ public class Solution {
         }
         String[] arr_for_method = new String [arr1.size()];
 
-
         StringBuilder result = getLine(arr1.toArray(arr_for_method));
         System.out.println(result.toString());
     }
@@ -77,33 +75,17 @@ public class Solution {
         {
             int count = 0;
 
-            for (int i = 0; i <for_shuffling.size() ; i++)
+            for (int i = 1; i <for_shuffling.size() ; i++)
             {
-                char end_word = for_shuffling.get(i).toLowerCase().charAt(for_shuffling.get(i).length()-1);
-                String to_compare = null;
-                if (i!=for_shuffling.size()-1)
-                {
-                    to_compare = for_shuffling.get(i+1).toLowerCase();
-                }
-                else
-                {
-                    to_compare = for_shuffling.get(0).toLowerCase();
-                }
-                char begin_word = to_compare.charAt(0);
-
+                char begin_word = for_shuffling.get(i).toLowerCase().charAt(0);
+                char end_word = for_shuffling.get(i-1).toLowerCase().charAt(for_shuffling.get(i-1).length()-1);
                 if (begin_word==end_word)
                 {
-
                     count++;
-                    //sorted.add(for_shuffling.get(i));
-                    //System.out.println(sorted.get(i));
-//                    sorted.add(for_shuffling.get(i+1));
-                    //for_shuffling.remove(i+1);
-                    //for_shuffling.trimToSize();
                 }
 
             }
-            if (count>=for_shuffling.size())
+            if (count>=for_shuffling.size()-1)
             {
                 break;
             }
