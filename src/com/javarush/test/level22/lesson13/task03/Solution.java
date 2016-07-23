@@ -80,7 +80,7 @@ public class Solution {
 }
     public static void main (String...a)
     {
-        String test1 = "+38(050)12-34-567";
+        /*String test1 = "+38(050)12-34-567";
         System.out.println(checkTelNumber(test1));
 
 
@@ -92,11 +92,11 @@ public class Solution {
     	String tel6 = "+38(050)1-23-45-6-7";
     	String tel7 = "050ххх4567";
     	String tel8 = "050123456";
-    	String tel9 = "(0)501234567";
+    	String tel9 = "(0)501234567";*/
     	//System.out.println(checkTelNumber(tel9));
 
 
-        /*Map<String,Boolean> test = new HashMap<>();
+        Map<String,Boolean> test = new HashMap<>();
         test.put("+380501234567",true);
         test.put("+38(050)1234567-",false);
         test.put("++380501234567",true);
@@ -121,7 +121,7 @@ public class Solution {
             {
                 System.out.println(pair.getKey()+"  "+ checkTelNumber(pair.getKey()));
             }
-        }*/
+        }
 
 
 
