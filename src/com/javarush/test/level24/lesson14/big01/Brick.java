@@ -19,6 +19,7 @@ public class Brick extends BaseObject
         super(x,y,3);
     }
 
+
     /**
      * Рисуем себя на холсте
      */

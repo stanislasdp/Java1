@@ -13,6 +13,7 @@ public class Arcanoid
     private Stand stand;
     private ArrayList<Brick> bricks;
 
+
     public  Arcanoid(int width, int height)
     {
         this.width = width;

@@ -23,6 +23,7 @@ public abstract class BaseObject
         return x;
     }
 
+
     public void setX (double x)
     {
         this.x = x;

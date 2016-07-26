@@ -106,6 +106,7 @@ public class Ball extends BaseObject
             dx = -dx;
         }
 
+
         if (y < miny)
         {
             y = miny + (miny - y);
