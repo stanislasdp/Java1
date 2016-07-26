@@ -47,7 +47,6 @@ public class Stand extends BaseObject
     в) создай для них геттеры
 
 
-
     А еще с тебя конструктор, примерно вот такой:
     public Stand(double x, double y)
     {

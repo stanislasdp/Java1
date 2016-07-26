@@ -28,7 +28,6 @@ public class Brick extends BaseObject
     {
         canvas.drawMatrix(x - radius + 1, y, matrix, 'H');
     }
-
     /**
      * Ничего не делаем - кирпич неподвижен
      */
