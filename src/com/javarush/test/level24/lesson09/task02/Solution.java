@@ -8,7 +8,7 @@ import java.util.*;
 
 /* Знания - сила!
 1. В методе sort написать компаратор для Stock:
-1.1. Первичная сортировка по name в алфавитном порядке
+1.1. Первичная сортировка по name в алфавитном порядке+
 1.2. Вторичная сортировка по дате без учета часов, минут, секунд (сверху самые новые), потом по прибыли от положительных к отрицательным
 ... open 125,64 and last 126,74 - тут прибыль = 126,74-125,64
 ... open 125,64 and last 123,43 - тут прибыль = 123,43-125,64
@@ -18,7 +18,8 @@ Fake Apple Inc.   AAPL | 17-11-2025 open 125,64 and last 123,43
 Fake Oracle Corporation   ORCL | 21-08-1989 closed 0,15
 */
 public class Solution {
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         List<Stock> stocks = getStocks();
         sort(stocks);
         Date actualDate = new Date();
@@ -32,7 +33,7 @@ public class Solution {
         String[] filepart = {"closed {4}", "open {2} and last {3}"};
 
         ChoiceFormat fileform = new ChoiceFormat(filelimits, filepart);
-        Format[] testFormats = {null, dateFormat, fileform};
+        Format[] testFormats = {null,null, dateFormat, fileform};
         MessageFormat pattform = new MessageFormat("{0}   {1} | {5} {6}");
         pattform.setFormats(testFormats);
 
@@ -50,14 +51,42 @@ public class Solution {
 
     public static void sort(List<Stock> list) {
         Collections.sort(list, new Comparator<Stock>() {
-            public int compare(Stock stock1, Stock stock2) {
-                return 0;
+            public int compare(Stock stock1, Stock stock2)
+            {
+                int flag = stock1.get("name").toString().compareTo(stock2.get("name").toString());
+                if (flag!= 0)
+                {
+                    return flag;
+                }
+                Calendar cal = Calendar.getInstance();
+                cal.setTime((Date)stock1.get("date"));
+                int first_year = cal.get(Calendar.YEAR);
+                int first_month = cal.get(Calendar.MONTH);
+                cal.setTime((Date)stock2.get("date"));
+                int second_year = cal.get(Calendar.YEAR);
+                int second_month = cal.get(Calendar.MONTH);
+
+                flag = second_year - first_year;
+                if (flag!=0)
+                {
+                    return flag;
+                }
+                flag = second_month - first_month;
+                if (flag!=0)
+                {
+                    return flag;
+                }
+                Double first_income = stock1.containsKey("change")?(Double)stock1.get("change"):(Double)stock1.get("last")- (Double)stock1.get("open");
+                Double second_income = stock2.containsKey("change")?(Double)stock2.get("change"):(Double)stock2.get("last")- (Double)stock2.get("open");
+                flag = second_income.compareTo(first_income);
+                return flag;
             }
         });
     }
 
     public static class Stock extends HashMap {
-        public Stock(String name, String symbol, double open, double last) {
+        public Stock(String name, String symbol, double open, double last)
+        {
             put("name", name);
             put("symbol", symbol);
             put("open", open);
