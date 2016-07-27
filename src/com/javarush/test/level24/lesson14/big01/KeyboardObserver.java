@@ -41,6 +41,7 @@ public class KeyboardObserver extends Thread
             }
 
             @Override
+
             public void focusLost(FocusEvent e)
             {
                 System.exit(0);
