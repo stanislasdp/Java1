@@ -11,8 +11,10 @@ import java.util.Set;
 Подсказка: если что-то не то с колесами, то это не машина!
 Сигнатуры не менять.
 */
-public class Solution {
-    public static enum Wheel {
+public class Solution 
+{
+    public static enum Wheel 
+    {
         FRONT_LEFT,
         FRONT_RIGHT,
         BACK_LEFT,
@@ -22,13 +24,41 @@ public class Solution {
     public static class Car {
         protected List<Wheel> wheels;
 
-        public Car() {
+        public Car() 
+        {
+        	wheels = new ArrayList<>();
+        	try
+        	{
+        		for (String st : loadWheelNamesFromDB()) 
+            	{
+    				wheels.add(Wheel.valueOf(st));
+    			}
+        	}
+        	catch (IllegalArgumentException ie)
+        	{
+        		return;
+        	}
+        	
+        	for (Wheel wheel : wheels) 
+        	{
+        		System.out.println(wheel);
+				
+			}
+        	
             //init wheels here
         }
 
-        protected String[] loadWheelNamesFromDB() {
+        protected String[] loadWheelNamesFromDB() 
+        {
             //this method returns mock data
             return new String[]{"FRONT_LEFT", "FRONT_RIGHT", "BACK_LEFT", "BACK_RIGHT"};
         }
+        
+}
+    
+    public static void main(String...args)
+    {
+    	task02.Car car = new task02.Car();
     }
+	
 }
