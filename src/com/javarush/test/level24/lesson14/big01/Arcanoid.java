@@ -145,6 +145,7 @@ public class Arcanoid
             //двигаем все объекты
             move();
 
+
             //проверяем столкновения
             checkBricksBump();
             checkStandBump();

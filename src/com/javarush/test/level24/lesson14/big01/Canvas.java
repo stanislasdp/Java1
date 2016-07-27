@@ -74,6 +74,7 @@ public class Canvas
                 System.out.print(" ");
             }
 
+
             System.out.println();
         }
 

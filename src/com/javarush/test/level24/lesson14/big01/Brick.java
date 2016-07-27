@@ -26,6 +26,7 @@ public class Brick extends BaseObject
     @Override
     public void draw(Canvas canvas)
     {
+
         canvas.drawMatrix(x - radius + 1, y, matrix, 'H');
     }
     /**

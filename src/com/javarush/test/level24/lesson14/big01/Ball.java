@@ -10,6 +10,7 @@ public class Ball extends BaseObject
     //направление  (в градусах от 0 до 360)
     private double direction;
 
+
     //текущее значение вектора движения (dx,dy)
     private double dx;
     private double dy;

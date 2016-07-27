@@ -40,6 +40,7 @@ public class KeyboardObserver extends Thread
                 //do nothing
             }
 
+
             @Override
 
             public void focusLost(FocusEvent e)

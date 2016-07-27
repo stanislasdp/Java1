@@ -64,6 +64,7 @@ public abstract class BaseObject
      */
     public void checkBorders(double minx, double maxx, double miny, double maxy)
     {
+
         if (x < minx) x = minx;
         if (x > maxx) x = maxx;
         if (y < miny) y = miny;
