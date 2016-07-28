@@ -6,7 +6,8 @@ package com.javarush.test.level25.lesson05.home01;
 Нить LoggingStateThread должна сама завершаться после остановки переданной в конструктор нити.
 Метод main не участвует в тестировании.
 */
-public class Solution {
+public class Solution
+{
     public static void main(String[] args) throws InterruptedException {
         Thread target = new Thread();
         LoggingStateThread loggingStateThread = new LoggingStateThread(target);
@@ -18,5 +19,41 @@ public class Solution {
         Thread.sleep(400);
         target.interrupted(); //TERMINATED
         Thread.sleep(500);
+
+
+    }
+}
+
+class LoggingStateThread extends Thread
+{
+    Thread.State state;
+    Thread thread;
+    public LoggingStateThread(Thread thread)
+    {
+        this.thread = thread;
+        state = thread.getState();
+        System.out.println(thread.getState());
+        setDaemon(true);
+    }
+
+    @Override
+    public void run()
+    {
+        while (!isInterrupted())
+        {
+            if (state!= thread.getState())
+            {
+
+                state = thread.getState();
+                System.out.println(state);
+            }
+
+            if (thread.getState() == Thread.State.TERMINATED)
+            {
+                interrupt();
+            }
+
+        }
+
     }
 }
