@@ -26,7 +26,7 @@ public class Solution
 
         public Car() 
         {
-        	wheels = new ArrayList<>();
+        //	wheels = new ArrayList<>();
         	try
         	{
         		for (String st : loadWheelNamesFromDB()) 
@@ -58,7 +58,7 @@ public class Solution
     
     public static void main(String...args)
     {
-    	task02.Car car = new task02.Car();
+    	Solution.Car car = new Solution.Car();
     }
 	
 }
