@@ -18,9 +18,23 @@ public class Solution extends Thread {
         this.in = socket.getInputStream();
     }
 
-    public void interrupt() {
-        //implement logic here
+    public void interrupt() 
+    {
+        
+       try 
+       {
+		in.close();
+		socket.close();
+	} 
+       catch (IOException e) 
+       {
+		
+		
+		e.printStackTrace();
+	}
+       super.interrupt();
     }
+    
 
     public void run() {
         try {
