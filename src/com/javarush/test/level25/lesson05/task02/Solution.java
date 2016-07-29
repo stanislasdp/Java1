@@ -32,9 +32,9 @@ public class Solution {
 	        public void run() {
 	            throw new NullPointerException("it's an example");
 	        }
-	    }
-	    
-	    private class MyUncaughtExceptionHandler implements UncaughtExceptionHandler
+	        
+	        
+	          private class MyUncaughtExceptionHandler implements UncaughtExceptionHandler
 	    {
 
 			@Override
@@ -55,6 +55,9 @@ public class Solution {
 		
 			}
 	    }
+	    }
+	    
+	  
 
 }
 
