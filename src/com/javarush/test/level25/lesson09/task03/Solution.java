@@ -22,6 +22,7 @@ public class Solution implements Thread.UncaughtExceptionHandler
         ArrayList<Throwable> arr1 = new ArrayList<>();
         while (thr != null)
         {
+
             arr1.add(0, thr);
             thr = thr.getCause();
         }
