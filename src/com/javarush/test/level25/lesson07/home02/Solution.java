@@ -12,7 +12,8 @@ public class Solution extends ThreadPoolExecutor {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
     }
 
-    protected <T> RunnableFuture<T> newTaskFor(Callable<T> callable) {
+    protected <T> RunnableFuture<T> newTaskFor(Callable<T> callable)
+    {
         if (callable instanceof CancellableTask) {
             return ((CancellableTask<T>) callable).newTask();
         } else {
