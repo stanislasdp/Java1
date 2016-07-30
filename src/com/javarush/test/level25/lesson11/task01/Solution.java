@@ -12,20 +12,38 @@ public class Solution {
     private static final double THRESHOLD_VALUE = 500;
     private static final Random RANDOM = new Random();
 
-    public synchronized void moveMoney(Account from, Account to, int amount) {
+    public synchronized void moveMoney(Account from, Account to, int amount)
+    {
         from.setBalance(from.getBalance() - amount);
+        if (RANDOM.nextInt(5000)>THRESHOLD_VALUE)
+        {
+            Thread.yield();
+        }
+
         to.setBalance(to.getBalance() + amount);
     }
 
-    private class Account {
+    private class Account
+    {
         private int balance;
-
         public int getBalance() {
             return balance;
         }
-
         public void setBalance(int balance) {
             this.balance = balance;
         }
+    }
+
+    public static void main(String[] args)
+    {
+        Solution sol = new Solution();
+        Account account1 = sol.new Account();
+        Account account2 = sol.new Account();
+
+        account1.setBalance(300);
+
+        sol.moveMoney(account1,account2,RANDOM.nextInt(500));
+        System.out.println(account1.balance);
+        System.out.println(account2.balance);
     }
 }
