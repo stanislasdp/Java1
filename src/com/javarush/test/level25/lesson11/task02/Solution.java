@@ -5,6 +5,7 @@ package com.javarush.test.level25.lesson11.task02;
 */
 public class Solution {
     public static class YieldRunnable implements Runnable {
+
         private int index;
 
         public YieldRunnable(int index) {
@@ -13,7 +14,23 @@ public class Solution {
 
         public void run() {
             System.out.println("begin-" + index);
+            Thread.yield();
             System.out.println("end-" + index);
+        }
+    }
+
+
+    public static void main(String[] args)
+    {
+        YieldRunnable yieldRunnable = new YieldRunnable(1);
+        Thread thread = new Thread(yieldRunnable);
+        thread.start();
+
+        for (int i = 0; i <10 ; i++)
+        {
+
+            Thread th = new Thread(new YieldRunnable(i));
+            th.start();
         }
     }
 }
