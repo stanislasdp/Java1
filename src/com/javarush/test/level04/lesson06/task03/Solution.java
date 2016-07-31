@@ -5,23 +5,50 @@ package com.javarush.test.level04.lesson06.task03;
 */
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Comparator;
-
 
 public class Solution
 {
     public static void main(String[] args) throws Exception
     {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int a = Integer.parseInt(reader.readLine());
-        int b = Integer.parseInt(reader.readLine());
-        int c = Integer.parseInt(reader.readLine());
+        int first_digit =  Integer.parseInt(reader.readLine());
+        int second_digit =  Integer.parseInt(reader.readLine());
+        int third_digit =  Integer.parseInt(reader.readLine());
+        reader.close();
 
-        if (a>b && b<c)
+        if (first_digit>second_digit && first_digit>third_digit && second_digit>third_digit)
         {
+            System.out.println(first_digit);
+            System.out.println(second_digit);
+            System.out.println(third_digit);
 
         }
+        else if (first_digit>second_digit &&  first_digit>third_digit && second_digit<third_digit)
+        {
+            System.out.println(first_digit);
+            System.out.println(third_digit);
+            System.out.println(second_digit);
+        }
+        else if (first_digit<second_digit &&  first_digit<third_digit && second_digit>third_digit)
+        {
+            System.out.println(second_digit);
+            System.out.println(third_digit);
+            System.out.println(first_digit);
+        }
+        else if (first_digit<second_digit &&  first_digit<third_digit && second_digit<third_digit)
+        {
+            System.out.println(third_digit);
+            System.out.println(second_digit);
+            System.out.println(first_digit);
+        }
+        else if (first_digit<third_digit &&  first_digit>second_digit && second_digit<third_digit)
+        {
+            System.out.println(third_digit);
+            System.out.println(first_digit);
+            System.out.println(second_digit);
+        }
+
+
 
 
 
