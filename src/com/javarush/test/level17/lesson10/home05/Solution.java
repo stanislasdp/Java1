@@ -9,28 +9,28 @@ public class Solution {
     int count;
 
     public Solution append(CharSequence s) {
-            if (s == null) {
-                synchronized (this) {
+
+            if (s == null)
+            {
                     s = "null";
-                }
             }
 
-            if (s instanceof String) {
-                synchronized (this) {
+            if (s instanceof String)
+            {
+
                     return this.append((String) s);
-                }
+
             }
 
-            if (s instanceof Solution) {
-                synchronized (this) {
+            if (s instanceof Solution)
+            {
                     return this.appendThis((Solution) s);
-                }
-            }
 
+            }
         return this.append(s);
     }
 
-    public  Solution appendThis(Solution s) {
+    public synchronized Solution appendThis(Solution s) {
         //do something here....
         return this;
     }
@@ -44,11 +44,10 @@ public class Solution {
 
     private synchronized void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
         java.io.ObjectOutputStream.PutField fields = s.putFields();
-        
+
             fields.put("value", value);
             fields.put("count", count);
             fields.put("shared", false);
-
 
             s.writeFields();
 
@@ -59,5 +58,6 @@ public class Solution {
             java.io.ObjectInputStream.GetField fields = s.readFields();
             value = (char[]) fields.get("value", null);
             count = fields.get("count", 0);
-        }
+
+    }
 }
