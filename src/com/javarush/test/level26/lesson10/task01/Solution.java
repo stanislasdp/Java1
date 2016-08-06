@@ -15,7 +15,25 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Solution {
     protected Lock lock = new ReentrantLock();
 
-    public void someMethod() {
+    public void someMethod()
+    {
+        try
+        {
+            boolean getLock = lock.tryLock();
+            if (getLock)
+            {
+                ifLockIsFree();
+            }
+            else
+            {
+                ifLockIsBusy();
+            }
+        }
+        finally
+        {
+            lock.unlock();
+        }
+
         //implement logic here, use the lock field
     }
 
