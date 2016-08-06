@@ -10,7 +10,8 @@ import java.util.concurrent.TimeUnit;
 /* Тот, кто любит труд, не нуждается в развлечениях.
 Расставьте volatile там, где необходимо
 */
-public class Solution {
+public class Solution
+{
     private final URL javarushUrl;
     private final URL javarushUrl1Child;
     private final URL javarushVkGroupUrl;
@@ -18,7 +19,7 @@ public class Solution {
     private final URL javarushVkGroupUrl2Child;
     private final URL javarushVkGroupUrl3Child;
 
-    private ExecutorService executorService;
+    private volatile ExecutorService executorService;
     private final Set<URL> urlsForProcessing = new HashSet();
 
     public static void main(String[] args) throws MalformedURLException, InterruptedException {
@@ -42,7 +43,8 @@ public class Solution {
 
     public synchronized void start() {
         executorService = Executors.newCachedThreadPool();
-        for (URL url : urlsForProcessing) {
+        for (URL url : urlsForProcessing)
+        {
             submitUrlTask(url);
         }
         urlsForProcessing.clear();
