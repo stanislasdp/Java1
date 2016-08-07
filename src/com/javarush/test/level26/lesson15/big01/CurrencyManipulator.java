@@ -32,17 +32,28 @@ public class CurrencyManipulator
         {
             denominations.put(denomination,count);
         }
-
+    }
+    public int getTotalAmount()
+    {
+        int summ =0;
+        for (Map.Entry<Integer,Integer> pair: denominations.entrySet())
+        {
+            summ+=pair.getKey() * pair.getValue();
+        }
+        return summ;
     }
 
 }
 
 
-/*
-4. В классе CurrencyManipulator создайте метод void addAmount(int denomination, int count),
-        который добавит введенные номинал и количество банкнот
+/*Задание 5
+        1.В предыдущем таске мы реализовали основную логику операции DEPOSIT.
+        Но посмотреть результат так и не удалось.
+        Поэтому создадим в манипуляторе метод int getTotalAmount(), который посчитает общую сумму денег для выбранной валюты.
 
-        5. Пора уже увидеть приложение в действии.
-        В методе main захардкодь логику пункта 1.
-        Кстати, чтобы не было проблем с тестами на стороне сервера, добавь в метод main первой строчкой Locale.setDefault(Locale.ENGLISH);
-        Запускаем, дебажим, смотрим.*/
+        2. Добавим вызов метода getTotalAmount() в метод main.
+        Всё работает верно? Тогда движемся дальше.
+        Видно, что метод getTotalAmount() считает то, что нам необходимо для операции INFO.
+        Поэтому пришло время небольшого рефакторинга.
+        !!Читайте паттерн Command.
+        Однако, перед рефакторингом нужно еще разобраться в одном вопросе. Но об этом не сейчас.*/

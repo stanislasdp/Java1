@@ -81,18 +81,39 @@ public class ConsoleHelper
             {
                 break;
             }
-
-
-
         }
         return arr_amout;
     }
 
-   /* 3. Чтобы считать номинал и количество банкнот, добавим статический метод String[] getValidTwoDigits(String currencyCode) в ConsoleHelper.
-    Этот метод должен предлагать пользователю ввести два целых положительных числа.
-    Первое число - номинал, второе - количество банкнот.
-    Никаких валидаторов на номинал нет. Т.е. 1200 - это нормальный номинал.
-    Если данные некорректны, то сообщить об этом пользователю и повторить.
-    Пример вводимых данных:
-        200 5*/
+    public static Operation askOperation()
+    {
+        Operation op = null;
+
+        while (op==null)
+        {
+            writeMessage("Enter operation");
+            String oper_number = readString();
+            if (!String.valueOf(oper_number).matches("\\d+"))
+            {
+                writeMessage("incorrect data");
+                continue;
+            }
+            try
+            {
+                op = Operation.getAllowableOperationByOrdinal(Integer.parseInt(oper_number));
+            }
+            catch (IllegalArgumentException ie)
+            {
+                writeMessage("incorrect data");
+            }
+        }
+        return op;
+
+    }
+
+ /*   2. В классе ConsoleHelper реализуйте логику статического метода Operation askOperation()
+    Спросить у пользователя операцию.
+    Если пользователь вводит 1, то выбирается команда INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT;
+    Используйте метод, описанный в п.1.
+    Обработай исключение - запроси данные об операции повторно.*/
 }
