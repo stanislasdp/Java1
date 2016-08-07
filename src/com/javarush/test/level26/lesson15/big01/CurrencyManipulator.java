@@ -50,6 +50,16 @@ public class CurrencyManipulator
         return getTotalAmount()>0;
     }
 
+    public  boolean isAmountAvailable(int expectedAmount)
+    {
+        return expectedAmount > getTotalAmount();
+    }
+
+   public Map<Integer, Integer> withdrawAmount(int expectedAmount)
+    {
+        return null;
+    }
+
 
 
 }
