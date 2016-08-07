@@ -8,10 +8,11 @@ import java.util.Map;
  */
 public class CurrencyManipulator
 {
-     Map<Integer,Integer> denominations = new HashMap<>();
+     Map<Integer,Integer> denominations;
     public CurrencyManipulator(String currencyCode)
     {
         this.currencyCode = currencyCode;
+        denominations = new HashMap<>();
     }
 
     private String currencyCode;
@@ -35,7 +36,7 @@ public class CurrencyManipulator
     }
     public int getTotalAmount()
     {
-        int summ =0;
+        int summ = 0;
         for (Map.Entry<Integer,Integer> pair: denominations.entrySet())
         {
             summ+=pair.getKey() * pair.getValue();
@@ -43,17 +44,14 @@ public class CurrencyManipulator
         return summ;
     }
 
+
+    public boolean hasMoney()
+    {
+        return getTotalAmount()>0;
+    }
+
+
+
 }
 
 
-/*Задание 5
-        1.В предыдущем таске мы реализовали основную логику операции DEPOSIT.
-        Но посмотреть результат так и не удалось.
-        Поэтому создадим в манипуляторе метод int getTotalAmount(), который посчитает общую сумму денег для выбранной валюты.
-
-        2. Добавим вызов метода getTotalAmount() в метод main.
-        Всё работает верно? Тогда движемся дальше.
-        Видно, что метод getTotalAmount() считает то, что нам необходимо для операции INFO.
-        Поэтому пришло время небольшого рефакторинга.
-        !!Читайте паттерн Command.
-        Однако, перед рефакторингом нужно еще разобраться в одном вопросе. Но об этом не сейчас.*/
