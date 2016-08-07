@@ -10,29 +10,24 @@ import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationExce
 class ExitCommand implements Command
 {
     @Override
-    public void execute()
+    public void execute() throws InterruptOperationException
     {
         ConsoleHelper.writeMessage("Are you sure?");
-        while (true)
-        {
+
            String answer = ConsoleHelper.readString();
             if (answer.equals("y"))
             {
-                break;
+                ConsoleHelper.writeMessage("Say Goodye");
+            }
+            else if ("n".equals(answer))
+            {
+                CommandExecutor.execute(ConsoleHelper.askOperation());
             }
 
-            if (answer.equals("n"))
-            {
-
-            }
 
 
-           /* if (answer.toLowerCase().equals("exit"))
-            {
-                throw new InterruptOperationException();
-            }*/
 
-        }
+
     }
 
  /*   Задание 9

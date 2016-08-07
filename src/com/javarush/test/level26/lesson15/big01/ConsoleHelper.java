@@ -1,5 +1,7 @@
 package com.javarush.test.level26.lesson15.big01;
 
+import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,7 +18,7 @@ public class ConsoleHelper
         System.out.println(message);
     }
 
-    public static String readString()
+    public static String readString() throws InterruptOperationException
     {
         String readString = "";
         try
@@ -24,7 +26,20 @@ public class ConsoleHelper
             if (br==null)
                 br = new BufferedReader(new InputStreamReader(System.in));
 
-            readString = br.readLine();
+          //  try
+        //    {
+                readString = br.readLine();
+                if (readString.equalsIgnoreCase("exit"))
+                {
+                    throw new InterruptOperationException();
+                }
+          //  }
+          /*  catch (InterruptOperationException ie)
+            {
+
+            }*/
+
+
         }
         catch (IOException ie)
         {
@@ -33,7 +48,7 @@ public class ConsoleHelper
         return readString;
     }
 
-    public static String askCurrencyCode()
+    public static String askCurrencyCode() throws InterruptOperationException
     {
         writeMessage("Please enter currency");
         String currency = readString();
@@ -54,7 +69,7 @@ public class ConsoleHelper
         return currency;
     }
 
-    public static String[] getValidTwoDigits(String currencyCode)
+    public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException
     {
         String value_amount = "";
         String[] arr_amout = null;
@@ -85,7 +100,7 @@ public class ConsoleHelper
         return arr_amout;
     }
 
-    public static Operation askOperation()
+    public static Operation askOperation() throws InterruptOperationException
     {
         Operation op = null;
 
