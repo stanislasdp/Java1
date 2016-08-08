@@ -15,28 +15,42 @@ class WithdrawCommand implements Command
     public void execute() throws InterruptOperationException
     {
         String currency = ConsoleHelper.askCurrencyCode();
-        CurrencyManipulator currencyManipulator = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(currency);
+	        CurrencyManipulator currencyManipulator = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(currency);
 
-        String sum = "";
-        while (true)
-        {
-            ConsoleHelper.writeMessage("Enter amount");
-          sum = ConsoleHelper.readString();
+	        String sum = "";
+	        while (true)
+	        {
+	            ConsoleHelper.writeMessage("Enter amount");
+	          sum = ConsoleHelper.readString();
 
-           if (!sum.matches("\\d+")  )
-           {
-               ConsoleHelper.writeMessage("Incorrect data");
-               continue;
-           }
+	           if (!sum.matches("\\d+")  )
+	           {
+	               ConsoleHelper.writeMessage("Incorrect data");
+	               continue;
+	           }
 
-           if (currencyManipulator.isAmountAvailable(Integer.parseInt(sum)))
-           {
-               ConsoleHelper.writeMessage("Incorrect data");
-           }
-           else
-           {
-               break;
-           }
+	           if (currencyManipulator.isAmountAvailable(Integer.parseInt(sum)))
+	           {
+	               ConsoleHelper.writeMessage("Incorrect data");
+	               continue;
+	           }
+	           
+	           try
+	           {
+	        	   Map <Integer,Integer> withdrawmap = currencyManipulator.withdrawAmount(Integer.parseInt(sum));
+	        	   for (Map.Entry<Integer, Integer> pair : withdrawmap.entrySet()) 
+	        	   {
+					System.out.println(pair.getKey()+" "+pair.getValue());
+				}
+	        	   break;
+	           }
+	           catch (NotEnoughMoneyException ne)
+	           {
+	        	   ConsoleHelper.writeMessage("Not enough money");
+	           }
+	           
+	          
+	        }
         }
 
 
