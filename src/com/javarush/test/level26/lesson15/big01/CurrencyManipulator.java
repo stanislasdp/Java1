@@ -57,7 +57,31 @@ public class CurrencyManipulator
 
    public Map<Integer, Integer> withdrawAmount(int expectedAmount)
     {
-        return null;
+        int withdrawamount = expectedAmount;
+		   int countofcurbank = 0;
+		
+		   Map<Integer,Integer> copyofdenominations = new TreeMap<>(denominations);
+		  
+		   Map<Integer,Integer> resultMap = new TreeMap<Integer,Integer>();
+		   
+		   for (Map.Entry<Integer, Integer> pair : denominations.entrySet()) 
+		   {
+			   int denomination = pair.getKey();
+			   int banknotes = pair.getValue();
+			   
+			   while (banknotes>0 && (withdrawamount-denomination)>0)
+			   {
+				   withdrawamount -=denomination;
+				   pair.setValue(--banknotes);
+				   countofcurbank++;
+			   }
+			   
+			   if (countofcurbank > 0)
+			   {
+				   resultMap.put(denomination, countofcurbank);
+			   }
+		}
+		   return resultMap;
     }
 
 
