@@ -26,18 +26,12 @@ public class ConsoleHelper
             if (br==null)
                 br = new BufferedReader(new InputStreamReader(System.in));
 
-          //  try
-        //    {
+
                 readString = br.readLine();
                 if (readString.equalsIgnoreCase("exit"))
                 {
                     throw new InterruptOperationException();
                 }
-          //  }
-          /*  catch (InterruptOperationException ie)
-            {
-
-            }*/
 
 
         }

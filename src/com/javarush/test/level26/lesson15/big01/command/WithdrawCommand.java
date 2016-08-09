@@ -4,6 +4,9 @@ import com.javarush.test.level26.lesson15.big01.ConsoleHelper;
 import com.javarush.test.level26.lesson15.big01.CurrencyManipulator;
 import com.javarush.test.level26.lesson15.big01.CurrencyManipulatorFactory;
 import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationException;
+import com.javarush.test.level26.lesson15.big01.exception.NotEnoughMoneyException;
+
+import java.util.Map;
 
 /**
  * Created by stas on 8/7/16.
@@ -28,27 +31,28 @@ public class WithdrawCommand implements Command
 	               continue;
 	           }
 
-	           if (currencyManipulator.isAmountAvailable(Integer.parseInt(sum)))
+				if (Integer.parseInt(sum)<=0 )
+				{
+					ConsoleHelper.writeMessage("Incorrect data");
+					continue;
+				}
+
+	           if (!currencyManipulator.isAmountAvailable(Integer.parseInt(sum)))
 	           {
 	               ConsoleHelper.writeMessage("Incorrect data");
 	               continue;
 	           }
-	           
 	           try
 	           {
-	        	   Map <Integer,Integer> withdrawmap = currencyManipulator.withdrawAmount(Integer.parseInt(sum));
-	        	   for (Map.Entry<Integer, Integer> pair : withdrawmap.entrySet()) 
-	        	   {
-					System.out.println("\t"+pair.getKey()+" - "+pair.getValue());
-				    }
-	        	   break;
+	        	   currencyManipulator.withdrawAmount(Integer.parseInt(sum));
+
 	           }
 	           catch (NotEnoughMoneyException ne)
 	           {
 	        	   ConsoleHelper.writeMessage("Not enough money");
+
 	           }
-	           
-	          
+				break;
 	        }
 	}
 	
