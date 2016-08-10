@@ -1,4 +1,4 @@
-package command;
+package com.javarush.test.level26.lesson15.big01.command;
 
 import logic.ConsoleHelper;
 import exception.InterruptOperationException;
