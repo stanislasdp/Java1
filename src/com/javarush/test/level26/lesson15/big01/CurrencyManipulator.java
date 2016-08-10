@@ -79,16 +79,10 @@ public class CurrencyManipulator
 						pair.setValue(--banknotes);
 						countofcurbank++;
 					}
-
-					//	try
-					//{
 					if (banknotes==0)
 					{
 						denominations.remove(denomination);
 					}
-					//}
-
-
 					if (countofcurbank > 0)
 					{
 						resultMap.put(denomination, countofcurbank);
