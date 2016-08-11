@@ -1,5 +1,6 @@
 package com.javarush.test.level26.lesson15.big01.command;
 
+import com.javarush.test.level26.lesson15.big01.CashMachine;
 import com.javarush.test.level26.lesson15.big01.ConsoleHelper;
 import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationException;
 
@@ -11,60 +12,53 @@ import java.util.ResourceBundle;
  */
 public class LoginCommand implements Command
 {
-    private ResourceBundle resource = ResourceBundle.getBundle("resources.verifiedCards");
+    private ResourceBundle validCreditCards = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH+"verifiedCards");
+    private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH+"login_en");
 
 
     @Override
     public void execute() throws InterruptOperationException
     {
-        final String harcodednumber = "123456789012";
-        final String harcodedpin = "1234";
+        ConsoleHelper.writeMessage(res.getString("before"));
+        ConsoleHelper.writeMessage(res.getString("specify.data"));
+
+        String askcardnumber="";
 
         while(true)
         {
-            String askcardnumber= ConsoleHelper.readString();
+            askcardnumber= ConsoleHelper.readString();
             String askpin = ConsoleHelper.readString();
-
             if (!askcardnumber.matches("\\d+") || askcardnumber.length()!=12 || !askpin.matches("\\d+") || askpin.length()!=4 )
             {
-                ConsoleHelper.writeMessage("Incorrect card number");
+                ConsoleHelper.writeMessage(String.format(res.getString("try.again.with.details"),askcardnumber));
                 continue;
             }
 
-            Enumeration<String> keys = resource.getKeys();
-            while (keys.hasMoreElements())
+            if (validCreditCards.containsKey(askcardnumber) && askpin.equals(validCreditCards.getString(askcardnumber)))
             {
-                String cardnumber = keys.nextElement();
-                String pin =
-            }
-
-
-            if (!askcardnumber.equals(harcodednumber) || !askpin.equals(harcodedpin) )
-            {
-                ConsoleHelper.writeMessage("Entered data don't correspond valid values");
+               break;
             }
             else
             {
-                break;
+                ConsoleHelper.writeMessage(String.format(res.getString("not.verified.format"),askcardnumber));
+                ConsoleHelper.writeMessage(res.getString("try.again.or.exit"));
             }
+           ;
+
         }
-        System.out.println("Verification is successful");
+
+        ConsoleHelper.writeMessage(String.format(res.getString("success.format"),askcardnumber));
     }
 
 }
 
-/*Задание 12
-        В задании 11 мы захардкодили номер кредитной карточки с пином, с которыми разрешим работать нашему банкомату.
-        Но юзеров может быть много. Не будем же мы их всех хардкодить! Если понадобится добавить еще одного пользователя,
-        то придется передеплоить наше приложение. Есть решение этой проблемы.
+/*
++before=Logging in...
+     +   specify.data=Please specify your credit card number and pin code or type 'EXIT' for exiting.
+       + success.format=Credit card [%s] is verified successfully!
+      +  not.verified.format=Credit card [%s] is not verified.
+        try.again.or.exit=Please try again or type 'EXIT' for urgent exiting
+        try.again.with.details=Please specify valid credit card number - 12 digits, pin code - 4 digits.
+*/
 
-        Смотри, добавился новый пакет resources, в котором мы будем хранить наши ресурсные файлы.
-        В этом пакете есть файл verifiedCards.properties, в котором заданы карточки с пинами.
 
-        1. В LoginCommand добавь поле private ResourceBundle validCreditCards.
-        При объявлении инициализируй это поле данными из файла verifiedCards.properties.
-        Почитай в инете, как это делается для ResourceBundle.
-
-        2. Замени хардкоженные данные кредитной карточки и пина на проверку наличия данных в ресурсе verifiedCards.properties.
-
-        3. Добавь обработку команды LoginCommand в начало нашего main внутрь блока try-catch*/

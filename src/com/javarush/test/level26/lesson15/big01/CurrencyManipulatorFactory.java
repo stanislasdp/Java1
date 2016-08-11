@@ -36,12 +36,4 @@ public class CurrencyManipulatorFactory
         return currencyManipulators.values();
     }
 
- /*   2.1. В классе CurrencyManipulatorFactory создайте статический метод getAllCurrencyManipulators(), который вернет Collection всех манипуляторов.
-    У вас все манипуляторы хранятся в карте, не так ли? Если нет, то рефакторьте.
-    2.2. В InfoCommand в цикле выведите [код валюты - общая сумма денег для выбранной валюты]
-    Запустим прогу и пополним счет на EUR 100 2 и USD 20 6, и посмотрим на INFO.
-    Все работает правильно?
-    EUR - 200
-    USD - 120
-    Отлично!*/
 }

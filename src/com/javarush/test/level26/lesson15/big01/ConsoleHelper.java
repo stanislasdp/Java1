@@ -5,12 +5,16 @@ import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationExce
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ResourceBundle;
 
 /**
  * Created by stas on 8/6/16.
  */
 public class ConsoleHelper
 {
+   private static ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH+"common_en");
+
+
   static  BufferedReader br;
 
     public static void writeMessage(String message)
@@ -26,10 +30,10 @@ public class ConsoleHelper
             if (br==null)
                 br = new BufferedReader(new InputStreamReader(System.in));
 
-
                 readString = br.readLine();
                 if (readString.equalsIgnoreCase("exit"))
                 {
+                   ConsoleHelper.writeMessage(res.getString("the.end"));
                     throw new InterruptOperationException();
                 }
 
@@ -44,7 +48,7 @@ public class ConsoleHelper
 
     public static String askCurrencyCode() throws InterruptOperationException
     {
-        writeMessage("Please enter currency");
+        ConsoleHelper.writeMessage(res.getString("choose.currency.code"));
         String currency = readString();
 
         while (true)
@@ -55,7 +59,7 @@ public class ConsoleHelper
             }
             else
             {
-                writeMessage("Incorrect data");
+                ConsoleHelper.writeMessage(res.getString("invalid.data"));
                 currency = readString();
             }
             currency = currency.toUpperCase();
@@ -69,22 +73,22 @@ public class ConsoleHelper
         String[] arr_amout = null;
         while (true)
         {
-            writeMessage("enter two integers");
+            ConsoleHelper.writeMessage(String.format(res.getString("choose.denomination.and.count.format"),currencyCode));
             value_amount = readString();
             arr_amout = value_amount.split(" ");
             if (arr_amout.length != 2)
             {
-                writeMessage("Data is incorrect");
+                ConsoleHelper.writeMessage(res.getString("invalid.data"));
                 continue;
             }
             if (!arr_amout[0].matches("-?\\d+") || !arr_amout[1].matches("-?\\d+"))
             {
-                writeMessage("Data is incorrect");;
+                ConsoleHelper.writeMessage(res.getString("invalid.data"));;
                 continue;
             }
             if (Integer.parseInt(arr_amout[0]) <= 0 || Integer.parseInt(arr_amout[1]) <= 0)
             {
-                writeMessage("Data is incorrect");
+                ConsoleHelper.writeMessage(res.getString("invalid.data"));
             }
             else
             {
@@ -96,15 +100,21 @@ public class ConsoleHelper
 
     public static Operation askOperation() throws InterruptOperationException
     {
+
+
         Operation op = null;
 
         while (op==null)
         {
-            writeMessage("Enter operation");
+            ConsoleHelper.writeMessage(res.getString("choose.operation"));
+            ConsoleHelper.writeMessage(res.getString("operation.INFO")+" 1");
+            ConsoleHelper.writeMessage(res.getString("operation.DEPOSIT")+" 2");
+            ConsoleHelper.writeMessage(res.getString("operation.WITHDRAW")+" 3");
+            ConsoleHelper.writeMessage(res.getString("operation.EXIT")+" 4");
             String oper_number = readString();
             if (!String.valueOf(oper_number).matches("\\d+"))
             {
-                writeMessage("incorrect data");
+                ConsoleHelper.writeMessage(res.getString("invalid.data"));
                 continue;
             }
             try
@@ -113,9 +123,19 @@ public class ConsoleHelper
             }
             catch (IllegalArgumentException ie)
             {
-                writeMessage("incorrect data");
+                ConsoleHelper.writeMessage(res.getString("invalid.data"));
             }
         }
         return op;
     }
 }
+
+/*
+the.end=Terminated. Thank you for visiting JavaRush cash machine. Good luck.
+        operation.INFO=INFO
+        operation.DEPOSIT=DEPOSIT
+        operation.WITHDRAW=WITHDRAW
+        operation.EXIT=EXIT
+        invalid.data=Please specify valid data.
+
+*/
