@@ -27,9 +27,12 @@ public class Solution {
         }
     }
 
-    public static boolean isNormalLockOrder(final Solution solution, final Object o1, final Object o2) throws Exception {
-        //do something here
-        return false;
+    public static boolean isNormalLockOrder(final Solution solution, final Object o1, final Object o2) throws Exception
+    {//how it works????????
+        int first = o1.hashCode();
+        int second = o2.hashCode();
+         return  first>second;
+
     }
 
     public static void main(String[] args) throws Exception {
