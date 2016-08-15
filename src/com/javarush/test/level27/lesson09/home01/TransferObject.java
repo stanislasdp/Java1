@@ -13,7 +13,7 @@ public class TransferObject
     		 isValuePresent = false;
     	}
        
-        this.notify();
+         this.notifyAll();
         return value;
     }
 
