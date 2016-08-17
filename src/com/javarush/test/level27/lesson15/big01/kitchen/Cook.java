@@ -10,6 +10,7 @@ import java.util.Observer;
  */
 public class Cook implements Observer
 {
+
     String name;
 
     public Cook(String name)

@@ -16,6 +16,7 @@ public class ConsoleHelper
 {
    private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+
    public static void writeMessage(String message)
     {
         System.out.println(message);

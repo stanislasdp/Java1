@@ -9,6 +9,7 @@ public enum Dish
 
     public static String allDishesToString()
     {
+
         if (values().length==0)
         {
             return "";

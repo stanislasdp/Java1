@@ -26,6 +26,7 @@ public class Tablet extends Observable
     {
         try
         {
+
             Order order = new Order(this);
             ConsoleHelper.writeMessage(order.toString());
             this.setChanged();
