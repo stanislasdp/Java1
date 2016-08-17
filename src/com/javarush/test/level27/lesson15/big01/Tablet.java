@@ -9,34 +9,36 @@ import java.util.logging.Logger;
 /**
  * Created by stas on 8/15/16.
  */
-public class Tablet
+public class Tablet extends Observable
 {
-    private static final Logger LOGGER = Logger.getLogger(Tablet.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(Tablet.class.getName());
 
-   public final int number;
+	public final int number;
 
-    public Tablet(int number)
-    {
-        this.number = number;
-    }
+	public Tablet(int number)
+	{
+		this.number = number;
+	}
 
-    public void createOrder()
-    {
-        try
-        {
-            ConsoleHelper.writeMessage(new Order(this).toString());
-        }
-        catch (IOException ie)
-        {
-            LOGGER.log(Level.SEVERE,"Console is unavailable.");
-        }
+	public void createOrder()
+	{
+		try
+		{
+			Order order = new Order(this);
+			ConsoleHelper.writeMessage(order.toString());
+			this.setChanged();
+			this.notifyObservers(order);
+			
+		}
+		catch (IOException ie)
+		{
+			LOGGER.log(Level.SEVERE,"Console is unavailable.");
+		}
+	}
 
-
-    }
-
-    @Override
-    public String toString()
-    {
-     return String.format("Tablet{number=%d}",number);
-    }
+	@Override
+	public String toString()
+	{
+		return String.format("Tablet{number=%d}",number);
+	}
 }
