@@ -1,5 +1,6 @@
 package com.javarush.test.level27.lesson15.big01;
 
+import com.javarush.test.level27.lesson15.big01.ad.AdvertisementManager;
 import com.javarush.test.level27.lesson15.big01.kitchen.Order;
 
 import java.io.IOException;
@@ -27,8 +28,14 @@ public class Tablet extends Observable
 		{
 			Order order = new Order(this);
 			ConsoleHelper.writeMessage(order.toString());
-			this.setChanged();
-			this.notifyObservers(order);
+
+			if (!order.isEmpty())
+			{
+				AdvertisementManager manager = new AdvertisementManager(order.getTotalCookingTime());
+				this.setChanged();
+				this.notifyObservers(order);
+			}
+
 			
 		}
 		catch (IOException ie)

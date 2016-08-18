@@ -1,9 +1,10 @@
-package kitchen;
+package com.javarush.test.level27.lesson15.big01.kitchen;
+
+import com.javarush.test.level27.lesson15.big01.ConsoleHelper;
 
 import java.util.Observable;
 import java.util.Observer;
 
-import main.ConsoleHelper;
 
 public class Waitor implements Observer
 {

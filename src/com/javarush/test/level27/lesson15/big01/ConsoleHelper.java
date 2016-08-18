@@ -29,20 +29,28 @@ public class ConsoleHelper
     }
 
 
-
       public static List<Dish> getAllDishesForOrder() throws IOException
      {
          List<Dish> dishes =  new ArrayList<>();
          writeMessage(Dish.allDishesToString());
+         writeMessage("Enter dish");
          while (true)
          {
-             writeMessage("Enter dish");
              String dish = readString();
              if (dish.equalsIgnoreCase("exit"))
              {
                  break;
              }
-             dishes.add(Dish.valueOf(dish));
+             try
+             {
+                 dishes.add(Dish.valueOf(dish));
+             }
+             catch (IllegalArgumentException ie)
+             {
+                 ConsoleHelper.writeMessage(dish+" is not detected");
+
+             }
+
          }
          return dishes;
      }
