@@ -8,24 +8,26 @@ import java.util.Observer;
 /**
  * Created by stas on 8/17/16.
  */
-public class Cook implements Observer
+public class Cook extends Observable implements Observer
 {
-    String name;
+	String name;
 
-    public Cook(String name)
-    {
-        this.name = name;
-    }
+	public Cook(String name)
+	{
+		this.name = name;
+	}
+	
+	@Override
+	public String toString() 
+	{
+		return name;
+	}
 
-    @Override
-    public String toString()
-    {
-        return name;
-    }
-
-    @Override
-    public void update(Observable o, Object arg)
-    {
-        ConsoleHelper.writeMessage("Start cooking - "+arg);
-    }
+	@Override
+	public void update(Observable o, Object arg) 
+	{
+		ConsoleHelper.writeMessage("Start cooking - "+arg);
+		this.setChanged();
+		this.notifyObservers(arg);
+	}
 }
