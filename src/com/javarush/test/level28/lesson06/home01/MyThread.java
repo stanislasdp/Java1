@@ -1,6 +1,6 @@
-package lesson06;
+package com.javarush.test.level28.lesson06.home01;
 
-public class MyThread extends Thread 
+public class MyThread extends Thread
 {
 	static int threadPriority = 0;
 

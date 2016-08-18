@@ -22,7 +22,6 @@ public class Solution {
             final int id =i;
             Thread th = new Thread(new Runnable()
             {
-
                 @Override
                 public void run()
                 {
