@@ -42,7 +42,21 @@ public class Solution {
 */
     }
 
-    public static Callable<String> getTask(final int i) {
-        return null;
+    public static Callable<String> getTask(final int i) 
+    {
+       Callable<String> callable = new Callable<String>() 	
+	    		{
+				@Override
+				public String call() throws Exception 
+				{ 
+					BigInteger bigInt = BigInteger.valueOf(0);
+					for (int j = 1; j <= i; j++) 
+					{
+						bigInt=bigInt.add(BigInteger.valueOf(j));
+					}
+					return bigInt.toString();
+				}
+			};
+	        return callable;
     }
 }
