@@ -8,67 +8,35 @@ import java.util.List;
  */
  class AdvertisementStorage
 {
-    private final AdvertisementStorage storage = AdvertisementStorage.getInstance();
-	private int timeSeconds;
+    private final List<Advertisement> videos = new ArrayList<>();
+	  private static AdvertisementStorage ourInstance;
+	    private AdvertisementStorage()
+	    {
+	        Object someContent = new Object();
+	        add(new Advertisement(someContent, "First Video", 5000, 100, 3 * 60));
+	        add(new Advertisement(someContent, "Second Video", 100, 10, 15 * 60));
+	        add(new Advertisement(someContent, "Third Video", 400, 2, 10 * 60));
+	        add(new Advertisement(someContent, "Fourth Video", 400, 2, 15 * 60));	        
+	    }
 
-	public AdvertisementManager(int timeSeconds)
-	{
-		this.timeSeconds = timeSeconds;
-	}
+	   static AdvertisementStorage getInstance()
+	    {
+	        if (ourInstance==null)
+	        {
+	            ourInstance = new AdvertisementStorage();
+	        }
+	        return ourInstance;
+	    }
 
-	public void processVideos() 
-	{
-		List<Advertisement> adStorage = storage.list();
-		List<Advertisement> storageforDisplay = new ArrayList<Advertisement>();
-		int lastseconds = timeSeconds;
+	   List<Advertisement> list()
+	    {
+	        return videos;
+	    }
 
-		Collections.sort(adStorage, new Comparator<Advertisement>() 
-				{
-			@Override
-			public int compare(Advertisement o1, Advertisement o2) {
-				
-				return Long.compare(o1.getAmountPerOneDisplaying(), o2.getAmountPerOneDisplaying());
-			}
-				});
-
-
-		for (Advertisement advertisement : adStorage) 
-		{
-			if (advertisement.getDuration()<=lastseconds)
-			{
-				storageforDisplay.add(advertisement);
-				lastseconds -= advertisement.getDuration();
-			}
-		}
-
-		if (storageforDisplay.isEmpty())
-		{
-			throw new NoVideoAvailableException();
-		}
-
-		Collections.sort(storageforDisplay, new Comparator<Advertisement>() 
-				{
-			@Override
-			public int compare(Advertisement o1, Advertisement o2) 
-			{
-				int flag = Long.compare(o2.getAmountPerOneDisplaying(), o1.getAmountPerOneDisplaying());
-				if (flag!=0)
-					return flag;
-				flag = Long.compare(o1.getAmountPerOneDisplaying()*1000/o1.getDuration(), o1.getAmountPerOneDisplaying()*1000/o2.getDuration());
-				return flag;
-			}
-				});
-
-		for (Advertisement advertisement : storageforDisplay) 
-		{
-			ConsoleHelper.writeMessage(String.format("%s is displaying... %d, %d", 
-					advertisement.getName(),
-					advertisement.getAmountPerOneDisplaying(),
-					advertisement.getAmountPerOneDisplaying()*1000/advertisement.getDuration()
-					));	
-			        advertisement.revalidate();
-		}
-	}
+	  void add(Advertisement advertisement)
+	    {
+	        videos.add(advertisement);
+	    }
 
 
 }
