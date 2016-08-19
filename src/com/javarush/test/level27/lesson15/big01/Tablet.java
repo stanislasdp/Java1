@@ -13,6 +13,7 @@ import java.util.logging.Logger;
  */
 public class Tablet extends Observable
 {
+	
 	private static final Logger LOGGER = Logger.getLogger(Tablet.class.getName());
 
 	public final int number;
@@ -24,23 +25,26 @@ public class Tablet extends Observable
 
 	public void createOrder()
 	{
+		Order order = null;
 		try
 		{
-			Order order = new Order(this);
+			order = new Order(this);
 			ConsoleHelper.writeMessage(order.toString());
 
 			if (!order.isEmpty())
 			{
-				AdvertisementManager manager = new AdvertisementManager(order.getTotalCookingTime());
+				new AdvertisementManager(order.getTotalCookingTime()*60).processVideos();
 				this.setChanged();
 				this.notifyObservers(order);
 			}
-
-			
 		}
 		catch (IOException ie)
 		{
 			LOGGER.log(Level.SEVERE,"Console is unavailable.");
+		}
+		catch (NoVideoAvailableException ve) 
+		{
+			LOGGER.log(Level.INFO,"No video is available for the order "+ order);
 		}
 	}
 
