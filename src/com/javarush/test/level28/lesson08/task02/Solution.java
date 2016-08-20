@@ -19,12 +19,13 @@ import java.util.concurrent.TimeUnit;
 7. Дай экзэкьютору 5 секунд на завершение всех тасок (метод awaitTermination и параметр TimeUnit.SECONDS)
 Не должно быть комментариев кроме приведенного output example
 */
-public class Solution {
+public class Solution
+{
     public static void main(String[] args) throws InterruptedException
     {
         LinkedBlockingQueue<Runnable> lnkBlcQueu = new LinkedBlockingQueue<Runnable>();
 
-        for (int i = 1; i <=10; i++)
+        for (int i = 1; i <= 10; i++)
         {
             final int id = i;
             lnkBlcQueu.add(new Runnable()
@@ -36,7 +37,7 @@ public class Solution {
                 }
             });
         }
-        ThreadPoolExecutor exec = new ThreadPoolExecutor(3, 5, 1000, TimeUnit.SECONDS, lnkBlcQueu);
+        ThreadPoolExecutor exec = new ThreadPoolExecutor(3, 5, 30, TimeUnit.MILLISECONDS, lnkBlcQueu);
         exec.prestartAllCoreThreads();
         exec.shutdown();
         exec.awaitTermination(5, TimeUnit.SECONDS);
