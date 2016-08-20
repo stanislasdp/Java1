@@ -31,8 +31,7 @@ public class Solution {
     private static boolean isEveryoneReady = false;
 
     private static void start(List<Character> characters) throws InterruptedException {
-        final Phaser phaser = new Phaser(1 + characters.size());
-
+        final Phaser phaser = new Phaser(1 + characters.size());//количество участников в конструкторе
         for (final Character character : characters) {
             final String member = character.toString();
             System.out.println(member + " присоединился к игре");
@@ -40,6 +39,7 @@ public class Solution {
                 @Override
                 public void run() {
                     System.out.println(member + " готовится играть");
+                    phaser.arriveAndAwaitAdvance();
                     if (!isEveryoneReady) {
                         isEveryoneReady = true;
                         System.out.println("Игра началась!");
@@ -48,5 +48,6 @@ public class Solution {
                 }
             }.start();
         }
+        phaser.arriveAndDeregister();
     }
 }
