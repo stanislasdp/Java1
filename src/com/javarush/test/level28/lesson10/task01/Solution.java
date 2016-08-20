@@ -10,8 +10,10 @@ import java.util.concurrent.*;
 Объект Callable должен вычислять сумму всех чисел от 1 до переданного числа i включая его, и возвращать его в виде строки
 Метод main не участвует в тестировании
 */
-public class Solution {
-    public static void main(String[] args) throws InterruptedException, ExecutionException {
+public class Solution
+{
+    public static void main(String[] args) throws InterruptedException, ExecutionException
+    {
         List<Future<String>> futures = new ArrayList<>();
         ExecutorService executor = Executors.newFixedThreadPool(5);
         for (int i = 1000; i <= 1010; i++) {
