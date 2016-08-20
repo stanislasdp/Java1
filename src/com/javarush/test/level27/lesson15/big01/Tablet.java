@@ -1,6 +1,7 @@
 package com.javarush.test.level27.lesson15.big01;
 
 import com.javarush.test.level27.lesson15.big01.ad.AdvertisementManager;
+import com.javarush.test.level27.lesson15.big01.ad.NoVideoAvailableException;
 import com.javarush.test.level27.lesson15.big01.kitchen.Order;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
 public class Tablet extends Observable
 {
 	
-	private static final Logger LOGGER = Logger.getLogger(Tablet.class.getName());
+	private static final Logger logger = Logger.getLogger(Tablet.class.getName());
 
 	public final int number;
 
@@ -40,11 +41,11 @@ public class Tablet extends Observable
 		}
 		catch (IOException ie)
 		{
-			LOGGER.log(Level.SEVERE,"Console is unavailable.");
+			logger.log(Level.SEVERE,"Console is unavailable.");
 		}
-		catch (NoVideoAvailableException ve) 
+		catch (NoVideoAvailableException ve)
 		{
-			LOGGER.log(Level.INFO,"No video is available for the order "+ order);
+			logger.log(Level.INFO,"No video is available for the order "+ order);
 		}
 	}
 

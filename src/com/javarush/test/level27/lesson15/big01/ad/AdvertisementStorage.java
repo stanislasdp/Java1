@@ -16,10 +16,11 @@ import java.util.List;
 	        add(new Advertisement(someContent, "First Video", 5000, 100, 3 * 60));
 	        add(new Advertisement(someContent, "Second Video", 100, 10, 15 * 60));
 	        add(new Advertisement(someContent, "Third Video", 400, 2, 10 * 60));
-	        add(new Advertisement(someContent, "Fourth Video", 400, 2, 15 * 60));	        
+	        add(new Advertisement(someContent, "Fourth Video", 400, 2, 15 * 60));
+			add(new Advertisement(someContent, "Fifth Video", 400, 2, 15 * 59));
 	    }
 
-	   static AdvertisementStorage getInstance()
+	 public   static AdvertisementStorage getInstance()
 	    {
 	        if (ourInstance==null)
 	        {
@@ -28,7 +29,7 @@ import java.util.List;
 	        return ourInstance;
 	    }
 
-	   List<Advertisement> list()
+	  public List<Advertisement> list()
 	    {
 	        return videos;
 	    }
