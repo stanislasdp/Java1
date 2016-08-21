@@ -25,8 +25,6 @@ public class Provider
 
    public List<Vacancy> getJavaVacancies(String searchString)
     {
-        List<Vacancy> vacancies = new ArrayList<>();
-
-        return null;
+       return strategy.getVacancies(searchString);
     }
 }
