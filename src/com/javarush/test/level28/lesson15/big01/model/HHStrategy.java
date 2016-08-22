@@ -3,8 +3,11 @@ package com.javarush.test.level28.lesson15.big01.model;
 import com.javarush.test.level28.lesson15.big01.vo.Vacancy;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,31 +15,27 @@ import java.util.List;
  */
 public class HHStrategy implements Strategy
 {
-   // private static final String URL_FORMAT = "http://hh.ua/search/vacancy?text=java+%s&page=%d";
-    private static final String URL_FORMAT = "http://javarush.ru/testdata/big28data.html";
-    private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String REFFERER = "https://hh.ua/search/vacancy?text=java+%D0%BA%D0%B8%D0%B5%D0%B2";
+  //  private static final String URL_FORMAT = "http://hh.ua/search/vacancy?text=java+%s&page=%d";
+    private static final String URL_FORMAT = "http://javarush.ru/testdata/big28data.html/search/vacancy?text=java+%s&page=%d";
+
 
     @Override
     public List<Vacancy> getVacancies(String searchString)
     {
-        try
-        {
-          Document  document = Jsoup.connect(URL_FORMAT).userAgent(USER_AGENT).referrer("google.ru").get();
+        ArrayList<Vacancy> vacancies = new ArrayList<>();
 
-
-        }
-        catch (IOException ie)
-        {
-
-        }
 
         return null;
     }
 
   protected  Document getDocument(String searchString, int page) throws IOException
     {
-      return null;
+        String USER_AGENT = "Mozilla/5.0";
+        String Url = String.format(URL_FORMAT,searchString,page);
+        String REFFERER = "https://hh.ua/search/vacancy?text=java+%D0%BA%D0%B8%D0%B5%D0%B2";
+        Document document = Jsoup.connect(URL_FORMAT).userAgent(USER_AGENT).referrer("google.ru").get();
+
+      return document;
     }
 
       /* Задание 8
