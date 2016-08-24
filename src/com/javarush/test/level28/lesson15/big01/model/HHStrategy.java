@@ -15,27 +15,56 @@ import java.util.List;
  */
 public class HHStrategy implements Strategy
 {
-  //  private static final String URL_FORMAT = "http://hh.ua/search/vacancy?text=java+%s&page=%d";
-    private static final String URL_FORMAT = "http://javarush.ru/testdata/big28data.html/search/vacancy?text=java+%s&page=%d";
+    private static final String URL_FORMAT = "http://hh.ua/search/vacancy?text=java+%s&page=%d";
+  //  private static final String URL_FORMAT = "http://javarush.ru/testdata/big28data.html/search/vacancy?text=java+%s&page=%d";
 
 
     @Override
     public List<Vacancy> getVacancies(String searchString)
     {
         ArrayList<Vacancy> vacancies = new ArrayList<>();
+        try
+        {
+            int page = 0;
 
+            while (true)
+            {
+                Document document = getDocument(searchString,page++);
+                Elements elements = document.getElementsByAttributeValue("data-qa","vacancy-serp__vacancy");
+                if (elements.size()==0)
+                {
+                    break;
+                }
 
-        return null;
+                for (Element element: elements)
+                {
+                    Vacancy vacancy = new Vacancy();
+                    vacancy.setTitle(element.getElementsByAttributeValue("data-qa","vacancy-serp__vacancy-title").text());
+                    String salary =   element.getElementsByAttributeValue("data-qa","vacancy-serp__vacancy-compensation").text();
+                    vacancy.setSalary(salary!=null?salary:"");
+                    vacancy.setCity(element.getElementsByAttributeValue("data-qa","vacancy-serp__vacancy-address").text());
+                    vacancy.setCompanyName(element.getElementsByAttributeValue("data-qa","vacancy-serp__vacancy-employer").text());
+                    vacancy.setUrl(element.getElementsByAttributeValue("data-qa","vacancy-serp__vacancy-title").attr("href"));
+                    vacancy.setSiteName("http://hh.ua");
+                    vacancies.add(vacancy);
+                }
+            }
+
+        }
+        catch (IOException io)
+        {
+            io.printStackTrace();
+        }
+
+        return vacancies;
     }
 
   protected  Document getDocument(String searchString, int page) throws IOException
     {
-        String USER_AGENT = "Mozilla/5.0";
+        String USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:48.0) Gecko/20100101 Firefox/48.0";
         String Url = String.format(URL_FORMAT,searchString,page);
         String REFFERER = "https://hh.ua/search/vacancy?text=java+%D0%BA%D0%B8%D0%B5%D0%B2";
-        Document document = Jsoup.connect(URL_FORMAT).userAgent(USER_AGENT).referrer("google.ru").get();
-
-      return document;
+        return Jsoup.connect(Url).userAgent(USER_AGENT).referrer("google.ru").get();
     }
 
       /* Задание 8
