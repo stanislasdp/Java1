@@ -15,6 +15,8 @@ public class HtmlView implements View
     private final String filePath = "./src/" + this.getClass().getPackage().getName().replace('.', '/') + "/vacancies.html";
 
 
+
+
     @Override
     public void update(List<Vacancy> vacancies)
     {
