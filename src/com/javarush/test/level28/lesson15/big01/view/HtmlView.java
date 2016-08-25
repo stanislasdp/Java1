@@ -12,7 +12,7 @@ import java.util.List;
 public class HtmlView implements View
 {
     Controller controller;
-    private String filePath = "./src/" +this.getClass().getPackage().getName()+ File.separator + "vacancies.html";
+   private String filePath = "." +File.separator+"src"+File.separator +this.getClass().getPackage().getName()+ File.separator + "vacancies.html";
 //            Задание 13
 //
 //    Смотри, в пакете view появились два новых файла:
