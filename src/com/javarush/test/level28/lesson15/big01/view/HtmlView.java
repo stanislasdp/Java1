@@ -48,9 +48,20 @@ public class HtmlView implements View
     }
 
 
-   public void updateFile(String string)
-    {
-
-    }
+    public void updateFile(String string)
+	    {
+		   try
+		   {
+			   FileWriter fileWriter = new FileWriter(new File(filePath));
+			   fileWriter.write(string);
+			   fileWriter.flush();
+			   fileWriter.close();
+		   }
+		   catch (IOException ie)
+		   {
+			   ie.printStackTrace();
+		   }
+		   	
+	    }
 
 }
