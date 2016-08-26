@@ -11,57 +11,79 @@ import java.util.List;
  */
 public class HtmlView implements View
 {
-  private Controller controller;
-    private final String filePath = "./src/" + this.getClass().getPackage().getName().replace('.', '/') + "/vacancies.html";
+  pprivate Controller controller;
+	private final String filePath = "./src/" + this.getClass().getPackage().getName().replace('.', '/') + "/vacancies.html";
 
 
+	@Override
+	public void update(List<Vacancy> vacancies)
+	{
+		try
+		{
+			updateFile(getUpdatedFileContent(vacancies));
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void setController(Controller controller)
+	{
+		this.controller = controller;
+	}
 
 
-    @Override
-    public void update(List<Vacancy> vacancies)
-    {
-        try
-        {
-            updateFile(getUpdatedFileContent(vacancies));
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-}
+	public void userCitySelectEmulationMethod()
+	{
+		controller.onCitySelect("Odessa");
+	}
 
-    @Override
-    public void setController(Controller controller)
-    {
-        this.controller = controller;
-    }
-
-
-   public void userCitySelectEmulationMethod()
-   {
-       controller.onCitySelect("Odessa");
-   }
-
-   public String getUpdatedFileContent(List<Vacancy> vacancies)
-    {
-        return null;
-    }
+	public String getUpdatedFileContent(List<Vacancy> vacancies)
+	{
+		try
+		{
+			Document document = getDocument();
+			//System.out.println(document.text());
+			Element element = document.select(".vacancy template").first();
+			System.out.println(element.text());
+		}
+		catch (IOException ie)
+		{
+			ie.printStackTrace();
+		}
+		;
+		return null;
+	}
 
 
-    public void updateFile(String string)
-	    {
-		   try
-		   {
-			   FileWriter fileWriter = new FileWriter(new File(filePath));
-			   fileWriter.write(string);
-			   fileWriter.flush();
-			   fileWriter.close();
-		   }
-		   catch (IOException ie)
-		   {
-			   ie.printStackTrace();
-		   }
-		   	
-	    }
+	public void updateFile(String string)
+	{
+		try
+		{
+			FileWriter fileWriter = new FileWriter(new File(filePath));
+			fileWriter.write(string);
+			fileWriter.flush();
+			fileWriter.close();
+		}
+		catch (IOException ie)
+		{
+			ie.printStackTrace();
+		}
+
+	}
+
+	Document getDocument() throws IOException
+	{
+		BufferedReader br = new BufferedReader(new FileReader(filePath));
+		StringBuffer sb = new StringBuffer();
+		while (br.ready())
+		{
+			sb.append(br.readLine());
+		}
+		br.close();
+		return Jsoup.parse(sb.toString());
+	}
 
 }
