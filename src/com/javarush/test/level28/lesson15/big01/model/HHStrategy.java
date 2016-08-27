@@ -30,6 +30,8 @@ public class HHStrategy implements Strategy
             while (true)
             {
                 Document document = getDocument(searchString,page++);
+                if (document==null)
+                    break;
                 Elements elements = document.getElementsByAttributeValue("data-qa","vacancy-serp__vacancy");
                 if (elements.size()==0)
                 {
@@ -63,7 +65,6 @@ public class HHStrategy implements Strategy
     {
         String USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:48.0) Gecko/20100101 Firefox/48.0";
         String Url = String.format(URL_FORMAT,searchString,page);
-        String REFFERER = "https://hh.ua/search/vacancy?text=java+%D0%BA%D0%B8%D0%B5%D0%B2";
         return Jsoup.connect(Url).userAgent(USER_AGENT).referrer("google.ru").get();
     }
 
