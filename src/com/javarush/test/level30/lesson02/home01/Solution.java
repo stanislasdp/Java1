@@ -16,6 +16,7 @@ public class Solution {
 
     public static Number convertNumberToOtherNumerationSystem(Number number, NumerationSystem expectedNumerationSystem) {
 
-        return null;
+        BigInteger tstBig = new BigInteger(number.getDigit(),number.getNumerationSystem().getNumerationSystemIntValue());
+		return new Number(expectedNumerationSystem, tstBig.toString(expectedNumerationSystem.getNumerationSystemIntValue()));
     }
 }
