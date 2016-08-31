@@ -1,5 +1,7 @@
 package com.javarush.test.level30.lesson06.home01;
 
+import java.util.concurrent.ForkJoinPool;
+
 /* Fork/Join
 1. Создайте класс BinaryRepresentationTask. Для этого на красном имени класса нажмите Alt+Enter -> Create Class ...
 (класс должен наследоваться от RecursiveTask)
