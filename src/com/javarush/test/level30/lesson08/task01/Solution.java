@@ -14,7 +14,14 @@ public class Solution {
         System.out.println(maxPowerOf2(17));        //16
     }
 
-    public static int maxPowerOf2(int x) {
-        return x;
+    public static int maxPowerOf2(int x)
+    {
+        int t =1 <<30;
+
+        while (x<t)
+        {
+            t>>=1;
+        }
+        return t;
     }
 }
