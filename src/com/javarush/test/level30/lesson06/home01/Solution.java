@@ -29,5 +29,28 @@ public class Solution {
         String result2 = forkJoinPool.invoke(new BinaryRepresentationTask(6));
         System.out.println(result2);
     }
+    
+    public static class BinaryRepresentationTask extends RecursiveTask<String>
+{
+	final int x;
+	public BinaryRepresentationTask(int x) 
+	{
+		this.x = x;
+	}
+
+	@Override
+	protected String compute() 
+	{
+		int a = x % 2;
+		int b = x / 2;
+		String result = String.valueOf(a);
+		if (b > 0)
+		{  
+			BinaryRepresentationTask binRepTask = new BinaryRepresentationTask(b);
+			binRepTask.fork();
+			return binRepTask.join() + result;
+		}
+		return result;	
+	}
 
 }
