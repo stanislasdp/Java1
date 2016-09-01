@@ -26,13 +26,55 @@ public class Server
 	}
 	
 	private static class Handler extends Thread
+	//class Handler implements a protocol with client
 	{
 		private Socket socket;
-		
 		
 		Handler(Socket socket)
 		{
 			this.socket = socket;
+		}
+		
+		private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException
+		{
+			String receivedName = null;
+			while(true)
+			{
+				connection.send(new Message(MessageType.NAME_REQUEST));
+				//request user name from client
+				
+				Message receivedMessage = connection.receive();
+				// get the message from cilent
+				
+				if (receivedMessage.getType()!=MessageType.USER_NAME)
+				{
+					continue;
+					//check whether received message is user name message type
+				}
+				
+				receivedName = connection.receive().getData();
+				//get user name
+				if (receivedName == null || receivedName.isEmpty())
+				{
+					continue;
+					//check whether received name is not null or empty
+				}
+				
+				if (connectionMap.containsKey(receivedName))
+				{
+					continue;
+					//check whether map with connections contains received name
+				}
+				
+				connectionMap.put(receivedName, connection);
+				//put the user to connection map
+				connection.send(new Message(MessageType.NAME_ACCEPTED) );
+				break;
+				//send message to the client that user name is accepted
+			}
+			return receivedName;
+			
+			
 		}
 		
 		@Override
@@ -60,5 +102,5 @@ public class Server
 			ConsoleHelper.writeMessage("Some socket occured");
 		}
 		
-		}				
+		}						
 }
