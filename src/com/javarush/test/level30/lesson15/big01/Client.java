@@ -1,28 +1,38 @@
 package level30_chat.client;
 
-public class Client 
+import java.io.IOException;
+
+import level30_chat.Connection;
+import level30_chat.ConsoleHelper;
+import level30_chat.Message;
+import level30_chat.MessageType;
+
+public class Client//12.2 
 {
-  private volatile boolean clientConnected = false;
+	private volatile boolean clientConnected = false;//12.4
 	protected Connection connection;
 	
 	
-	protected String getServerAddress()
+	protected String getServerAddress()//13.1
 	{
-		
+		ConsoleHelper.writeMessage("Enter server address");
+		return ConsoleHelper.readString();
 	}
 	
-	protected int getServerPort()
+	protected int getServerPort()//13.2
 	{
-		
+		ConsoleHelper.writeMessage("Enter server port");
+		return ConsoleHelper.readInt();
 	}
 	
-	protected String getUserName()
+	protected String getUserName()//13.3
 	{
-		
+		ConsoleHelper.writeMessage("Enter user name");
+		return ConsoleHelper.readString();
 	}
 	
 	
-	protected boolean shouldSentTextFromConsole()
+	protected boolean shouldSentTextFromConsole()//13.4
 	{
 		return true;
 	}
@@ -32,13 +42,19 @@ public class Client
 		return new SocketThread();//13.5
 	}
 	
-	protected void sendTextMessage(String text)
+	protected void sendTextMessage(String text)//13.6
 	{
-		Message newMessage = new Message(MessageType.TEXT, text);
-		getSocketThread().connection.send(newMessage);
+		try
+		{
+			Message newMessage = new Message(MessageType.TEXT, text);
+			connection.send(newMessage);
+		}
+		catch (IOException ie)
+		{
+			ConsoleHelper.writeMessage(String.format("Impossible to send %s message", text));
+			clientConnected = false;
+		}
 	}
-	
-	
 	
 	
 	
