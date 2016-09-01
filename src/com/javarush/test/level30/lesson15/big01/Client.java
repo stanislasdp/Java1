@@ -107,10 +107,29 @@ private volatile boolean clientConnected = false;//12.4
 		client.run();
 	}
 
-
+        //SocketThead reads messages from server
 		public class SocketThread extends Thread//12.3
 		{
-
+          protected void processIncomingMessage(String message)//15.1
+          {
+        	  ConsoleHelper.writeMessage(message);
+          }
+          
+          protected void informAboutAddingNewUser(String userName)//15.2
+          {
+        	  ConsoleHelper.writeMessage(String.format("User %s joined to chat", userName));
+          }
+          
+          protected void informAboutDeletingNewUser(String userName)//15.3
+          {
+        	  ConsoleHelper.writeMessage(String.format("User %s left", userName));
+          }
+          
+         protected void notifyConnectionStatusChanged(boolean clientConnected)
+         {
+        	 Client.this.clientConnected = clientConnected;//15.4.1
+        	 Client.this.notifyAll();//15.4.2
+         }
 
 		}
 }
