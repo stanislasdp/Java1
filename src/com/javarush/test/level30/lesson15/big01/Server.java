@@ -85,15 +85,12 @@ public class Server
                 {
                     ConsoleHelper.writeMessage(String.format("Inappropriate message type %s from client %s", receivedMessage.getType(), userName));//10.2
                 }
-
-
             }
         }
 
-
         @Override
         public void run()
-        {
+        {;
             String newClient = null;
 
             ConsoleHelper.writeMessage(String.format("Connection with remote adress %s has been established", socket.getRemoteSocketAddress()));//11.1
