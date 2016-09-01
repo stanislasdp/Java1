@@ -92,6 +92,35 @@ public class Server
 			}
 		}
 		
+		private void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException
+		{
+			while(true)
+			{
+				Message receivedMessage = connection.receive();//10.1
+				///receive message from client
+				if (receivedMessage.getType()== MessageType.TEXT)
+				{
+					String newMessageText = String.format("%s: %s", userName,receivedMessage);
+					Message newMessage = new Message(MessageType.TEXT, newMessageText);//10.2
+					sendBroadcastMessage(newMessage);
+				}
+				else
+				{
+					ConsoleHelper.writeMessage(String.format("Inappropriate message type %s from client %s",receivedMessage.getType(), userName));//10.2
+				}
+				
+				
+			}
+		}
+		
+		private void sendBroadcastMessage(Message message) throws IOException
+		{
+			for (Map.Entry<String, Connection> pair : connectionMap.entrySet())//10.3 
+			{
+				pair.getValue().send(message);
+			}
+			//send received message to all clients
+		}
 		
 		
 		@Override
@@ -118,6 +147,5 @@ public class Server
 		{
 			ConsoleHelper.writeMessage("Some socket error occured");
 		}
-		
-		}							
+		}									
 }
