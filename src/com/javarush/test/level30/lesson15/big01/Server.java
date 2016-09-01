@@ -5,7 +5,7 @@ package com.javarush.test.level30.lesson15.big01;
  */
 public class Server
 {
-  private static Map<String, Connection> connectionMap = new ConcurrentHashMap<>();
+ private static Map<String, Connection> connectionMap = new ConcurrentHashMap<>();
 	// String==clent name, Connection==connection with client
 	
 	public static void sendBroadcastMessage(Message message)
@@ -72,10 +72,27 @@ public class Server
 				break;
 				//send message to the client that user name is accepted
 			}
-			return receivedName;
-			
-			
+			return receivedName;	
 		}
+		
+		
+		private void sendListOfUsers(Connection connection, String userName) throws IOException//9.1
+		{
+			for (Map.Entry<String, Connection> pair : connectionMap.entrySet()) //9.2
+			{
+				
+				String clientName = pair.getKey();
+				//get client name
+				if (!clientName.equals(userName))//9.5
+				{
+					Message message =  new Message(MessageType.USER_ADDED, clientName);//9.3
+					connection.send(message);//9.4
+				}
+				//send all client names to current client excpet current client name
+			}
+		}
+		
+		
 		
 		@Override
 		public void run() 
@@ -99,8 +116,8 @@ public class Server
 		}
 		catch (Exception e) 
 		{
-			ConsoleHelper.writeMessage("Some socket occured");
+			ConsoleHelper.writeMessage("Some socket error occured");
 		}
 		
-		}						
+		}							
 }
