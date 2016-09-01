@@ -1,5 +1,10 @@
 package com.javarush.test.level30.lesson15.big01;
-
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by stas on 8/31/16.
  */
@@ -22,7 +27,6 @@ public class Server
 		{
 			ConsoleHelper.writeMessage("Can't send the message");
 		}
-	
 	}
 	
 	private static class Handler extends Thread
@@ -88,7 +92,7 @@ public class Server
 					Message message =  new Message(MessageType.USER_ADDED, clientName);//9.3
 					connection.send(message);//9.4
 				}
-				//send all client names to current client excpet current client name
+				//send all client names to current client except current client name
 			}
 		}
 		
@@ -107,26 +111,41 @@ public class Server
 				else
 				{
 					ConsoleHelper.writeMessage(String.format("Inappropriate message type %s from client %s",receivedMessage.getType(), userName));//10.2
-				}
-				
-				
+				}	
 			}
-		}
-		
-		private void sendBroadcastMessage(Message message) throws IOException
-		{
-			for (Map.Entry<String, Connection> pair : connectionMap.entrySet())//10.3 
-			{
-				pair.getValue().send(message);
-			}
-			//send received message to all clients
 		}
 		
 		
 		@Override
 		public void run() 
 		{
-			//some logic will be here
+			SocketAddress remoteAdress = socket.getRemoteSocketAddress();
+			Connection connection = null;
+			String newClient = null;
+			
+			ConsoleHelper.writeMessage(String.format("Connection with remote adress %s has been established", remoteAdress));//11.1
+			try
+			{
+				connection = new Connection(socket);//11.2
+				newClient = serverHandshake(connection);//11.3
+				sendBroadcastMessage(new Message(MessageType.USER_ADDED, newClient));//11.4
+				sendListOfUsers(connection, newClient);//11.5
+				serverMainLoop(connection, newClient);//11.6
+			}
+			catch (IOException ie)
+			{
+				ConsoleHelper.writeMessage(String.format("Error has been occured while connection with remote adress %s", remoteAdress));//11.8
+			}
+			catch (ClassNotFoundException ie)
+			{
+				ConsoleHelper.writeMessage(String.format("Error has been occured while connection with remote adress %s", remoteAdress));//11.8
+			}
+			connectionMap.remove(newClient);//11.9
+			sendBroadcastMessage(new Message(MessageType.USER_REMOVED, newClient));//11.9
+			
+			ConsoleHelper.writeMessage("Connection with remote server was closed");//11.10
+			
+		
 		}
 	}
 	
@@ -147,5 +166,5 @@ public class Server
 		{
 			ConsoleHelper.writeMessage("Some socket error occured");
 		}
-		}									
+		}											
 }
