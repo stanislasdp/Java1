@@ -120,7 +120,6 @@ public class Server
     }
 
 
-
     public static void sendBroadcastMessage(Message message)
     {
 
@@ -147,7 +146,6 @@ public class Server
             while(true)
             {
                 new Handler(serverSocket.accept()).start();
-
             }
         }
         catch (Exception e)

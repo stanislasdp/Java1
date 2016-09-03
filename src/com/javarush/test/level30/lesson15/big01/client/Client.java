@@ -6,6 +6,7 @@ import com.javarush.test.level30.lesson15.big01.Message;
 import com.javarush.test.level30.lesson15.big01.MessageType;
 
 import java.io.IOException;
+import java.net.Socket;
 
 /**
  * Created by stas on 9/1/16.
@@ -111,7 +112,6 @@ public class Client
 
     public class SocketThread extends Thread//12.3
     {
-
         protected void processIncomingMessage(String message)//15.1
         {
             ConsoleHelper.writeMessage(message);
@@ -134,10 +134,72 @@ public class Client
             {
                 Client.this.notify();//15.4.2
             }
+        }
+        protected void clientHandshake() throws IOException,ClassNotFoundException//16.1
+        {
+            while (true)
+            {
 
-
+                Message message = connection.receive();//16.1.1
+                switch (message.getType())
+                {
+                    case NAME_REQUEST://16.1.2
+                        String userName = getUserName();
+                        Message userNameMessage = new Message(MessageType.USER_NAME,userName);
+                        connection.send(userNameMessage);
+                        break;
+                    case NAME_ACCEPTED:
+                        notifyConnectionStatusChanged(true);//16.1.3
+                        return;
+                    default:
+                        throw new IOException("Unexpected MessageType");//16.1.4
+                }
+            }
         }
 
+        protected void clientMainLoop() throws IOException,ClassNotFoundException
+        {
+            while (true)
+            {
+                Message message = connection.receive();//16.2.1
+                switch (message.getType())
+                {
+                    case TEXT://16.2.3
+                        processIncomingMessage(message.getData());
+                        break;
+                    case USER_ADDED:
+                        informAboutAddingNewUser(message.getData());//16.2.3
+                        break;
+                    case USER_REMOVED:
+                        informAboutDeletingNewUser(message.getData());//16.2.5
+                        break;
+                    default:
+                        throw new IOException("Unexpected MessageType");//16.2.6
+                }
+            }
+        }
+
+        @Override
+        public void run()
+        {
+            String serverAddress = getServerAddress();//17.1
+            int serverPort = getServerPort();//17.1
+            try
+            {
+                Socket newClientSocket = new Socket(serverAddress,serverPort);//17.2
+                connection = new Connection(newClientSocket);//17.3
+                clientHandshake();//17.4
+                clientMainLoop();//17.5
+            }
+            catch (IOException ie)
+            {
+                notifyConnectionStatusChanged(false);//17.6
+            }
+            catch (ClassNotFoundException ie)
+            {
+                notifyConnectionStatusChanged(false);//17.6
+            }
+        }
     }
 
 }
