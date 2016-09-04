@@ -1,9 +1,8 @@
 package com.javarush.test.level31.lesson02.home01;
 
-import java.io.*;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.List;
 
 /* Проход по дереву файлов
 1. На вход метода main подаются два параметра.
@@ -17,80 +16,34 @@ import java.util.Comparator;
 2.3. Удалить директории без файлов (пустые).
 Все файлы имеют расширение txt.
 */
-public class Solution
-{
-
+public class Solution {
     public static void main(String[] args)
     {
-        String directoryPath = args[0];
-        File resultFile = new File(args[1]);
-
-        File reNamedFile = new File(resultFile.getParent()+"/allFilesContent.txt");
-        resultFile.renameTo(reNamedFile);
-
-        ArrayList<String> fileNames = new ArrayList<>();
-
-        removeFilesWithConditions(directoryPath);
-        Collections.sort(fileNames, new Comparator<String>()
-        {
-            @Override
-            public int compare(String o1, String o2)
-            {
-                return o1.substring(o1.lastIndexOf("/")).compareTo(o2.substring(o2.lastIndexOf("/")));
-            }
-        });
-
-        try
-        {
-            FileWriter fileWriter = new FileWriter(reNamedFile);
-            for (String toFile: fileNames)
-            {
-                File file = new File(toFile);
-                FileReader fileRead = new FileReader(file);
-                while (!fileRead.ready())
-                {
-                   fileWriter.write();
-                }
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-
-
-      /*  for (String str: fileNames)
-        {
-            System.out.println(str);
-        }*/
-
-
+        String directoryPath =  args[0];
+        File resultFile= new File(args[1]);
 
     }
 
-    public static void removeFilesWithConditions(String filePath)
+
+    public static void processFileTree(String directoryPath, List<String> fileNames)
     {
-        File file = new File(filePath);
+        List<String> filearList = new ArrayList<>();
 
-        if (file.isDirectory())
+        File curFile = new File(directoryPath);
+        if (curFile.isDirectory())
         {
-            for (File f: file.listFiles())
+            for (File file : curFile.listFiles())
             {
-                if (f.isDirectory())
+                if (file.isDirectory())
                 {
-                    removeFilesWithConditions(f.getAbsolutePath());
-                }
-                if (f.length()>50)
-                {
-                   f.delete();
-                }
-                else
-                {
-                    fileNames.add(f.getAbsolutePath());
-                }
-            }
-        }
 
+                }
+               if (file.length() > 50)
+               {
+                    file.delete();
+               }
+            }
+
+        }
     }
 }
