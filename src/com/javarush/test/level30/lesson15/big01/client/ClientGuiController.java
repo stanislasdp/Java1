@@ -64,6 +64,7 @@ public class ClientGuiController extends Client
         {
             model.addUser(userName);
             view.refreshUsers();
+            super.informAboutAddingNewUser(userName);
         }
 
         @Override

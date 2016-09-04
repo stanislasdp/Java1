@@ -3,7 +3,7 @@ package com.javarush.test.level30.lesson15.big01;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketAddress;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -78,9 +78,30 @@ public class Server
                 ///receive message from client
                 if (receivedMessage.getType() == MessageType.TEXT)
                 {
-                    String newMessageText = String.format("%s: %s", userName, receivedMessage.getData());
-                    Message newMessage = new Message(MessageType.TEXT, newMessageText);//10.2
-                    sendBroadcastMessage(newMessage);
+                    String newMessageText;
+                    if (receivedMessage.isPrivateMessage())
+                    {
+                        // ConsoleHelper.writeMessage(receivedMessage.isPrivateMessage()+"");
+                        ArrayList<String> users = new ArrayList<>();
+                        String messageString = receivedMessage.getData();
+                        String [] stringUsers = messageString.substring(messageString.indexOf("[")+1,messageString.lastIndexOf("]")).split(",");
+
+                        for (int i = 0; i <stringUsers.length ; i++)
+                        {
+                            System.out.println(stringUsers[i].trim());
+                            users.add(stringUsers[i].trim());
+                        }
+                        newMessageText =  String.format("%s: %s", userName, messageString.substring(messageString.lastIndexOf("]") + 1));
+                        Message newMessage = new Message(MessageType.TEXT, newMessageText);//10.2
+                        sendPrivateMessage(newMessage,users);
+                    }
+                    else
+                    {
+                        newMessageText =  String.format("%s: %s", userName, receivedMessage.getData());
+                        Message newMessage = new Message(MessageType.TEXT, newMessageText);
+                        sendBroadcastMessage(newMessage);
+                    }
+
                 } else
                 {
                     ConsoleHelper.writeMessage(String.format("Inappropriate message type %s from client %s", receivedMessage.getType(), userName));//10.2
@@ -115,7 +136,6 @@ public class Server
 
             ConsoleHelper.writeMessage("Connection with remote server was closed");//11.10
 
-
         }
     }
 
@@ -128,6 +148,24 @@ public class Server
             try
             {
                 pair.getValue().send(message);
+            }
+            catch (IOException ie)
+            {
+                ConsoleHelper.writeMessage("Can't send the message to " + pair.getKey());
+            }
+        }
+    }
+
+    public static void sendPrivateMessage(Message message, ArrayList<String> users)
+    {
+        for (Map.Entry<String, Connection> pair : connectionMap.entrySet())
+        {
+            try
+            {
+                if (users.contains(pair.getKey()))
+                {
+                    pair.getValue().send(message);
+                }
             }
             catch (IOException ie)
             {

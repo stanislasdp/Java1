@@ -7,6 +7,8 @@ import com.javarush.test.level30.lesson15.big01.MessageType;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by stas on 9/1/16.
@@ -50,6 +52,12 @@ public class Client
         try
         {
             Message newMessage = new Message(MessageType.TEXT, text);
+            Pattern pattern = Pattern.compile("\\[(.*?)\\]");
+            Matcher matcher = pattern.matcher(text);
+            if (matcher.find())
+            {
+                newMessage.setPrivateMessage(true);
+            }
             connection.send(newMessage);
         }
         catch (IOException ie)

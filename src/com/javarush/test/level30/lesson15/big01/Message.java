@@ -12,7 +12,9 @@ package com.javarush.test.level30.lesson15.big01;
 public class Message implements Serializable
 {
     final private MessageType type;
+
     final private String data;
+    private boolean privateMessage = false;
 
     public Message(MessageType type)
     {
@@ -35,5 +37,16 @@ public class Message implements Serializable
     {
         return data;
     }
+
+    public boolean isPrivateMessage()
+    {
+        return privateMessage;
+    }
+
+    public void setPrivateMessage(boolean privateMessage)
+    {
+        this.privateMessage = privateMessage;
+    }
+
 }
 
