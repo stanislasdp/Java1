@@ -1,6 +1,12 @@
 package com.javarush.test.level31.lesson06.home01;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipOutputStream;
 
 /* Добавление файла в архив
 В метод main приходит список аргументов.
@@ -27,6 +33,26 @@ b.txt
 Пользоваться файловой системой нельзя.
 */
 public class Solution {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException
+    {
+        String fileNamePath = args[0];
+        String zipArchivePth = args[1];
+
+        ZipEntry fileToZip = new ZipEntry(fileNamePath);
+        ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(zipArchivePth));
+
+        ZipFile zipFile = new ZipFile(zipArchivePth);
+        Enumeration en = zipFile.entries();
+        ArrayList<ZipEntry> arr = new ArrayList<>();
+
+        while (en.hasMoreElements())
+        {
+            if (en instanceof ZipEntry)
+            {
+                arr.add((ZipEntry) en.nextElement());
+            }
+        }
+        if
+
     }
 }
