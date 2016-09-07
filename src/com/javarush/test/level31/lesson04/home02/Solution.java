@@ -17,10 +17,12 @@ D:/mydir/BCD.zip
 Метод main не участвует в тестировании
 */
 public class Solution extends SimpleFileVisitor<Path> {
+
+
     public static void main(String[] args) throws IOException {
         EnumSet<FileVisitOption> options = EnumSet.of(FileVisitOption.FOLLOW_LINKS);
         final Solution solution = new Solution();
-        Files.walkFileTree(Paths.get("D:/"), options, 20, solution);
+        Files.walkFileTree(Paths.get("/"), options, 20, solution);
 
         List<String> result = solution.getArchived();
         System.out.println("All archived files:");
@@ -44,5 +46,24 @@ public class Solution extends SimpleFileVisitor<Path> {
 
     public List<String> getFailed() {
         return failed;
+    }
+
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException
+    {
+        String fileName = file.getFileName().toString();
+        if (fileName.endsWith(".zip") || fileName.endsWith(".rar"))
+        {
+            archived.add(file.toAbsolutePath().toString());
+        }
+        return super.visitFile(file, attrs);
+    }
+
+    @Override
+    public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException
+    {
+        failed.add(file.toAbsolutePath().toString());
+
+        return FileVisitResult.SKIP_SUBTREE;
     }
 }
