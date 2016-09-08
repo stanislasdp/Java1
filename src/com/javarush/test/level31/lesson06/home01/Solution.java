@@ -1,12 +1,11 @@
 package com.javarush.test.level31.lesson06.home01;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.zip.*;
 
 /* Добавление файла в архив
 В метод main приходит список аргументов.
@@ -32,27 +31,49 @@ b.txt
 а потом записать в архив все энтри вместе с добавленным файлом.
 Пользоваться файловой системой нельзя.
 */
-public class Solution {
+public class Solution
+{
     public static void main(String[] args) throws IOException
     {
-        String fileNamePath = args[0];
-        String zipArchivePth = args[1];
+        String fileToAdd = args[0];
+        FileInputStream fi = new FileInputStream(fileToAdd);
+        ZipFile zip = new ZipFile(args[1]);
 
-        ZipEntry fileToZip = new ZipEntry(fileNamePath);
-        ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(zipArchivePth));
+        Map<String,byte[]> zipMap = new HashMap<>();
 
-        ZipFile zipFile = new ZipFile(zipArchivePth);
-        Enumeration en = zipFile.entries();
-        ArrayList<ZipEntry> arr = new ArrayList<>();
-
-        while (en.hasMoreElements())
+        Enumeration<? extends ZipEntry> zipEntries = zip.entries();
+        while (zipEntries.hasMoreElements())
         {
-            if (en instanceof ZipEntry)
-            {
-                arr.add((ZipEntry) en.nextElement());
-            }
+            ZipEntry currentEntry = zipEntries.nextElement();
+            InputStream is = zip.getInputStream(currentEntry);
+            byte [] buffer = new byte[is.available()];
+            is.read(buffer);
+            is.close();
+            zipMap.put(currentEntry.getName(),buffer);
         }
-        if
+
+        if (zipMap.containsKey(fileToAdd.substring(fileToAdd.lastIndexOf("/")+1)))
+        {
+            FileOutputStream fo = new FileOutputStream(args[1]);
+
+            for (Map.Entry<String,byte[]> pair:zipMap.entrySet())
+            {
+                fo.write(pair.getValue());
+            }
+            fo.close();
+        }
+
+
+
+
+
+
+
+
+
+     ;
+
+
 
     }
 }
