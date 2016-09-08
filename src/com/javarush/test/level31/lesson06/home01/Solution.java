@@ -63,8 +63,9 @@ public class Solution
             fo.close();
         }
 
-
-
+        ZipOutputStream zOutStream = new ZipOutputStream(new FileOutputStream(args[1]));
+        zOutStream.putNextEntry(new ZipEntry(fileToAdd));
+        zOutStream.close();
 
 
 
