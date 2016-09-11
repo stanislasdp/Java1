@@ -1,5 +1,6 @@
 package com.javarush.test.level27.lesson15.big01.kitchen;
 
+import com.javarush.test.level27.lesson15.big01.ConsoleHelper;
 import com.javarush.test.level27.lesson15.big01.Tablet;
 
 import java.io.IOException;
@@ -11,7 +12,10 @@ import java.util.List;
 public class Order
 {
 
+
     private List<Dish> dishes;
+
+
     private Tablet tablet;
 
 
@@ -19,6 +23,16 @@ public class Order
     {
         this.tablet = tablet;
         dishes = ConsoleHelper.getAllDishesForOrder();
+    }
+
+    public Tablet getTablet()
+    {
+        return tablet;
+    }
+
+    public List<Dish> getDishes()
+    {
+        return dishes;
     }
 
 
@@ -31,6 +45,23 @@ public class Order
             return "";
         }
 
-        return String.format("Your order: %s of %s",dishes.toString(),tablet.toString());
+        return String.format("Your order: %s of %s",dishes,tablet);
+    }
+
+
+    public int getTotalCookingTime()
+    {
+      int cookingTime = 0;
+
+        for (Dish dish : dishes)
+        {
+            cookingTime += dish.getDuration();
+        }
+        return cookingTime;
+    }
+
+    public boolean isEmpty()
+    {
+        return dishes.isEmpty();
     }
 }
