@@ -39,6 +39,8 @@ public class DirectorTablet
             for (Map.Entry<String,Integer> cook: cookInfo.entrySet())
             {
                 int roundedTime = (cook.getValue()+59)/60;
+               // int roundedTime = (int)Math.ceil(cook.getValue()/60.0);
+            //    ConsoleHelper.writeMessage(cook.getValue()+"");
 
                 ConsoleHelper.writeMessage(String.format("%s - %d min",cook.getKey(),roundedTime));
             }
