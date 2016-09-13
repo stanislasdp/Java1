@@ -11,7 +11,7 @@ class AdvertisementStorage
     private final List<Advertisement> videos = new ArrayList<>();
     private static AdvertisementStorage ourInstance = new AdvertisementStorage();
 
-    public  static AdvertisementStorage getInstance()
+    static AdvertisementStorage getInstance()
     {
         return ourInstance;
     }
