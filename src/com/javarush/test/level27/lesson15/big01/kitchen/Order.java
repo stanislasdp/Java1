@@ -11,18 +11,15 @@ import java.util.List;
  */
 public class Order
 {
-
-
-    private List<Dish> dishes;
-
-
+    protected List<Dish> dishes;
     private Tablet tablet;
 
 
     public Order(Tablet tablet) throws IOException
     {
         this.tablet = tablet;
-        dishes = ConsoleHelper.getAllDishesForOrder();
+        initDishes();
+
     }
 
     public Tablet getTablet()
@@ -63,5 +60,11 @@ public class Order
     public boolean isEmpty()
     {
         return dishes.isEmpty();
+    }
+
+
+    protected void initDishes() throws IOException
+    {
+        dishes = ConsoleHelper.getAllDishesForOrder();
     }
 }

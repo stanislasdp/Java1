@@ -50,6 +50,10 @@ public class Tablet extends Observable
         {
             logger.log(Level.INFO,"No video is available for the order ");
         }
+    }
+
+   public void createTestOrder()
+    {
 
     }
 
