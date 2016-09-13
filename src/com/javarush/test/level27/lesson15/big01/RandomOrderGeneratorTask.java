@@ -7,16 +7,30 @@ import java.util.ArrayList;
  */
 public class RandomOrderGeneratorTask implements Runnable
 {
-    ArrayList<Tablet> tablets = new ArrayList<>();
-    int randomTablet =(int)(Math.random() * tablets.size());
+   private ArrayList<Tablet> tablets = new ArrayList<>();
+    private int timeout;
 
-
+    public RandomOrderGeneratorTask(ArrayList<Tablet> tablets, int timeout)
+    {
+        this.tablets =  tablets;
+        this.timeout  = timeout;
+    }
 
     @Override
     public void run()
     {
-        while (true)
+        while (!Thread.currentThread().isInterrupted())
         {
+            int randomTablet =(int)(Math.random() * tablets.size())-1;
+            tablets.get(randomTablet).createTestOrder();
+            try
+            {
+                Thread.sleep(timeout);
+            }
+            catch (InterruptedException ie)
+            {
+                break;
+            }
 
         }
     }
