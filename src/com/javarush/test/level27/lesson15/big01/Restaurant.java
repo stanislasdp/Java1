@@ -19,8 +19,8 @@ public class Restaurant
         cook1.addObserver(waitor);
         tablet.createOrder();
         DirectorTablet directorTablet = new DirectorTablet();
-        directorTablet.printAdvertisementProfit();
-        directorTablet.printCookWorkloading();
+    //    directorTablet.printAdvertisementProfit();
+      //  directorTablet.printCookWorkloading();
         directorTablet.printActiveVideoSet();
         directorTablet.printArchivedVideoSet();
 
@@ -61,6 +61,6 @@ public class Restaurant
 */
 
     }
-
-
 }
+
+

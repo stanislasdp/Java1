@@ -1,7 +1,7 @@
 package com.javarush.test.level27.lesson15.big01.ad;
 
 import com.javarush.test.level27.lesson15.big01.ConsoleHelper;
-import com.javarush.test.level27.lesson15.big01.statistic.StatisticManager;
+import com.javarush.test.level27.lesson15.big01.statistic.StatisticEventManager;
 import com.javarush.test.level27.lesson15.big01.statistic.event.NoAvailableVideoEventDataRow;
 import com.javarush.test.level27.lesson15.big01.statistic.event.VideoSelectedEventDataRow;
 
@@ -32,7 +32,7 @@ public class AdvertisementManager {
         //If no one compatible
         if (candidates.isEmpty())
         {
-            StatisticManager.getInstance().register(new NoAvailableVideoEventDataRow(timeSeconds));
+            StatisticEventManager.getInstance().register(new NoAvailableVideoEventDataRow(timeSeconds));
             throw new NoVideoAvailableException();
 
         }
@@ -50,7 +50,7 @@ public class AdvertisementManager {
             }
         });
 
-        StatisticManager.getInstance().
+        StatisticEventManager.getInstance().
                 register(new VideoSelectedEventDataRow(optimalVideoList,optimalVideoSet.optimalVideoSetAmount,optimalVideoSet.getOptimalVideoSetDuration()
                 ));
         //Show videos & update ads' data

@@ -1,5 +1,5 @@
 package com.javarush.test.level27.lesson15.big01.statistic;
-
+;
 import com.javarush.test.level27.lesson15.big01.kitchen.Cook;
 import com.javarush.test.level27.lesson15.big01.statistic.event.CookedOrderEventDataRow;
 import com.javarush.test.level27.lesson15.big01.statistic.event.EventDataRow;
@@ -13,18 +13,23 @@ import java.util.*;
 /**
  * Created by stas on 9/11/16.
  */
-public class StatisticManager
+public class StatisticEventManager
 {
-    private static StatisticManager ourInstance = new StatisticManager();
+    private static StatisticEventManager ourInstance = new StatisticEventManager();
     private final StatisticStorage storage = new StatisticStorage();
     private Set<Cook> cookSet = new HashSet<Cook>();
 
-    public static StatisticManager getInstance()
+
+
+
+    // List<Advertisement> videos= StatisticAdvertisementManager.getInstance().getAdvertisementStorage();
+
+    public static StatisticEventManager getInstance()
     {
         return ourInstance;
     }
 
-    private StatisticManager() {}
+    private StatisticEventManager() {}
 
     public void register(EventDataRow data)
     {
@@ -36,9 +41,10 @@ public class StatisticManager
         cookSet.add(cook);
     }
 
+
     public Map<Date,Double> getVideoSelectedProfit()
     {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         List<EventDataRow> list = storage.get(EventType.SELECTED_VIDEOS);
         Map<Date,Double> maps = new TreeMap<>(Collections.reverseOrder());
 
@@ -59,7 +65,7 @@ public class StatisticManager
             }
             else
             {
-                maps.put(dt,maps.get(dt) + (double)vr.getAmount()* 0.01d);
+                maps.put(dt,maps.get(dt) +  vr.getAmount()* 0.01d);
             }
         }
         return maps;
