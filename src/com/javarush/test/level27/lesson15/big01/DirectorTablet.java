@@ -4,6 +4,7 @@ import com.javarush.test.level27.lesson15.big01.statistic.StatisticManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -14,7 +15,7 @@ public class DirectorTablet
     public void printAdvertisementProfit()
     {
         Map<Date,Double> map = StatisticManager.getInstance().getVideoSelectedProfit();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy",Locale.ENGLISH);
         double totalSum = 0;
 
         for (Map.Entry<Date,Double> pair: map.entrySet())
@@ -28,23 +29,22 @@ public class DirectorTablet
 
     public void printCookWorkloading()
     {
-       Map<Date,Map<String,Integer>> map = StatisticManager.getInstance().getCookWorkLoad();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+        Map<Date,Map<String,Integer>> map = StatisticManager.getInstance().getCookWorkLoad();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
 
         for (Map.Entry<Date,Map<String,Integer>> pair: map.entrySet() )
         {
+
             ConsoleHelper.writeMessage(String.format("%s",sdf.format(pair.getKey())));
 
             Map<String,Integer> cookInfo = pair.getValue();
+
             for (Map.Entry<String,Integer> cook: cookInfo.entrySet())
             {
-                int roundedTime = (cook.getValue()+59)/60;
-               // int roundedTime = (int)Math.ceil(cook.getValue()/60.0);
-            //    ConsoleHelper.writeMessage(cook.getValue()+"");
-
-                ConsoleHelper.writeMessage(String.format("%s - %d min",cook.getKey(),roundedTime));
+                if (cook.getValue() > 0)
+                ConsoleHelper.writeMessage(String.format("%s - %d min",cook.getKey(),cook.getValue()));
             }
-            ConsoleHelper.writeMessage("");
+            //ConsoleHelper.writeMessage("");
 
         }
     }

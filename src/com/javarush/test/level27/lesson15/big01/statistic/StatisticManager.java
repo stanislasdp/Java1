@@ -55,11 +55,11 @@ public class StatisticManager
 
             if (!maps.containsKey(dt))
             {
-                maps.put(dt,(double)vr.getAmount()* 0.01);
+                maps.put(dt,(double)vr.getAmount()* 0.01d);
             }
             else
             {
-                maps.put(dt,maps.get(dt) + (double)vr.getAmount()* 0.01);
+                maps.put(dt,maps.get(dt) + (double)vr.getAmount()* 0.01d);
             }
         }
         return maps;
@@ -75,22 +75,21 @@ public class StatisticManager
         for (EventDataRow er: list)
         {
             Date dt = null;
+            CookedOrderEventDataRow cr = (CookedOrderEventDataRow) er;
+            if (cr.getTime() == 0)
+                continue;
+            int roundedTime = (cr.getTime() + 59) / 60;
             try
             {
                 dt = dateFormat.parse(dateFormat.format(er.getDate()));
             }
             catch (ParseException pe) {}
 
-            CookedOrderEventDataRow cr = (CookedOrderEventDataRow) er;
             if (!map.containsKey(dt))
             {
                 Map<String,Integer> cookInfo = new TreeMap<>();
-              //  System.out.println(cr.getTime());
-                cookInfo.put(cr.getCookName(),cr.getTime());
+                cookInfo.put(cr.getCookName(),roundedTime);
                 map.put(dt,cookInfo);
-              //  System.out.println(cookInfo.get(cr.getCookName()));
-               // System.out.println(cr.getCookName()+ "1+"+ cr.getTime());
-
             }
             else
             {
@@ -98,25 +97,16 @@ public class StatisticManager
 
                 if (!cookInfo.containsKey(cr.getCookName()))
                 {
-                    cookInfo.put(cr.getCookName(),cr.getTime());
-                  //  System.out.println(cookInfo.get(cr.getCookName()));
-                 //   System.out.println(cr.getTime());
-                 //   System.out.println(cr.getCookName() + cr.getTime());
+                    cookInfo.put(cr.getCookName(),roundedTime);
                 }
                 else
                 {
-                    cookInfo.put(cr.getCookName(),cookInfo.get(cr.getCookName()) + cr.getTime());
-                  //  System.out.println(cr.getCookName()+"  2+   " + cr.getTime());
-                   // System.out.println(cr.getTime());
-                    //  System.out.println(cookInfo.get(cr.getCookName()));
+                    cookInfo.put(cr.getCookName(),cookInfo.get(cr.getCookName()) + roundedTime);
                 }
-            ;
                 map.put(dt,cookInfo);
             }
         }
-       ;
         return map;
-
     }
 
 

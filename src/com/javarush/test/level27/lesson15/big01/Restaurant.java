@@ -12,7 +12,7 @@ public class Restaurant
 {
     public static void main(String[] args)
     {
-       /* Tablet tablet = new Tablet(5);
+        Tablet tablet = new Tablet(5);
         Cook cook1 = new Cook("Amigo");
         Waitor waitor = new Waitor();
         tablet.addObserver(cook1);
@@ -22,51 +22,43 @@ public class Restaurant
         directorTablet.printAdvertisementProfit();
         directorTablet.printCookWorkloading();
         directorTablet.printActiveVideoSet();
-        directorTablet.printArchivedVideoSet();*/
+        directorTablet.printArchivedVideoSet();
 
-
-        Locale.setDefault(Locale.ENGLISH);
-        // First order
+    /*    Locale.setDefault(Locale.ENGLISH);
         Tablet tablet = new Tablet(5);
-        Cook cook = new Cook("Ivanov");
-        tablet.addObserver(cook);
+        Cook amigo = new Cook("Amigo");
         Waitor waitor = new Waitor();
-        cook.addObserver(waitor);
+        amigo.addObserver(waitor);
+        tablet.addObserver(amigo);
         tablet.createOrder();
-        // Second Order
-        Tablet tablet2 = new Tablet(5);
-        Cook cook2 = new Cook("Petrov");
-        tablet2.addObserver(cook2);
-        Waitor waitor2 = new Waitor();
-        cook2.addObserver(waitor2);
-        tablet2.createOrder();
-        // Third order
-        Tablet tablet3 = new Tablet(5);
-        Cook cook3 = new Cook("Ivanov");
-        tablet3.addObserver(cook3);
-        Waitor waitor3 = new Waitor();
-        cook3.addObserver(waitor2);
-        tablet3.createOrder();
-        // Fourth order
-        Tablet tablet4 = new Tablet(5);
-        Cook cook4 = new Cook("Ivanov");
-        tablet4.addObserver(cook4);
-        Waitor waitor4 = new Waitor();
-        cook4.addObserver(waitor4);
-        tablet4.createOrder();
-        // Fifth order
-        Tablet tablet5 = new Tablet(5);
-        Cook cook5 = new Cook("Petrov");
-        tablet5.addObserver(cook5);
-        Waitor waitor5 = new Waitor();
-        cook5.addObserver(waitor5);
-        tablet5.createOrder();
         DirectorTablet directorTablet = new DirectorTablet();
         directorTablet.printAdvertisementProfit();
         directorTablet.printCookWorkloading();
         directorTablet.printActiveVideoSet();
         directorTablet.printArchivedVideoSet();
-
+        Cook cook2=new Cook("mAmigo");
+        Tablet tablet2=new Tablet(5);
+        Waitor waiter2=new Waitor();
+        cook2.addObserver(waiter2);
+        tablet2.addObserver(cook2);
+        tablet2.createOrder();
+        directorTablet=new DirectorTablet();
+        directorTablet.printAdvertisementProfit();
+        directorTablet.printCookWorkloading();
+        directorTablet.printActiveVideoSet();
+        directorTablet.printArchivedVideoSet();
+        Cook cook3=new Cook("Am");
+        Tablet tablet3=new Tablet(5);
+        Waitor waiter3=new Waitor();
+        cook3.addObserver(waiter3);
+        tablet3.addObserver(cook3);
+        tablet3.createOrder();
+        directorTablet=new DirectorTablet();
+        directorTablet.printAdvertisementProfit();
+        directorTablet.printCookWorkloading();
+        directorTablet.printActiveVideoSet();
+        directorTablet.printArchivedVideoSet();
+*/
 
     }
 

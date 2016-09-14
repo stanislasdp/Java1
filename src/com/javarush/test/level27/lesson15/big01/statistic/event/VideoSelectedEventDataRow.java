@@ -2,7 +2,9 @@ package com.javarush.test.level27.lesson15.big01.statistic.event;
 
 import com.javarush.test.level27.lesson15.big01.ad.Advertisement;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -45,4 +47,6 @@ public class VideoSelectedEventDataRow implements EventDataRow
     {
         return amount;
     }
+
+
 }

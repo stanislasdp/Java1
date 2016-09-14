@@ -1,19 +1,16 @@
 package com.javarush.test.level27.lesson15.big01.ad;
 
-        import com.javarush.test.level27.lesson15.big01.ConsoleHelper;
-        import com.javarush.test.level27.lesson15.big01.statistic.StatisticManager;
-        import com.javarush.test.level27.lesson15.big01.statistic.event.NoAvailableVideoEventDataRow;
-        import com.javarush.test.level27.lesson15.big01.statistic.event.VideoSelectedEventDataRow;
+import com.javarush.test.level27.lesson15.big01.ConsoleHelper;
+import com.javarush.test.level27.lesson15.big01.statistic.StatisticManager;
+import com.javarush.test.level27.lesson15.big01.statistic.event.NoAvailableVideoEventDataRow;
+import com.javarush.test.level27.lesson15.big01.statistic.event.VideoSelectedEventDataRow;
 
-        import java.util.ArrayList;
-        import java.util.Collections;
-        import java.util.Comparator;
-        import java.util.List;
-        import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-/**
- * Created by FarAway on 27.02.2016.
- */
 
 public class AdvertisementManager {
     private int timeSeconds;
@@ -55,7 +52,7 @@ public class AdvertisementManager {
 
         StatisticManager.getInstance().
                 register(new VideoSelectedEventDataRow(optimalVideoList,optimalVideoSet.optimalVideoSetAmount,optimalVideoSet.getOptimalVideoSetDuration()
-        ));
+                ));
         //Show videos & update ads' data
         for (int i = 0; i < optimalVideoList.size(); i++) {
             Advertisement showingAd = optimalVideoList.get(i);
