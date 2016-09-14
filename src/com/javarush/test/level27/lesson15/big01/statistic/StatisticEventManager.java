@@ -17,6 +17,8 @@ public class StatisticEventManager
 {
     private static StatisticEventManager ourInstance = new StatisticEventManager();
     private final StatisticStorage storage = new StatisticStorage();
+
+
     private Set<Cook> cookSet = new HashSet<Cook>();
 
 
@@ -39,6 +41,11 @@ public class StatisticEventManager
     public void register(Cook cook)
     {
         cookSet.add(cook);
+    }
+
+    public Set<Cook> getCookSet()
+    {
+        return cookSet;
     }
 
 

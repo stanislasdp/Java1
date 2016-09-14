@@ -7,16 +7,25 @@ import com.javarush.test.level27.lesson15.big01.kitchen.TestOrder;
 
 import java.io.IOException;
 import java.util.Observable;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Created by stas on 9/10/16.
  */
-public class Tablet extends Observable
+public class Tablet
 {
     private static final Logger logger = Logger.getLogger(Tablet.class.getName());
     private final int number;
+
+    public void setOrderQueu(LinkedBlockingQueue<Order> orderQueu)
+    {
+        this.orderQueu = orderQueu;
+    }
+
+    private LinkedBlockingQueue<Order> orderQueu;
 
     public Tablet(int number)
     {
@@ -63,8 +72,10 @@ public class Tablet extends Observable
 
             if (!order.isEmpty())
             {
-                setChanged();
-                notifyObservers(order);
+                orderQueu.add(order);
+
+               // setChanged();
+                //notifyObservers(order);
                 new AdvertisementManager(order.getTotalCookingTime() * 60).processVideos();
             }
         }

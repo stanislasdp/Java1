@@ -8,18 +8,29 @@ import com.javarush.test.level27.lesson15.big01.statistic.event.CookedOrderEvent
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by stas on 9/10/16.
  */
-public class Cook extends Observable implements Observer
+public class Cook extends Observable
 {
     String name;
 
 
+    private LinkedBlockingQueue<Order> ordersQueque;
+
+    private boolean busy;
+
     public Cook(String name)
     {
         this.name = name;
+    }
+
+    public void setOrdersQueque(LinkedBlockingQueue<Order> ordersQueque)
+    {
+        this.ordersQueque = ordersQueque;
     }
 
     @Override
@@ -28,15 +39,31 @@ public class Cook extends Observable implements Observer
         return name;
     }
 
-    @Override
-    public void update(Observable o, Object arg)
-    {
-        Order order = (Order)arg;
-        ConsoleHelper.writeMessage(String.format("Start cooking - %s, cooking time %dmin",arg,order.getTotalCookingTime()));
-        StatisticEventManager.getInstance().register(new CookedOrderEventDataRow(order.getTablet().toString(),name,order.getTotalCookingTime() * 60,order.getDishes()));
-        setChanged();
-        notifyObservers(arg);
 
-       ;
+    public void startCookingOrder(Order order)
+    {
+        busy = true;
+        try
+        {
+            ConsoleHelper.writeMessage(String.format("Start cooking - %s, cooking time %dmin",order,order.getTotalCookingTime()));
+            TimeUnit.MILLISECONDS.sleep(10 * order.getTotalCookingTime());
+            setChanged();
+            notifyObservers(order);
+
+            StatisticEventManager.getInstance().register(new CookedOrderEventDataRow(order.getTablet().toString(),name,order.getTotalCookingTime() * 60,order.getDishes()));
+
+        }
+        catch (InterruptedException ie)
+        {
+
+        }
+
+        busy = false;
     }
+
+    public boolean isBusy()
+    {
+        return busy;
+    }
+
 }
