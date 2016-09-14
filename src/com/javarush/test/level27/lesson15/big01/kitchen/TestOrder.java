@@ -20,15 +20,12 @@ public class TestOrder extends Order
     @Override
     protected void initDishes() throws IOException
     {
-
-        for (int i = 0; i < Dish.values().length ; i++)
-        {
-            int randomDish = (int)(Math.random() * Dish.values().length) -1;
-            dishes.add(Dish.values()[randomDish]);
-        }
-
-
-        //г) переопредели initDishes в классе-наследние TestOrder. Сделай инициализацию случайным набором блюд.
+         dishes = new ArrayList<Dish>();
+		for (int i = 0; i < Dish.values().length ; i++)
+		{
+			int randomDish = (int)(Math.random() * Dish.values().length);
+			dishes.add(Dish.values()[randomDish]);
+		}
     }
 }
 
