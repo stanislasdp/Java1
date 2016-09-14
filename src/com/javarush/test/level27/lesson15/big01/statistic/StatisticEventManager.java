@@ -19,7 +19,7 @@ public class StatisticEventManager
     private final StatisticStorage storage = new StatisticStorage();
 
 
-    private Set<Cook> cookSet = new HashSet<Cook>();
+   // private Set<Cook> cookSet = new HashSet<Cook>();
 
 
 
@@ -38,7 +38,7 @@ public class StatisticEventManager
         storage.put(data);
     }
 
-    public void register(Cook cook)
+ /*   public void register(Cook cook)
     {
         cookSet.add(cook);
     }
@@ -46,7 +46,7 @@ public class StatisticEventManager
     public Set<Cook> getCookSet()
     {
         return cookSet;
-    }
+    }*/
 
 
     public Map<Date,Double> getVideoSelectedProfit()

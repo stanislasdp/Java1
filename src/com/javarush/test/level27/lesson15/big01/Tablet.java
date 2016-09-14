@@ -19,13 +19,14 @@ public class Tablet
 {
     private static final Logger logger = Logger.getLogger(Tablet.class.getName());
     private final int number;
+    private LinkedBlockingQueue<Order> orderQueu;
 
     public void setOrderQueu(LinkedBlockingQueue<Order> orderQueu)
     {
         this.orderQueu = orderQueu;
     }
 
-    private LinkedBlockingQueue<Order> orderQueu;
+
 
     public Tablet(int number)
     {
@@ -73,9 +74,6 @@ public class Tablet
             if (!order.isEmpty())
             {
                 orderQueu.add(order);
-
-               // setChanged();
-                //notifyObservers(order);
                 new AdvertisementManager(order.getTotalCookingTime() * 60).processVideos();
             }
         }

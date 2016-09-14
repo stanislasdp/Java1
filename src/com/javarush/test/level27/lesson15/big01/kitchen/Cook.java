@@ -14,13 +14,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by stas on 9/10/16.
  */
-public class Cook extends Observable
+public class Cook extends Observable implements Runnable
 {
     String name;
-
-
     private LinkedBlockingQueue<Order> ordersQueque;
-
     private boolean busy;
 
     public Cook(String name)
@@ -49,9 +46,7 @@ public class Cook extends Observable
             TimeUnit.MILLISECONDS.sleep(10 * order.getTotalCookingTime());
             setChanged();
             notifyObservers(order);
-
             StatisticEventManager.getInstance().register(new CookedOrderEventDataRow(order.getTablet().toString(),name,order.getTotalCookingTime() * 60,order.getDishes()));
-
         }
         catch (InterruptedException ie)
         {
@@ -66,4 +61,47 @@ public class Cook extends Observable
         return busy;
     }
 
+    @Override
+    public void run()
+    {
+        Thread thread = new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                while (!Thread.currentThread().isInterrupted())
+                {
+
+                    if (ordersQueque.peek() != null)
+                    {
+                            if (!isBusy())
+                            {
+                                final Cook cookFinal = Cook.this;
+                                new Thread(new Runnable()
+                                {
+                                    @Override
+                                    public void run()
+                                    {
+                                        cookFinal.startCookingOrder(ordersQueque.poll());
+                                    }
+                                }).start();
+                                break;
+                            }
+                    }
+                    try
+                    {
+                        Thread.sleep(10);
+                    }
+                    catch (InterruptedException ie)
+                    {
+
+                    }
+                    ;
+                }
+
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
+    }
 }

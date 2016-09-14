@@ -23,38 +23,40 @@ public class Restaurant
     public static void main(String[] args)
     {
         Cook cook1 = new Cook("Amigo");
+        cook1.setOrdersQueque(ORDER_QUEU);
         Cook cook2 = new Cook("Stas");
-        StatisticEventManager.getInstance().register(cook1);
-        StatisticEventManager.getInstance().register(cook2);
+        cook2.setOrdersQueque(ORDER_QUEU);
+
         Waitor waitor = new Waitor();
-
-
         List<Tablet> tablets = new ArrayList<>();
-        OrderManager ordManager = new OrderManager();
+
         for (int i = 0; i <  5 ; i++)
         {
             Tablet tablet = new Tablet(i+1);
             tablet.setOrderQueu(ORDER_QUEU);
             tablets.add(tablet);
-           // tablet.addObserver(ordManager);
         }
         cook1.addObserver(waitor);
-        cook1.setOrdersQueque(ORDER_QUEU);
-        cook2.addObserver(waitor);
-        cook2.setOrdersQueque(ORDER_QUEU);
 
-        Thread th = new Thread(new RandomOrderGeneratorTask(tablets, ORDER_CREATING_INTERVAL));
-        th.start();
+        cook2.addObserver(waitor);
+
+
+        Thread thCook1 = new Thread(cook1);
+        Thread thCook2 = new Thread(cook2);
+        thCook1.start();
+        thCook2.start();
+
+        Thread thRandom = new Thread(new RandomOrderGeneratorTask(tablets, ORDER_CREATING_INTERVAL));
+        thRandom.start();
         try
-        {
-           // TimeUnit.SECONDS.sleep(1);
+        {;
             Thread.sleep(1000);
         }
         catch (InterruptedException ie)
         {
 
         }
-        th.interrupt();
+        thRandom.interrupt();
 
         DirectorTablet directorTablet = new DirectorTablet();
         directorTablet.printAdvertisementProfit();
