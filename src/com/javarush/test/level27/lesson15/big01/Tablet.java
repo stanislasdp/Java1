@@ -6,8 +6,6 @@ import com.javarush.test.level27.lesson15.big01.kitchen.Order;
 import com.javarush.test.level27.lesson15.big01.kitchen.TestOrder;
 
 import java.io.IOException;
-import java.util.Observable;
-import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,14 +17,12 @@ public class Tablet
 {
     private static final Logger logger = Logger.getLogger(Tablet.class.getName());
     private final int number;
-    private LinkedBlockingQueue<Order> orderQueu;
+    private LinkedBlockingQueue<Order> queue;
 
-    public void setOrderQueu(LinkedBlockingQueue<Order> orderQueu)
+    public void setQueue (LinkedBlockingQueue<Order> queue)
     {
-        this.orderQueu = orderQueu;
+        this.queue = queue;
     }
-
-
 
     public Tablet(int number)
     {
@@ -37,7 +33,7 @@ public class Tablet
     @Override
     public String toString()
     {
-        return String.format("Tablet{number=%d}",number);
+        return String.format("Tablet{number=%d}", number);
     }
 
     public void createOrder()
@@ -48,7 +44,7 @@ public class Tablet
         }
         catch (IOException ie)
         {
-            logger.log(Level.SEVERE,"Console is unavailable.");
+            logger.log(Level.SEVERE, "Console is unavailable.");
         }
     }
 
@@ -60,7 +56,7 @@ public class Tablet
         }
         catch (IOException ie)
         {
-            logger.log(Level.SEVERE,"Console is unavailable.");
+            logger.log(Level.SEVERE, "Console is unavailable.");
         }
 
     }
@@ -73,16 +69,18 @@ public class Tablet
 
             if (!order.isEmpty())
             {
-                orderQueu.add(order);
+                queue.add(order);
+                //add new order to queue
                 new AdvertisementManager(order.getTotalCookingTime() * 60).processVideos();
             }
         }
 
         catch (NoVideoAvailableException ne)
         {
-            logger.log(Level.INFO,"No video is available for the order ");
+            logger.log(Level.INFO, "No video is available for the order ");
+
         }
+
+
     }
-
-
 }

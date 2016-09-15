@@ -18,14 +18,14 @@ public class Restaurant
 {
 
     private static final int ORDER_CREATING_INTERVAL = 100;
-    private static final LinkedBlockingQueue<Order> ORDER_QUEU = new LinkedBlockingQueue<>();
+    private static final LinkedBlockingQueue<Order> queue = new LinkedBlockingQueue<>();
 
     public static void main(String[] args)
     {
         Cook cook1 = new Cook("Amigo");
-        cook1.setOrdersQueque(ORDER_QUEU);
+        cook1.setQueue(queue);
         Cook cook2 = new Cook("Stas");
-        cook2.setOrdersQueque(ORDER_QUEU);
+        cook2.setQueue(queue);
 
         Waitor waitor = new Waitor();
         List<Tablet> tablets = new ArrayList<>();
@@ -33,14 +33,12 @@ public class Restaurant
         for (int i = 0; i <  5 ; i++)
         {
             Tablet tablet = new Tablet(i+1);
-            tablet.setOrderQueu(ORDER_QUEU);
+            tablet.setQueue(queue);
             tablets.add(tablet);
         }
         cook1.addObserver(waitor);
 
         cook2.addObserver(waitor);
-
-
         Thread thCook1 = new Thread(cook1);
         Thread thCook2 = new Thread(cook2);
         thCook1.start();
@@ -64,6 +62,7 @@ public class Restaurant
         directorTablet.printActiveVideoSet();
         directorTablet.printArchivedVideoSet();
     }
+
 }
 
 

@@ -17,17 +17,17 @@ import java.util.concurrent.TimeUnit;
 public class Cook extends Observable implements Runnable
 {
     String name;
-    private LinkedBlockingQueue<Order> ordersQueque;
-    private boolean busy;
+    private LinkedBlockingQueue<Order> queue;
+    private volatile boolean busy;
 
     public Cook(String name)
     {
         this.name = name;
     }
 
-    public void setOrdersQueque(LinkedBlockingQueue<Order> ordersQueque)
+    public void setQueue (LinkedBlockingQueue<Order> queue)
     {
-        this.ordersQueque = ordersQueque;
+        this.queue = queue;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Cook extends Observable implements Runnable
     }
 
 
-    public void startCookingOrder(Order order)
+    public  void startCookingOrder(Order order)
     {
         busy = true;
         try
@@ -47,13 +47,12 @@ public class Cook extends Observable implements Runnable
             setChanged();
             notifyObservers(order);
             StatisticEventManager.getInstance().register(new CookedOrderEventDataRow(order.getTablet().toString(),name,order.getTotalCookingTime() * 60,order.getDishes()));
+            busy = false;
         }
         catch (InterruptedException ie)
         {
 
         }
-
-        busy = false;
     }
 
     public boolean isBusy()
@@ -64,44 +63,19 @@ public class Cook extends Observable implements Runnable
     @Override
     public void run()
     {
-        Thread thread = new Thread(new Runnable()
-        {
-            @Override
-            public void run()
+        while (!Thread.currentThread().isInterrupted())
+            try
             {
-                while (!Thread.currentThread().isInterrupted())
+                if (!queue.isEmpty() && !isBusy())
                 {
-
-                    if (ordersQueque.peek() != null)
-                    {
-                            if (!isBusy())
-                            {
-                                final Cook cookFinal = Cook.this;
-                                new Thread(new Runnable()
-                                {
-                                    @Override
-                                    public void run()
-                                    {
-                                        cookFinal.startCookingOrder(ordersQueque.poll());
-                                    }
-                                }).start();
-                                break;
-                            }
-                    }
-                    try
-                    {
-                        Thread.sleep(10);
-                    }
-                    catch (InterruptedException ie)
-                    {
-
-                    }
-                    ;
+                    startCookingOrder(queue.take());
                 }
+                TimeUnit.MILLISECONDS.sleep(10);
 
             }
-        });
-        thread.setDaemon(true);
-        thread.start();
+            catch (InterruptedException ie)
+            {
+                return;
+            }
     }
 }
