@@ -1,11 +1,8 @@
 package com.javarush.test.level27.lesson15.big01.kitchen;
 
-
-
 import com.javarush.test.level27.lesson15.big01.ConsoleHelper;
 import com.javarush.test.level27.lesson15.big01.statistic.StatisticEventManager;
 import com.javarush.test.level27.lesson15.big01.statistic.event.CookedOrderEventDataRow;
-
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -16,92 +13,67 @@ import java.util.concurrent.TimeUnit;
  */
 public class Cook extends Observable implements Runnable
 {
-    String name;
-    private LinkedBlockingQueue<Order> ordersQueque;
-    private boolean busy;
+    SString name;
+	private LinkedBlockingQueue<Order> queue;
+	private volatile boolean busy;
 
-    public Cook(String name)
-    {
-        this.name = name;
-    }
+	public Cook(String name)
+	{
+		this.name = name;
+	}
 
-    public void setOrdersQueque(LinkedBlockingQueue<Order> ordersQueque)
-    {
-        this.ordersQueque = ordersQueque;
-    }
+	public void setQueque(LinkedBlockingQueue<Order> queue)
+	{
+		this.queue = queue;
+	}
 
-    @Override
-    public String toString()
-    {
-        return name;
-    }
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 
 
-    public void startCookingOrder(Order order)
-    {
-        busy = true;
-        try
-        {
-            ConsoleHelper.writeMessage(String.format("Start cooking - %s, cooking time %dmin",order,order.getTotalCookingTime()));
-            TimeUnit.MILLISECONDS.sleep(10 * order.getTotalCookingTime());
-            setChanged();
-            notifyObservers(order);
-            StatisticEventManager.getInstance().register(new CookedOrderEventDataRow(order.getTablet().toString(),name,order.getTotalCookingTime() * 60,order.getDishes()));
-        }
-        catch (InterruptedException ie)
-        {
+	public synchronized void startCookingOrder(Order order)
+	{
+		busy = true;
+		try
+		{
+			ConsoleHelper.writeMessage(String.format("Start cooking - %s, cooking time %dmin",order,order.getTotalCookingTime()));
+			TimeUnit.MILLISECONDS.sleep(10 * order.getTotalCookingTime());
+			setChanged();
+			notifyObservers(order);
+			StatisticEventManager.getInstance().register(new CookedOrderEventDataRow(order.getTablet().toString(),name,order.getTotalCookingTime() * 60,order.getDishes()));
+			busy = false;
+		}
+		catch (InterruptedException ie)
+		{
 
-        }
+		}
+	}
 
-        busy = false;
-    }
+	public boolean isBusy()
+	{
+		return busy;
+	}
 
-    public boolean isBusy()
-    {
-        return busy;
-    }
-
-    @Override
-    public void run()
-    {
-        Thread thread = new Thread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                while (!Thread.currentThread().isInterrupted())
-                {
-
-                    if (ordersQueque.peek() != null)
-                    {
-                            if (!isBusy())
-                            {
-                                final Cook cookFinal = Cook.this;
-                                new Thread(new Runnable()
-                                {
-                                    @Override
-                                    public void run()
-                                    {
-                                        cookFinal.startCookingOrder(ordersQueque.poll());
-                                    }
-                                }).start();
-                                break;
-                            }
-                    }
-                    try
-                    {
-                        Thread.sleep(10);
-                    }
-                    catch (InterruptedException ie)
-                    {
-
-                    }
-                    ;
-                }
-
-            }
-        });
-        thread.setDaemon(true);
-        thread.start();
-    }
+	@Override
+	public void run()
+	{
+		while (!Thread.currentThread().isInterrupted())
+		try
+		{
+			if (!queue.isEmpty() && !isBusy())
+			{
+				startCookingOrder(queue.take());	
+			}
+			//busy = true;
+			TimeUnit.MILLISECONDS.sleep(10);
+			
+		}
+		catch (InterruptedException ie) 
+		{
+			return;
+		}
+	}
 }
