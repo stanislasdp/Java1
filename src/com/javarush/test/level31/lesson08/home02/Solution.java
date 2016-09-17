@@ -18,7 +18,8 @@ public class Solution {
         System.out.println(resultPath);   //expected output '../secondDir/third' or '..\secondDir\third'
     }
 
-    public static Path getDiffBetweenTwoPaths(Path path1, Path path2) {
-        return null;
+    public static Path getDiffBetweenTwoPaths(Path path1, Path path2)
+    {
+        return path1.relativize(path2);
     }
 }
