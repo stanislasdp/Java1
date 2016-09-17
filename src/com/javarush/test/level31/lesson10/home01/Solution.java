@@ -1,5 +1,6 @@
 package com.javarush.test.level31.lesson10.home01;
 
+import java.io.*;
 import java.util.Properties;
 
 /* Читаем конфиги
@@ -13,17 +14,50 @@ fileName может иметь любое расширение - как xml, т�
 public class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        Properties properties = solution.getProperties("src/com/javarush/test/level31/lesson10/task01/properties.xml");
+
+        Properties properties = solution.getProperties("src/com/javarush/test/level31/lesson10/home01/properties.xml");
         properties.list(System.out);
 
-        properties = solution.getProperties("src/com/javarush/test/level31/lesson10/task01/properties.txt");
-        properties.list(System.out);
+        properties = solution.getProperties("src/com/javarush/test/level31/lesson10/home01/properties.txt");
+       // properties.list(System.out);
 
-        properties = solution.getProperties("src/com/javarush/test/level31/lesson10/task01/notExists");
-        properties.list(System.out);
+        properties = solution.getProperties("src/com/javarush/test/level31/lesson10/home01/notExists");
+       // properties.list(System.out);
     }
 
-    public Properties getProperties(String fileName) {
-        return null;
+    public Properties getProperties(String fileName)
+    {
+        boolean isXML = false;
+        Properties returnProperties = new Properties();
+        try
+        {
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+
+            String line;
+            while ((line = br.readLine())!=null )
+            {;
+                if (line.contains("</properties>"))
+                {
+                    isXML =true;
+                    break;
+                }
+            }
+            if (isXML)
+            {
+                returnProperties.loadFromXML(new FileInputStream(fileName));
+            }
+            else
+            {
+                returnProperties.load(new FileInputStream(fileName));
+            }
+
+
+        }
+        catch (IOException ie)
+        {
+       //   ie.printStackTrace();
+        }
+        return returnProperties;
+
     }
 }
