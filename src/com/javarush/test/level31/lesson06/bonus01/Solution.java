@@ -35,23 +35,7 @@ public class Solution {
         {
             Enumeration< ? extends InputStream> en = Collections.enumeration(Arrays.asList(zipParts.getInputStreams()));
             ZipInputStream so = new ZipInputStream(new SequenceInputStream(en));
-
-            BufferedOutputStream bo = new BufferedOutputStream(new FileOutputStream(args[0]));
-
-            ZipEntry zipEntry = null;
-            while ((zipEntry =so.getNextEntry()) != null)
-            {
-                final int bufferSize = 1024;
-                byte[] buffer = new byte[bufferSize];
-
-                for (int readBytes = -1;(readBytes = so.read(buffer,0,bufferSize)) > -1;)
-                {
-                   bo.write(buffer,0,readBytes);
-                }
-            }
-
-            so.close();
-            bo.close();
+            writeToFile(so,args[0]);
 
         }
         catch (IOException ie)
@@ -62,13 +46,24 @@ public class Solution {
     }
 
 
-    public static void writeToFile(String fileName, byte[] array) throws IOException
+    public static void writeToFile(ZipInputStream zi,String fileName) throws IOException
     {
         File file = new File(fileName);
         file.createNewFile();
-        FileOutputStream fo = new FileOutputStream(new File(fileName));
-        fo.write(array);
-        fo.close();
+        BufferedOutputStream bo = new BufferedOutputStream(new FileOutputStream(file));
+        ZipEntry zipEntry = null;
+        while ((zipEntry =zi.getNextEntry()) != null)
+        {
+            final int bufferSize = 1024;
+            byte[] buffer = new byte[bufferSize];
+
+            for (int readBytes = -1;(readBytes = zi.read(buffer,0,bufferSize)) > -1;)
+            {
+                bo.write(buffer,0,readBytes);
+            }
+        }
+        zi.close();
+        bo.close();
     }
 
     public static ZipFilesContainer getZipContainer()
