@@ -22,7 +22,7 @@ public class TestOrder extends Order
     protected void initDishes() throws IOException
     {
         ConsoleHelper.writeMessage(Dish.allDishesToString());
-        dishes = new ArrayList<Dish>();
+        dishes = new ArrayList<>();
         for (int i = (int)(Math.random()*Dish.values().length); i < Dish.values().length ; i++)
         {
             int randomDish = (int)(Math.random() * Dish.values().length-1);
