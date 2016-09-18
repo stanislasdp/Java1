@@ -9,9 +9,9 @@ public class Archiver {
 
     public static void main(String[] args) throws IOException,Exception
     {
-       /* ZipFileManager zp = new ZipFileManager(Paths.get("/home/stas/test/arc.zip"));
-        zp.createZip(Paths.get("/home/stas/test/1"));*/
-       /* Operation operation = null;
+      //  ZipFileManager zp = new ZipFileManager(Paths.get("/home/stas/arc/acr.zip"));
+        //zp.createZip(Paths.get("/home/stas/test"));
+       Operation operation = null;
         do
         {
             try
@@ -27,7 +27,7 @@ public class Archiver {
                 ConsoleHelper.writeMessage("Произошла ошибка. Проверьте введенные данные.");
             }
 
-        } while (operation != Operation.EXIT);*/
+        } while (operation != Operation.EXIT);
 
     }
 

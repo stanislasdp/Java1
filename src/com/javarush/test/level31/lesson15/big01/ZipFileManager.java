@@ -17,7 +17,7 @@ import java.util.zip.ZipOutputStream;
  */
 public class ZipFileManager
 {
-    private Path zipFile;
+    private final Path zipFile;
 
     public ZipFileManager(Path zipFile)
     {
@@ -26,12 +26,14 @@ public class ZipFileManager
 
     public void createZip(Path source) throws Exception
     {
+        if (Files.notExists(zipFile.getParent()))
+        {
+            Files.createDirectories(zipFile);
+        }
+
         try ( ZipOutputStream zo =  new ZipOutputStream(Files.newOutputStream(zipFile));)
         {
-            if (!zipFile.getParent().toFile().exists())
-            {
-                Files.createDirectories(zipFile.getParent());
-            }
+
             if (Files.isRegularFile(source))
             {
                 addNewZipEntry(zo,source.getParent(),source.getFileName());
@@ -41,18 +43,16 @@ public class ZipFileManager
                 FileManager fm = new FileManager(source);
                 List<Path> allFIlesList = fm.getFileList();
 
-                for (Path fileNames: allFIlesList)
+                for (Path fileName: allFIlesList)
                 {
-                    addNewZipEntry(zo,source,fileNames);
+                    addNewZipEntry(zo,source,fileName);
                 }
             }
-            /*else if (!Files.isDirectory(source) && !Files.isRegularFile(source))
+            else
             {
                 throw new PathIsNotFoundException();
-            }*/
+            }
         }
-
-
 
     }
 
@@ -69,12 +69,10 @@ public class ZipFileManager
 
     private void copyData(InputStream in, OutputStream out) throws Exception
     {
-        int bufferSize = 1024;
-        byte[] buffer = new byte[bufferSize];
-
-        for (int readBytes = -1;(readBytes=in.read(buffer,0,bufferSize)) > -1;)
-        {
-            out.write(buffer,0,readBytes);
+        byte[] buffer = new byte[8 * 1024];
+        int len;
+        while ((len = in.read(buffer)) > 0) {
+            out.write(buffer, 0, len);
         }
     }
 
