@@ -17,7 +17,6 @@ import java.util.zip.ZipOutputStream;
  */
 public class ZipFileManager
 {
-
     private Path zipFile;
 
     public ZipFileManager(Path zipFile)
@@ -27,30 +26,33 @@ public class ZipFileManager
 
     public void createZip(Path source) throws Exception
     {
-        ZipOutputStream zo =  new ZipOutputStream(Files.newOutputStream(zipFile));
-        if (zipFile.getParent() == null)
+        try ( ZipOutputStream zo =  new ZipOutputStream(Files.newOutputStream(zipFile));)
         {
-            Files.createDirectory(zipFile.getParent());
-        }
-        if (Files.isRegularFile(source))
-        {
-            addNewZipEntry(zo,source.getParent(),source.getFileName());
-        }
-        else if (Files.isDirectory(source))
-        {
-            FileManager fm = new FileManager(source);
-            List<Path> allFIlesList = fm.getFileList();
-
-            for (Path fileNames: allFIlesList)
+            if (!zipFile.getParent().toFile().exists())
             {
-                addNewZipEntry(zo,source,fileNames);
+                Files.createDirectories(zipFile.getParent());
             }
+            if (Files.isRegularFile(source))
+            {
+                addNewZipEntry(zo,source.getParent(),source.getFileName());
+            }
+            else if (Files.isDirectory(source))
+            {
+                FileManager fm = new FileManager(source);
+                List<Path> allFIlesList = fm.getFileList();
 
+                for (Path fileNames: allFIlesList)
+                {
+                    addNewZipEntry(zo,source,fileNames);
+                }
+            }
+            /*else if (!Files.isDirectory(source) && !Files.isRegularFile(source))
+            {
+                throw new PathIsNotFoundException();
+            }*/
         }
-        else
-        {
-            throw new PathIsNotFoundException();
-        }
+
+
 
     }
 

@@ -3,24 +3,32 @@ package com.javarush.test.level31.lesson15.big01;
 import com.javarush.test.level31.lesson15.big01.exception.WrongZipFileException;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class Archiver {
 
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws IOException,Exception
     {
-        Operation operation = null;
-        do {
-            try {
+       /* ZipFileManager zp = new ZipFileManager(Paths.get("/home/stas/test/arc.zip"));
+        zp.createZip(Paths.get("/home/stas/test/1"));*/
+       /* Operation operation = null;
+        do
+        {
+            try
+            {
                 operation = askOperation();
                 CommandExecutor.execute(operation);
-            } catch (WrongZipFileException e)
+            }
+            catch (WrongZipFileException e)
             {
                 ConsoleHelper.writeMessage("Вы не выбрали файл архива или выбрали неверный файл.");
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 ConsoleHelper.writeMessage("Произошла ошибка. Проверьте введенные данные.");
             }
 
-        } while (operation != Operation.EXIT);
+        } while (operation != Operation.EXIT);*/
+
     }
 
 
