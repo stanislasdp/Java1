@@ -12,7 +12,7 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipFileManager 
 {
-    /// Полный путь zip файла
+   // Полный путь zip файла
 	private final Path zipFile;
 
 	public ZipFileManager(Path zipFile) 
@@ -74,7 +74,7 @@ public class ZipFileManager
 			out.write(buffer, 0, len);
 		}
 	}
-	
+
 	public List<FileProperties> getFilesList() throws Exception
 	{
 		if (!Files.isRegularFile(zipFile))
@@ -95,5 +95,30 @@ public class ZipFileManager
 			}
 		}
 		return propertiesList;
+	}
+
+	public void extractAll(Path outputFolder) throws Exception
+	{
+		if (Files.notExists(zipFile))
+		{
+			throw new WrongZipFileException();
+		}
+		if (Files.notExists(outputFolder))
+		{
+			Files.createDirectories(outputFolder);
+		}
+		try (ZipInputStream zi = new ZipInputStream(Files.newInputStream(outputFolder)))
+		{
+			ZipEntry zipEntry = null;
+
+			while ((zipEntry = zi.getNextEntry())!= null)
+			{
+				Path fullpath = outputFolder.resolve(Paths.get(zipEntry.getName()));
+				try (OutputStream fo = Files.newOutputStream(fullpath);)
+				{
+					copyData(zi, fo);
+				}
+			}
+		}
 	}
 }
