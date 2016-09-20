@@ -5,16 +5,23 @@ package com.javarush.test.level31.lesson15.big01.command;
  */
 public class ZipAddCommand extends ZipCommand
 {
-   try 
-    	{
-    	ZipFileManager zipFileManager = getZipFileManager();
-		Path addPath = Paths.get(ConsoleHelper.readString());
-		ConsoleHelper.writeMessage("Enter file path to add");
-		zipFileManager.addFile(addPath);
-    	}
-    	catch (PathIsNotFoundException pe)
-    	{
-    		ConsoleHelper.writeMessage("Вы неверно указали имя файла или директории.");
-    	}
+    @Override
+    public void execute() throws Exception 
+    {
+        try {
+            ConsoleHelper.writeMessage("Добавление нового файла в архив.");
+
+            ZipFileManager zipFileManager = getZipFileManager();
+
+            ConsoleHelper.writeMessage("Введите полное имя файла для добавления:");
+            Path sourcePath = Paths.get(ConsoleHelper.readString());
+
+            zipFileManager.addFile(sourcePath);
+
+            ConsoleHelper.writeMessage("Добавление в архив завершено.");
+
+        } catch (PathIsNotFoundException e) {
+            ConsoleHelper.writeMessage("Файл не был найден.");
+        }
     	
 }
