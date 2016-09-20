@@ -17,7 +17,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class ZipFileManager {
-    // Полный путь zip файла
+   // Полный путь zip файла
     private final Path zipFile;
 
     public ZipFileManager(Path zipFile) {
@@ -61,7 +61,8 @@ public class ZipFileManager {
             throw new WrongZipFileException();
         }
 
-        try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
+        try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) 
+        {
             // Создаем директорию вывода, если она не существует
             if (Files.notExists(outputFolder))
                 Files.createDirectories(outputFolder);
@@ -91,7 +92,6 @@ public class ZipFileManager {
         if (!Files.isRegularFile(zipFile)) {
             throw new WrongZipFileException();
         }
-
         List<FileProperties> files = new ArrayList<>();
 
         try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
@@ -133,13 +133,12 @@ public class ZipFileManager {
 
     public void removeFiles(List<Path> pathList) throws Exception
     {
-        if (Files.isRegularFile(zipFile))
+        if (!Files.isRegularFile(zipFile))
         {
             throw new WrongZipFileException();
         }
 
-        String zipFileDir = zipFile.toAbsolutePath().toString();
-        Path tempFile =Files.createTempFile("arc","tmp");
+        Path tempFile = Files.createTempFile("arc","tmp");
 
         try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile));
              ZipOutputStream zipOutputStream = new ZipOutputStream(Files.newOutputStream(tempFile)) )
@@ -156,17 +155,20 @@ public class ZipFileManager {
                     zipOutputStream.putNextEntry(zipEntry);
                 }
             }
-            Files.move(tempFile,zipFile);
+           // Files.delete(zipFile);
         }
+        Files.delete(zipFile);
+        Files.move(tempFile,zipFile);
 
 
     }
 
-    private void copyData(InputStream in, OutputStream out) throws Exception {
+    private void copyData(InputStream in, OutputStream out) throws Exception 
+    {
         byte[] buffer = new byte[8 * 1024];
         int len;
         while ((len = in.read(buffer)) > 0) {
             out.write(buffer, 0, len);
         }
-    }
+}
 }
