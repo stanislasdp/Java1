@@ -10,7 +10,11 @@ public class Solution {
         System.out.println(text);
     }
 
-    public static String getStackTrace(Throwable throwable) {
-        return null;
+    public static String getStackTrace(Throwable throwable) 
+    {
+       StringWriter sw = new StringWriter();
+    	PrintWriter pw = new PrintWriter(sw);
+    	throwable.printStackTrace(pw);;
+        return sw.toString();
     }
 }
