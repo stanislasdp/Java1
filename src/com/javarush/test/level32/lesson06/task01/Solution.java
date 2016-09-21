@@ -13,12 +13,46 @@ import java.io.ByteArrayOutputStream;
 wMh7SmNu
 */
 public class Solution {
-    public static void main(String[] args) {
-        ByteArrayOutputStream password = getPassword();
-        System.out.println(password.toString());
-    }
+   public static void main(String[] args) 
+	{
+		ByteArrayOutputStream password = getPassword();
+		System.out.println(password.toString());
+	}
 
-    public static ByteArrayOutputStream getPassword() {
-        return null;
-    }
+	public static ByteArrayOutputStream getPassword() 
+	{
+		ByteArrayOutputStream bo = new ByteArrayOutputStream();
+		Random random = new Random();
+		boolean isLowerCasePresent = false;
+		boolean isUpperCasePresent = false;
+		boolean isDigitPresent = false;
+
+		while (!isLowerCasePresent || !isUpperCasePresent || !isDigitPresent)
+		{
+			bo.reset();
+			for (int i =0; i <8; i++)
+			{
+				char lC = (char)(random.nextInt(26) + 'a');
+				char UC = (char)(random.nextInt(26) + 'A');
+				char Digit = (char)(random.nextInt(10) + '0');
+				int flag = random.nextInt(3);
+				switch (flag)
+				{
+				case 0:
+					bo.write(lC);
+					isLowerCasePresent = true;
+					break;
+				case 1:
+					bo.write(UC);
+					isUpperCasePresent = true;
+					break;
+				case 2:
+					bo.write(Digit);
+					isDigitPresent = true;
+					break;
+				}
+			}
+		}
+		return bo;
+	}
 }
