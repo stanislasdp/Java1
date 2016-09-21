@@ -1,6 +1,7 @@
 package com.javarush.test.level32.lesson06.task01;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Random;
 
 /* Генератор паролей
 Реализуйте логику метода getPassword, который должен возвращать ByteArrayOutputStream, в котором будут байты пароля.
@@ -23,36 +24,24 @@ public class Solution {
 	{
 		ByteArrayOutputStream bo = new ByteArrayOutputStream();
 		Random random = new Random();
-		boolean isLowerCasePresent = false;
-		boolean isUpperCasePresent = false;
-		boolean isDigitPresent = false;
-
-		while (!isLowerCasePresent || !isUpperCasePresent || !isDigitPresent)
-		{
 			bo.reset();
-			for (int i =0; i <8; i++)
+
+			for (int i =0;i < 3;i++)
 			{
 				char lC = (char)(random.nextInt(26) + 'a');
-				char UC = (char)(random.nextInt(26) + 'A');
-				char Digit = (char)(random.nextInt(10) + '0');
-				int flag = random.nextInt(3);
-				switch (flag)
-				{
-				case 0:
-					bo.write(lC);
-					isLowerCasePresent = true;
-					break;
-				case 1:
-					bo.write(UC);
-					isUpperCasePresent = true;
-					break;
-				case 2:
-					bo.write(Digit);
-					isDigitPresent = true;
-					break;
-				}
+				bo.write(lC);
 			}
-		}
+			for (int i =0;i < 3;i++)
+			{
+				char UC = (char)(random.nextInt(26) + 'A');
+				bo.write(UC);
+			}
+			for (int i =0;i < 2;i++)
+			{
+				char Digit = (char)(random.nextInt(10) + '0');
+				bo.write(Digit);
+			}
+
 		return bo;
 	}
 }
