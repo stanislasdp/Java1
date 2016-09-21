@@ -13,6 +13,7 @@ import com.javarush.test.level32.lesson08.bonus01.Small;
 */
 public class Solution {
 
+   
     public static void main(String[] args) {
         Solution solution = new Solution();
         test(solution.getProxy(Item.class));                        //true false false
@@ -23,11 +24,20 @@ public class Solution {
     }
 
 
-    private static void test(Object proxy) {
+    private static void test(Object proxy) 
+    {
         boolean isItem = proxy instanceof Item;
         boolean isBig = proxy instanceof Big;
         boolean isSmall = proxy instanceof Small;
 
         System.out.format("%b %b %b\n", isItem, isBig, isSmall);
     }
+    
+    public <T extends Item> T getProxy(Class...clazz)
+    {
+    	T item = (T)Proxy.newProxyInstance(item.getClass().getInterfaces(), new ItemInvocationHandler());
+    	return item;
+    	//http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html
+    }
+    
 }
