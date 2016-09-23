@@ -15,20 +15,37 @@ import java.rmi.server.UnicastRemoteObject;
 4) Обработайте исключения
 Метод main не участвует в тестировании
 */
-public class Solution {
-    public static final String UNIC_BINDING_NAME = "double.string";
-    public static Registry registry;
+public class Solution 
+{
+	public static final String UNIC_BINDING_NAME = "double.string";
+	public static Registry registry;
 
-    //pretend we start rmi client as CLIENT_THREAD thread
-    public static Thread CLIENT_THREAD = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            //TODO add your code here - добавьте код тут
-        }
-    });
+	//pretend we start rmi client as CLIENT_THREAD thread
+	public static Thread CLIENT_THREAD = new Thread(new Runnable() 
+	{
+		@Override
+		public void run() 
+		{
+			try 
+			{
+				Registry registry = LocateRegistry.createRegistry(2099);
+				DoubleString  service = (DoubleString)registry.lookup("double.string");
+				System.out.println(service.doubleString("test"));
+				service.doubleString("test");
+			} catch (RemoteException e) 
+			{
+				e.printStackTrace();
+			}
+			catch (NotBoundException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+	});
 
-    public static void main(String[] args) {
-        //pretend we start rmi server as main thread
+	public static void main(String[] args) 
+	{
+		 //pretend we start rmi server as main thread
         Remote stub = null;
         try {
             registry = LocateRegistry.createRegistry(2099);
@@ -44,5 +61,6 @@ public class Solution {
 
         //start client
         CLIENT_THREAD.start();
-    }
 }
+}
+
