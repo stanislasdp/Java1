@@ -35,8 +35,11 @@ public class Solution {
     
     public <T extends Item> T getProxy(Class...clazz)
     {
-    	T item = (T)Proxy.newProxyInstance(item.getClass().getInterfaces(), new ItemInvocationHandler());
-    	return item;
+    	Class[] interArr = new Class[addInter.length +1];
+    	interArr[0] = classMain;
+    	
+    	System.arraycopy(addInter, 0,interArr,1,addInter.length);
+    	 return (T)Proxy.newProxyInstance(classMain.getClassLoader(), interArr, new ItemInvocationHandler());
     	//http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html
     }
     
