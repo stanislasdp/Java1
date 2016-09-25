@@ -1,5 +1,7 @@
 package com.javarush.test.level32.lesson08.home01;
 
+import java.lang.reflect.Proxy;
+
 /* Создание прокси-объекта
 1) В отдельном файле создать публичный класс CustomInvocationHandler, который будет хэндлером при создании прокси-объекта.
 2) CustomInvocationHandler должен иметь один публичный конструктор с одним агументом типа SomeInterfaceWithMethods.
@@ -27,11 +29,6 @@ public class Solution {
 
     public static SomeInterfaceWithMethods getProxy() 
 	{
-		SomeInterfaceWithMethods original = new SomeInterfaceWithMethodsImpl();
-
-		SomeInterfaceWithMethods sp = (SomeInterfaceWithMethods)Proxy.newProxyInstance(original.getClass().getClassLoader(),
-				original.getClass().getInterfaces(),
-				new CustomInvocationHandler(original));
-		return sp;
+		return null;
 	}
 }

@@ -1,5 +1,8 @@
 package com.javarush.test.level32.lesson02.task01;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 /* Запись в файл
 В метод main приходят три параметра:
 1) fileName - путь к файлу
