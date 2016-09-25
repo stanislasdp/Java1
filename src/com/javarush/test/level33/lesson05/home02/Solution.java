@@ -26,17 +26,22 @@ public class Solution {
         System.out.println(writer.toString());
     }
 
-    public static void convertToJSON(StringWriter writer, Object object) throws IOException {
+    public static void convertToJSON(StringWriter writer, Object object) throws IOException
+    {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(writer, object);
     }
 
     @JsonAutoDetect
-    public static class Cat {
+    public static class Cat
+    {
+        @JsonProperty ("wildAnimal")
         public String name;
 
+        @JsonIgnore
         public int age;
 
+        @JsonProperty ("over")
         public int weight;
 
         Cat() {
