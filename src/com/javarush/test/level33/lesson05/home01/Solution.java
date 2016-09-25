@@ -1,5 +1,7 @@
 package com.javarush.test.level33.lesson05.home01;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -41,17 +43,48 @@ public class Solution {
 
     public static class Pet
     {
+        public Pet() {}
+        public String getName()
+        {
+            return name;
+        }
+
         String name;
+
     }
 
     public static class Cat extends Pet
     {
+        public Cat(){}
+
+        public int getAge()
+        {
+            return age;
+        }
+
+        public int getWeight()
+        {
+            return weight;
+        }
+
         int age;
         int weight;
     }
 
     public static class Dog extends Pet
     {
+        public Dog(){}
+
+        public String getOwner()
+        {
+            return owner;
+        }
+
+        public int getAge()
+        {
+            return age;
+        }
+
         int age;
         String owner;
     }
