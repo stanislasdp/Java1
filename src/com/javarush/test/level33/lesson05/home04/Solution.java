@@ -24,8 +24,18 @@ public class Solution {
         First f = (First) convertOneToAnother(new Second(), First.class);
     }
 
-    public static Object convertOneToAnother(Object one, Class resultClassObject) throws IOException {
-        return null;
+    public static Object convertOneToAnother(Object one, Class resultClassObject) throws IOException
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        StringWriter stringWriter = new StringWriter();
+        mapper.writeValue(stringWriter,one);
+
+        String originClass = one.getClass().getSimpleName().toLowerCase();//save original class name in lowercase
+        String resultClass = resultClassObject.getSimpleName().toLowerCase();//save result class name in lowercase
+        String jsonStr = stringWriter.toString().replaceFirst(originClass, resultClass);//replace original class to result class
+        StringReader stringReader = new StringReader(jsonStr);
+        return mapper.readValue(stringReader,resultClassObject);
+
     }
 
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,  property="className")
