@@ -12,14 +12,16 @@ import java.io.StringWriter;
 Раставьте правильно JAXB аннотации у статических классов.
 Метод main не участвует в тестировании.
 */
-public class Solution {
-    public static void main(String[] args) throws IOException, JAXBException {
-        Cat cat = new Cat ();
+public class Solution
+{
+    public static void main(String[] args) throws IOException, JAXBException
+    {
+        Cat cat = new Cat();
         cat.name = "Murka";
         cat.age = 5;
         cat.weight = 3;
 
-        Dog dog = new Dog ();
+        Dog dog = new Dog();
         dog.name = "Killer";
         dog.age = 8;
         dog.owner = "Bill Jeferson";
@@ -44,7 +46,8 @@ public class Solution {
         */
     }
 
-    public static void convertToXml(StringWriter writer, Object obj) throws IOException, JAXBException {
+    public static void convertToXml(StringWriter writer, Object obj) throws IOException, JAXBException
+    {
         JAXBContext context = JAXBContext.newInstance(obj.getClass());
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -56,12 +59,15 @@ public class Solution {
         public String name;
     }
 
+
+    @XmlRootElement
     public static class Cat extends Pet
     {
         public int age;
         public int weight;
     }
 
+    @XmlRootElement
     public static class Dog extends Pet
     {
         public int age;
