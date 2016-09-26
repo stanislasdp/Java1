@@ -10,32 +10,44 @@ import java.io.IOException;
 Вторым параметром приходит имя класса, объект которого необходимо вернуть.
 Метод convertFromXmlToNormal должен создать объект из xml-строки и вернуть его.
 */
-public class Solution {
-    public static void main(String[] args) throws IOException, JAXBException {
-        String xmlData = "<cat><name>Murka</name><age>5</age><weight>4</weight></cat>";
-        Cat cat = convertFromXmlToNormal(xmlData, Cat.class);
-        System.out.println(cat);
-    }
+public class Solution 
+{
 
-    public static <T> T convertFromXmlToNormal(String xmlData, Class<T> clazz) throws IOException, JAXBException {
-        return null;
-    }
+/* Десериализация XML объекта
+В метод convertFromXmlToNormal первым параметром приходит строка, содержащая xml объект.
+Вторым параметром приходит имя класса, объект которого необходимо вернуть.
+Метод convertFromXmlToNormal должен создать объект из xml-строки и вернуть его.
+*/
+	public static void main(String[] args) throws IOException, JAXBException 
+	{
+		String xmlData = "<cat><name>Murka</name><age>5</age><weight>4</weight></cat>";
+		Cat cat = convertFromXmlToNormal(xmlData, Cat.class);
+		System.out.println(cat);
+	}
 
-    @XmlType(name = "cat")
-    @XmlRootElement
-    public static class Cat
-    {
-        public String name;
-        public int age;
-        public int weight;
+	public static <T> T convertFromXmlToNormal(String xmlData, Class<T> clazz) throws IOException, JAXBException 
+	{
+		JAXBContext context = JAXBContext.newInstance(Cat.class);
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		return (T)unmarshaller.unmarshal(new StringReader(xmlData));
+	}
 
-        @Override
-        public String toString() {
-            return "Cat{" +
-                    "name='" + name + '\'' +
-                    ", age=" + age +
-                    ", weight=" + weight +
-                    '}';
-        }
-    }
+	@XmlType(name = "cat")
+	@XmlRootElement
+	public static class Cat
+	{
+		public String name;
+		public int age;
+		public int weight;
+
+		@Override
+		public String toString() {
+			return "Cat{" +
+					"name='" + name + '\'' +
+					", age=" + age +
+					", weight=" + weight +
+					'}';
+		}
+	}
+
 }
