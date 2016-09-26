@@ -1,9 +1,12 @@
 package com.javarush.test.level33.lesson08.home02;
 
+import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.IOException;
+import java.io.StringReader;
 
 /* Десериализация XML объекта
 В метод convertFromXmlToNormal первым параметром приходит строка, содержащая xml объект.
