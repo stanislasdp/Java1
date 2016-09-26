@@ -13,7 +13,8 @@ import java.io.StringWriter;
 Метод main не участвует в тестировании.
 */
 public class Solution {
-    public static void main(String[] args) throws IOException, JAXBException {
+    public static void main(String[] args) throws IOException, JAXBException 
+    {
         Cat cat = new Cat ();
         cat.name = "Murka";
         cat.age = 5;
@@ -56,15 +57,19 @@ public class Solution {
         public String name;
     }
 
+    
+    @XmlRootElement
     public static class Cat extends Pet
     {
         public int age;
         public int weight;
     }
 
+    @XmlRootElement
     public static class Dog extends Pet
     {
         public int age;
         public String owner;
-    }
+}
+    
 }
