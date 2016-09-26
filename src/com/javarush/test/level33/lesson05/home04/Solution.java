@@ -31,15 +31,15 @@ public class Solution
 
     public static Object convertOneToAnother(Object one, Class resultClassObject) throws IOException
     {
-        ObjectMapper mapper = new ObjectMapper();
-        StringWriter stringWriter = new StringWriter();
-        mapper.writeValue(stringWriter,one);
-       ObjectNode objectNode = (ObjectNode) mapper.readTree(stringWriter.toString());
-        objectNode.put("className", resultClassObject.getSimpleName());
-        mapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);
-        StringReader stringReader = new StringReader(objectNode.toString());
-        //return mapper.readValue(stringReader,resultClassObject);
-        return null;
+      ObjectMapper mapper = new ObjectMapper();
+		StringWriter stringWriter = new StringWriter();
+		mapper.writeValue(stringWriter,one);
+		
+		String originClass = one.getClass().getSimpleName().toLowerCase();
+		String resultClass = resultClassObject.getSimpleName().toLowerCase();
+		String jsonStr = stringWriter.toString().replaceFirst(originClass, resultClass);
+		StringReader stringReader = new StringReader(jsonStr);
+		return mapper.readValue(stringReader,resultClassObject);
 
 
     }
