@@ -11,14 +11,23 @@ import java.io.IOException;
 Метод convertFromXmlToNormal должен создать объект из xml-строки и вернуть его.
 */
 public class Solution {
-    public static void main(String[] args) throws IOException, JAXBException {
+    /* Десериализация XML объекта
+ В метод convertFromXmlToNormal первым параметром приходит строка, содержащая xml объект.
+ Вторым параметром приходит имя класса, объект которого необходимо вернуть.
+ Метод convertFromXmlToNormal должен создать объект из xml-строки и вернуть его.
+ */
+    public static void main(String[] args) throws IOException, JAXBException
+    {
         String xmlData = "<cat><name>Murka</name><age>5</age><weight>4</weight></cat>";
         Cat cat = convertFromXmlToNormal(xmlData, Cat.class);
         System.out.println(cat);
     }
 
-    public static <T> T convertFromXmlToNormal(String xmlData, Class<T> clazz) throws IOException, JAXBException {
-        return null;
+    public static <T> T convertFromXmlToNormal(String xmlData, Class<T> clazz) throws IOException, JAXBException
+    {
+        JAXBContext context = JAXBContext.newInstance(clazz);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        return (T)unmarshaller.unmarshal(new StringReader(xmlData));
     }
 
     @XmlType(name = "cat")

@@ -1,5 +1,7 @@
 package lesson08;
 
+import com.javarush.test.level32.lesson08.home01.SomeInterfaceWithMethods;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 

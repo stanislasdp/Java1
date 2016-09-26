@@ -1,5 +1,8 @@
 package com.javarush.test.level32.lesson04.task01;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 /* Пишем стек-трейс
 Реализуйте логику метода getStackTrace, который в виде одной строки должен возвращать весь стек-трейс переданного исключения.
 Используйте подходящий метод класса Throwable, который поможет записать стек-трейс в StringWriter.
