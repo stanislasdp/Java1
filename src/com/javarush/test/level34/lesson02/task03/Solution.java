@@ -11,6 +11,35 @@ package com.javarush.test.level34.lesson02.task03;
 2 2 3 11
 */
 public class Solution {
-    public void recursion(int n) {
+    public void recursion(int n)
+    {
+
+        int k = 2;
+
+        while (k <= n)
+        {
+            if (n % k == 0)
+            {
+                if (k != n)
+                {
+                    System.out.print(k+ " " );
+                    recursion(n / k);
+                }
+                else
+                {
+                    System.out.print(k+" ");
+                }
+                return;
+            }
+            k++;
+        }
+
+
     }
+
+    public static void main(String[] args)
+    {
+        new Solution().recursion(132);
+    }
+
 }
