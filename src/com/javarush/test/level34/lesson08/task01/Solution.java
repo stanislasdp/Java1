@@ -69,7 +69,8 @@ public class Solution {
 
         public void checkListWithReferences(List<PhantomReference<Monkey>> list, String string) {
             int count = 0;
-            for (PhantomReference<Monkey> reference : list) {
+            for (PhantomReference<Monkey> reference : list)
+            {
                 if (reference.isEnqueued()) {
                     count++;
                 }
@@ -78,7 +79,14 @@ public class Solution {
             System.out.println(String.format("The enqueue reference count is %d (%s GC was called)", count, string));
         }
 
-        public List<PhantomReference<Monkey>> getFilledList() {
+        public List<PhantomReference<Monkey>> getFilledList()
+        {
+            List<PhantomReference<Monkey>> list = new ArrayList<>(200);
+            for (int i = 0; i <200 ; i++)
+            {
+                list.add(new PhantomReference<Monkey>(new Monkey(),getQueue()));
+                // 200 refere
+            }
             return null;
         }
 
