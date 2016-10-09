@@ -1,5 +1,6 @@
 package com.javarush.test.level34.lesson04.task01;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,9 @@ public class Solution {
             this.name = name;
         }
 
-        protected void finalize() {
+        @Override
+        protected void finalize()
+        {
             Helper.isFinalized = true;
             System.out.format("Bye-Bye, %s!\n", name);
         }
@@ -31,6 +34,8 @@ public class Solution {
 
         helper.callGC();
 
+        SoftReference<Monkey> reference = new SoftReference<Monkey>(monkey);
+        //only soft reference exists to object Monkey, so that it  will be deleted when progrma is out of memory.
         monkey = null;
 
         helper.callGC();
