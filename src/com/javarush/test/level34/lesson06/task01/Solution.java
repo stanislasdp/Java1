@@ -1,5 +1,6 @@
 package com.javarush.test.level34.lesson06.task01;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,8 @@ public class Solution {
             this.name = name;
         }
 
-        protected void finalize() {
+        protected void finalize()
+        {
             Helper.isFinalized = true;
             System.out.format("Bye-Bye, %s!\n", name);
         }
@@ -30,7 +32,10 @@ public class Solution {
 
         helper.callGC();
 
+       WeakReference<Monkey> reference = new WeakReference<>(monkey);
+       // weak refence to object monkey is created, so that when only weak reference exists object will be deleted when next garbge collection is performed
         monkey = null;
+
 
         helper.callGC();
         helper.heapConsuming();
