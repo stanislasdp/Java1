@@ -17,6 +17,9 @@ public class Field extends JPanel
 	public Field (View view)
 	{
 		this.view = view;
+		KeyHandler keyHandler = new KeyHandler();
+		this.addKeyListener(keyHandler);
+		setFocusable(true);
 	}
 
 	@Override
@@ -34,5 +37,34 @@ public class Field extends JPanel
 	{
 		
 		this.eventListener = eventListener;
+	}
+	
+	
+	public  class KeyHandler extends KeyAdapter
+	{
+		@Override
+		public void keyPressed(KeyEvent e) 
+		{
+			if (e.getKeyCode() == KeyEvent.VK_LEFT)
+			{
+				eventListener.move(Direction.LEFT);
+			}
+			else if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+			{
+				eventListener.move(Direction.RIGHT);
+			}
+			else if (e.getKeyCode() == KeyEvent.VK_UP)
+			{
+				eventListener.move(Direction.UP);
+			}
+			else if (e.getKeyCode() == KeyEvent.VK_DOWN)
+			{
+				eventListener.move(Direction.DOWN);
+			}
+			else if (e.getKeyCode() == KeyEvent.VK_R)
+			{
+				eventListener.restart();
+			}
+		}
 	}
 }
