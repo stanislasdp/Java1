@@ -9,14 +9,11 @@ import java.nio.file.Paths;
  */
 public class Model
 {
-   public class Model 
-{
-	private EventListener eventListener;
+ private EventListener eventListener;
 	private GameObjects gameObjects;
 	private int currentLevel = 1;
 	private LevelLoader levelLoader = new LevelLoader(Paths.get("..\\res\\levels.txt"));
 	public static int FIELD_SELL_SIZE = 20;
-
 
 	public void setEventListener(EventListener eventListener)
 	{
@@ -49,11 +46,11 @@ public class Model
 	
 	public boolean checkWallCollision(CollisionObject gameObject, Direction direction)
 	{
-			for (GameObject go: gameObjects.getAll())
+			for (Wall wall: gameObjects.getWalls())
 			{
-				if (go instanceof Wall)
+				if (gameObject.isCollision(wall, direction))
 				{
-					return gameObject.isCollision(go, direction);
+					return true;
 				}
 			}
 			return false;
@@ -61,6 +58,10 @@ public class Model
 	
 	public boolean checkBoxCollision(Direction direction)
 	{
+		Player player = gameObjects.getPlayer();
+		Set<Wall> walls = gameObjects.getWalls();
+		Set<Box> boxes = gameObjects.getBoxes();
+		
 		return false;
 	}
 }
