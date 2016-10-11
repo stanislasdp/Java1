@@ -10,46 +10,53 @@ import com.javarush.test.level34.lesson15.big01.view.View;
 
    public class Controller implements EventListener
 {
+	
 	private View view;
-    private Model model;
+	private Model model;
 
-    public Controller()
-    {
-    	 model = new Model();
-    	 model.restart();
-         view = new View(this);
-        view.init();
-    }
+	public Controller()
+	{
+		model = new Model();
+		model.restart();
+		view = new View(this);
+		view.init();
+		model.setEventListener(this);
+		view.setEventListener(this);
+	}
 
-    public static void main(String[] args)
-    {
-        Controller controller = new Controller();
-    }
-    
-   public GameObjects getGameObjects()
-    {
-    	return model.getGameObjects();
-    }
+	public static void main(String[] args)
+	{
+		Controller controller = new Controller();
+	}
 
-    @Override
-    public void move(Direction direction)
-    {
+	public GameObjects getGameObjects()
+	{
+		return model.getGameObjects();
+	}
 
-    }
+	@Override
+	public void move(Direction direction)
+	{
+		model.move(direction);
+	}
 
-    @Override
-    public void restart()
-    {
+	@Override
+	public void restart()
+	{
+		model.restart();
+		view.update();
+	}
 
-    }
+	@Override
+	public void startNextLevel()
+	{
+		model.startNextLevel();
+		view.update();
+	}
 
-    @Override
-    public void startNextLevel()
-    {
-
-    }
-
-    @Override
-    public void levelCompleted(int level)
-    {}
+	@Override
+	public void levelCompleted(int level)
+	{
+		view.completed(level);
+	}
 }
