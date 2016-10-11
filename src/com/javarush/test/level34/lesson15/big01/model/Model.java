@@ -9,7 +9,9 @@ import java.nio.file.Paths;
  */
 public class Model
 {
-   private EventListener eventListener;
+   public class Model 
+{
+	private EventListener eventListener;
 	private GameObjects gameObjects;
 	private int currentLevel = 1;
 	private LevelLoader levelLoader = new LevelLoader(Paths.get("..\\res\\levels.txt"));
@@ -43,6 +45,22 @@ public class Model
 	
 	public void move (Direction direction)
 	{
-		
+	}
+	
+	public boolean checkWallCollision(CollisionObject gameObject, Direction direction)
+	{
+			for (GameObject go: gameObjects.getAll())
+			{
+				if (go instanceof Wall)
+				{
+					return gameObject.isCollision(go, direction);
+				}
+			}
+			return false;
+	}
+	
+	public boolean checkBoxCollision(Direction direction)
+	{
+		return false;
 	}
 }
