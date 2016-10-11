@@ -12,21 +12,27 @@ import java.awt.*;
 public class Field extends JPanel
 {
 
-    private View view;
-    private EventListener eventListener;
-    public Field (View view)
-    {
-        this.view = view;
-    }
+	private View view;
+	private EventListener eventListener;
+	public Field (View view)
+	{
+		this.view = view;
+	}
 
-    @Override
-    public void paint(Graphics g)
-    {
-      //  new Player(3,3).draw(g);
-    }
+	@Override
+	public void paint(Graphics g)
+	{
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, getParent().getWidth(), getParent().getHeight());	
+		for(GameObject go : view.getGameObjects().getAll())
+		{
+			go.draw(g);
+		}
+	}
 
-    public void setEventListener(EventListener eventListener)
-    {
-        this.eventListener = eventListener;
-    }
+	public void setEventListener(EventListener eventListener)
+	{
+		
+		this.eventListener = eventListener;
+	}
 }
