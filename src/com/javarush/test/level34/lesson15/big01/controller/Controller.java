@@ -1,6 +1,7 @@
 package com.javarush.test.level34.lesson15.big01.controller;
 
 import com.javarush.test.level34.lesson15.big01.model.Direction;
+import com.javarush.test.level34.lesson15.big01.model.GameObjects;
 import com.javarush.test.level34.lesson15.big01.model.Model;
 import com.javarush.test.level34.lesson15.big01.view.View;
 
@@ -17,11 +18,14 @@ import com.javarush.test.level34.lesson15.big01.view.View;
 	public Controller()
 	{
 		model = new Model();
+		model.setEventListener(this);
 		model.restart();
 		view = new View(this);
 		view.init();
-		model.setEventListener(this);
 		view.setEventListener(this);
+
+		/*model.setEventListener(this);
+		view.setEventListener(this);*/
 	}
 
 	public static void main(String[] args)
@@ -38,6 +42,7 @@ import com.javarush.test.level34.lesson15.big01.view.View;
 	public void move(Direction direction)
 	{
 		model.move(direction);
+		view.update();
 	}
 
 	@Override

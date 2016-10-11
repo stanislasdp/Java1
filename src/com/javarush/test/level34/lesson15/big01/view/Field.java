@@ -1,10 +1,14 @@
 package com.javarush.test.level34.lesson15.big01.view;
 
 import com.javarush.test.level34.lesson15.big01.controller.EventListener;
+import com.javarush.test.level34.lesson15.big01.model.Direction;
+import com.javarush.test.level34.lesson15.big01.model.GameObject;
 import com.javarush.test.level34.lesson15.big01.model.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by stas on 10/10/16.
@@ -17,17 +21,16 @@ public class Field extends JPanel
 	public Field (View view)
 	{
 		this.view = view;
-		KeyHandler keyHandler = new KeyHandler();
-		this.addKeyListener(keyHandler);
-		setFocusable(true);
+		this.addKeyListener(new KeyHandler());
+		this.setFocusable(true);
 	}
 
 	@Override
 	public void paint(Graphics g)
 	{
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, getParent().getWidth(), getParent().getHeight());	
-		for(GameObject go : view.getGameObjects().getAll())
+		g.fillRect(0, 0, 500, 500);
+		for( GameObject go : view.getGameObjects().getAll())
 		{
 			go.draw(g);
 		}
@@ -40,30 +43,30 @@ public class Field extends JPanel
 	}
 	
 	
-	public  class KeyHandler extends KeyAdapter
+	public class KeyHandler extends KeyAdapter
 	{
+
+
 		@Override
-		public void keyPressed(KeyEvent e) 
+		public void keyPressed(KeyEvent e)
 		{
-			if (e.getKeyCode() == KeyEvent.VK_LEFT)
+			switch (e.getKeyCode())
 			{
-				eventListener.move(Direction.LEFT);
-			}
-			else if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-			{
-				eventListener.move(Direction.RIGHT);
-			}
-			else if (e.getKeyCode() == KeyEvent.VK_UP)
-			{
-				eventListener.move(Direction.UP);
-			}
-			else if (e.getKeyCode() == KeyEvent.VK_DOWN)
-			{
-				eventListener.move(Direction.DOWN);
-			}
-			else if (e.getKeyCode() == KeyEvent.VK_R)
-			{
-				eventListener.restart();
+				case KeyEvent.VK_LEFT:
+					eventListener.move(Direction.LEFT);
+					break;
+				case KeyEvent.VK_RIGHT:
+					eventListener.move(Direction.RIGHT);
+					break;
+				case KeyEvent.VK_UP:
+					eventListener.move(Direction.UP);
+					break;
+				case KeyEvent.VK_DOWN:
+					eventListener.move(Direction.DOWN);
+					break;
+				case KeyEvent.VK_R:
+					eventListener.restart();
+					break;
 			}
 		}
 	}

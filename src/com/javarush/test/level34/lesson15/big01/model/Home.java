@@ -14,7 +14,7 @@ public class Home extends GameObject
     @Override
     public void draw(Graphics graphics)
     {
-        graphics.setColor(Color.BLACK);
-        graphics.drawArc(getX(),getY(),getWidth(),getHeight(),0,360);
+        graphics.setColor(Color.GREEN);
+        graphics.drawArc(getX(),getY(),super.getWidth(),getHeight(),0,360);
     }
 }

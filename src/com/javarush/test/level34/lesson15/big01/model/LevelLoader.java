@@ -18,14 +18,14 @@ public class LevelLoader
 
    public GameObjects getLevel(int level)
    {
-       Player player = new Player(Model.FIELD_SELL_SIZE /2 *5, Model.FIELD_SELL_SIZE /2 * 6);
+       Player player = new Player(80,60);
        Set<Home> home = new HashSet<>();
-       home.add(new Home(Model.FIELD_SELL_SIZE /2 * 2 ,Model.FIELD_SELL_SIZE /2 * 3));
+       home.add(new Home(80,60));
        Set<Box> box = new HashSet<Box>();
-       box.add(new Box(Model.FIELD_SELL_SIZE/2 * 4,Model.FIELD_SELL_SIZE /2 ));
+       box.add(new Box(80,80));
        Set<Wall> walls = new HashSet<Wall>();
-       walls.add(new Wall(Model.FIELD_SELL_SIZE /2 * 2, Model.FIELD_SELL_SIZE /2));
-       walls.add(new Wall(Model.FIELD_SELL_SIZE /2 , Model.FIELD_SELL_SIZE /2 * 2));
+       walls.add(new Wall(20,20));
+       walls.add(new Wall(20,40));
        return new GameObjects(walls,box,home,player);
    }
 }
