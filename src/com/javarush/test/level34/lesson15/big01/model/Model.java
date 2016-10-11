@@ -96,6 +96,7 @@ public class Model
 			{
 				collided = go;
 			}
+		}
 			if (collided != null && collided instanceof Box)
 			{
 				Box stopBox = (Box) collided;
@@ -125,9 +126,10 @@ public class Model
 						break;
 					case DOWN:
 						stopBox.move(0, Model.FIELD_SELL_SIZE);
+						break;
 				}
 			}
-		}
+
 		return false;
 	}
 

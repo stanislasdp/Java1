@@ -16,7 +16,7 @@ public class Player extends CollisionObject implements Movable
     public void draw(Graphics graphics)
     {
         graphics.setColor(Color.RED);
-        graphics.fillArc(getX(),getY(),getWidth(),getHeight(),0,360);
+        graphics.fillArc(getX()-getWidth()/2,getY()-getHeight()/2,getWidth(),getHeight(),0,360);
     }
 
     @Override

@@ -23,9 +23,6 @@ import com.javarush.test.level34.lesson15.big01.view.View;
 		view = new View(this);
 		view.init();
 		view.setEventListener(this);
-
-		/*model.setEventListener(this);
-		view.setEventListener(this);*/
 	}
 
 	public static void main(String[] args)

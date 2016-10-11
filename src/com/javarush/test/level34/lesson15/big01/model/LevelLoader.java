@@ -20,7 +20,7 @@ public class LevelLoader
    {
        Player player = new Player(80,60);
        Set<Home> home = new HashSet<>();
-       home.add(new Home(80,60));
+       home.add(new Home(80,100));
        Set<Box> box = new HashSet<Box>();
        box.add(new Box(80,80));
        Set<Wall> walls = new HashSet<Wall>();

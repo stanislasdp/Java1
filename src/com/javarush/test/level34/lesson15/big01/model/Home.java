@@ -15,6 +15,6 @@ public class Home extends GameObject
     public void draw(Graphics graphics)
     {
         graphics.setColor(Color.GREEN);
-        graphics.drawArc(getX(),getY(),super.getWidth(),getHeight(),0,360);
+        graphics.drawRect(getX()-getWidth()/2,getY() -getHeight()/2,getWidth(),getHeight());
     }
 }
