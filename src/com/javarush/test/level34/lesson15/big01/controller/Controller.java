@@ -8,10 +8,8 @@ import com.javarush.test.level34.lesson15.big01.view.View;
 /**
  * Created by stas on 10/10/16.
  */
-
    public class Controller implements EventListener
 {
-	
 	private View view;
 	private Model model;
 

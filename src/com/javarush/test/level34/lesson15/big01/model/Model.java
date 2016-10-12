@@ -14,7 +14,8 @@ public class Model
 	private EventListener eventListener;
 	private GameObjects gameObjects;
 	private int currentLevel = 1;
-	private LevelLoader levelLoader = new LevelLoader(Paths.get("..\\res\\levels.txt"));
+	private LevelLoader levelLoader = new LevelLoader(Paths.get("./src/com/javarush/test/level34/lesson15/big01/res/levels.txt"));
+
 	public static int FIELD_SELL_SIZE = 20;
 
 	public void setEventListener(EventListener eventListener)
@@ -92,12 +93,17 @@ public class Model
 
 		for (GameObject go : gameObjects.getAll())
 		{
-			if (!(go instanceof Player) && player.isCollision(go, direction))
+			if (!(go instanceof Player) && !(go instanceof Home) && player.isCollision(go, direction))
 			{
 				collided = go;
 			}
 		}
-			if (collided != null && collided instanceof Box)
+		if (collided == null)
+		{
+			return false;
+		}
+
+			if (collided instanceof Box)
 			{
 				Box stopBox = (Box) collided;
 				if (checkWallCollision(stopBox, direction))
