@@ -21,8 +21,6 @@ public class Solution {
 
 
 
-
-
     public static void main(String[] args) {
         List<B> destination = new ArrayList<>();
         destination.add(new B());
