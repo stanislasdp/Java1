@@ -45,4 +45,12 @@ public class MainModel implements Model
         User user = userService.getUsersById(userId);
         modelData.setActiveUser(user);
     }
+
+    @Override
+    public void deleteUserById(long id)
+    {
+        userService.deleteUser(id);
+    }
+
+    private getActiveUsers()
 }
