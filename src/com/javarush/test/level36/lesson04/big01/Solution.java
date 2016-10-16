@@ -1,7 +1,6 @@
 package com.javarush.test.level36.lesson04.big01;
 
 import com.javarush.test.level36.lesson04.big01.controller.Controller;
-import com.javarush.test.level36.lesson04.big01.model.FakeModel;
 import com.javarush.test.level36.lesson04.big01.model.MainModel;
 import com.javarush.test.level36.lesson04.big01.model.Model;
 import com.javarush.test.level36.lesson04.big01.view.EditUserView;
@@ -34,7 +33,7 @@ public class Solution {
         /////////////////////////////
         usersView.fireEventOpenUserEditForm(123);
         usersActiveView.fireEventUserChanged("Stas",123,5);
-        usersView.fireEventShowAllUsers();
+
 
 
 
