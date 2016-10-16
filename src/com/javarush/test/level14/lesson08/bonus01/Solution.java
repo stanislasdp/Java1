@@ -1,7 +1,9 @@
 package com.javarush.test.level14.lesson08.bonus01;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.*;
-
 
 /* Нашествие эксепшенов
 Заполни массив exceptions 10 различными эксепшенами.
@@ -32,101 +34,104 @@ public class Solution
         {
             exceptions.add(e);
         }
-
         try
         {
-            int [] arr = new int[4];
-            arr[6]=7;
+            int [] arr = new int[3];
+            int test  =arr[4];
         }
-
-        catch (Exception ie)
+        catch (IndexOutOfBoundsException io)
         {
-            exceptions.add(ie);
-        }
-        try
-        {
-            Object i = 42;
-            String s =(String)i;
-
-        }
-        catch (Exception cle)
-        {
-            exceptions.add(cle);
+            exceptions.add(io);
         }
         try
         {
-            throw new UnsupportedOperationException();
-
+            int test = Integer.parseInt("1r");
         }
-        catch (Exception ie)
-        {
-            exceptions.add(ie);
-        }
-        try
-        {
-            int [] arr2 = new int[-4];
-
-        }
-        catch (Exception naz)
-        {
-            exceptions.add(naz);
-        }
-        try
-        {
-            Map<String, Integer> map = new HashMap<String, Integer>();
-            map.put("1",1);
-            map.put("2",2);
-            for(String key: map.keySet())
-            {
-                if(map.get(key) == 1)
-                map.remove(key);
-            }
-
-        }
-        catch (Exception ce)
-        {
-            exceptions.add(ce);
-        }
-
-
-        try
-        {
-            String str = null;
-            if(str.equals("Test"))
-            {
-
-            }
-        }
-        catch (Exception ne)
+        catch (NumberFormatException ne)
         {
             exceptions.add(ne);
         }
         try
         {
-            Class loadedClass = Class.forName("Clazz");
-
+          List<String> testArr = new ArrayList<>();
+            LinkedList<String> testlnk = (LinkedList<String>) testArr;
+            testlnk.poll();
         }
-        catch (Exception cl)
+        catch (ClassCastException ce)
         {
-            exceptions.add(cl);
-        }
-        try
-        {
-
-            Solution test = new Solution();
-            test.clone();
-        }
-        catch (Exception ie)
-        {
-            exceptions.add(ie);
+            exceptions.add(ce);
         }
         try
         {
-            throw  new SecurityException();
+           final Thread th = new Thread(new Runnable()
+           {
+               @Override
+               public void run()
+               {
 
-        } catch (Exception ae)
-        {
-            exceptions.add(ae);
+               }
+           });
+            th.start();
+            th.start();
         }
+        catch (IllegalThreadStateException ste)
+        {
+            exceptions.add(ste);
+        }
+        try
+        {
+            List<String> test = null;
+            test.get(5);
+        }
+        catch (NullPointerException npe)
+        {
+            exceptions.add(npe);
+        }
+        try
+        {
+            FileInputStream fileInputStream = new FileInputStream(new File("111"));
+        }
+        catch (FileNotFoundException nff)
+        {
+            exceptions.add(nff);
+        }
+        try
+        {
+            List<Integer> testList = new ArrayList<>();
+            testList.add(1);
+            testList.add(2);
+            testList.add(3);
+
+            for (Integer i: testList)
+            {
+                testList.add(5);
+                testList.remove(i);
+
+            }
+        }
+        catch (ConcurrentModificationException ce)
+        {
+            exceptions.add(ce);
+        }
+        try
+        {
+            String str= "test";
+            char ch = str.charAt(7);
+        }
+        catch (StringIndexOutOfBoundsException siob)
+        {
+            exceptions.add(siob);
+        }
+        try
+        {
+            int[] arr = new int[-7];
+        }
+        catch (NegativeArraySizeException nse)
+        {
+            exceptions.add(nse);
+        }
+
+        //Add your code here
+
     }
 }
