@@ -1,6 +1,5 @@
 package com.javarush.test.level36.lesson04.big01.view;
 
-import com.javarush.test.level36.lesson04.big01.bean.User;
 import com.javarush.test.level36.lesson04.big01.controller.Controller;
 import com.javarush.test.level36.lesson04.big01.model.ModelData;
 

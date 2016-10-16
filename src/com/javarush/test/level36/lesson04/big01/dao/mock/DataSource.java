@@ -2,7 +2,6 @@ package com.javarush.test.level36.lesson04.big01.dao.mock;
 
 import com.javarush.test.level36.lesson04.big01.bean.User;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

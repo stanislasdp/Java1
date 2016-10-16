@@ -3,7 +3,6 @@ package com.javarush.test.level36.lesson04.big01.controller;
 import com.javarush.test.level36.lesson04.big01.model.Model;
 import com.javarush.test.level36.lesson04.big01.view.EditUserView;
 import com.javarush.test.level36.lesson04.big01.view.UsersView;
-import com.javarush.test.level36.lesson04.big01.view.View;
 
 /**
  * Created by stas on 10/15/16.
@@ -40,9 +39,15 @@ public class Controller
         editUserView.refresh(model.getModelData());
     }
 
-  public   void onUserDelete(long id)
+  public void onUserDelete(long id)
     {
        model.deleteUserById(id);
+        usersView.refresh(model.getModelData());
+    }
+
+    public void onUserChange(String name, long id, int level)
+    {
+       model.changeUserData(name,id,level);
         usersView.refresh(model.getModelData());
     }
 

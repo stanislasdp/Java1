@@ -7,7 +7,8 @@ import com.javarush.test.level36.lesson04.big01.dao.UserDao;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService
+{
     private UserDao userDao = new UserDao();
 
     @Override
