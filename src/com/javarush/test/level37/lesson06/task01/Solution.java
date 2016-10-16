@@ -1,5 +1,8 @@
 package com.javarush.test.level37.lesson06.task01;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
+
 /* Найти класс по описанию
 1. Реализует интерфейс Map
 2. Используется при работе с трэдами
@@ -11,7 +14,8 @@ public class Solution {
         System.out.println(getExpectedClass());
     }
 
-    public static Class getExpectedClass() {
-        return null;
+    public static Class getExpectedClass()
+    {
+        return ConcurrentSkipListMap.class;
     }
 }
